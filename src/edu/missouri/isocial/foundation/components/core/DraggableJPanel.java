@@ -69,6 +69,7 @@ public class DraggableJPanel extends javax.swing.JPanel {
             public void mouseExited(MouseEvent me) {
             }
         });
+        
         addMouseMotionListener(new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent me) {
@@ -84,85 +85,6 @@ public class DraggableJPanel extends javax.swing.JPanel {
             public void mouseMoved(MouseEvent me) {
             }
         });
-
-        ////<editor-fold defaultstate="collapsed" desc="TESTING STUFF TO BE REMOVED">
-//        innerPanel.setName("INNER PANEL");
-        //        innerPanel.addMouseListener(new MouseListener() {
-        //            @Override
-        //            public void mouseClicked(MouseEvent me) {
-        //            }
-        //
-        //            @Override
-        //            public void mousePressed(MouseEvent me) {
-        //                System.out.println("MOUSE PRESSED ON INNNER PANEL!");
-        //
-        //            }
-        //
-        //            @Override
-        //            public void mouseReleased(MouseEvent me) {
-        //                Component c = findComponentAt(me.getLocationOnScreen());
-        //                if(c.equals(innerPanel)) {
-        //
-        //                    System.out.println("RELEASED ON INNNER PANEL!");
-        //                } else {
-        //                    System.out.println("RELEASED ON: "+c.getName());
-        //                }
-        //
-        //            }
-        //
-        //            @Override
-        //            public void mouseEntered(MouseEvent me) {
-        //            }
-        //
-        //            @Override
-        //            public void mouseExited(MouseEvent me) {
-        //            }
-        //        });
-        //
-        //        greenPanel.setName("GREEN PANEL");
-        //        greenPanel.addMouseListener(new MouseListener() {
-        //            @Override
-        //            public void mouseClicked(MouseEvent me) {
-        //            }
-        //
-        //            @Override
-        //            public void mousePressed(MouseEvent me) {
-        //            }
-        //
-        //            @Override
-        //            public void mouseReleased(MouseEvent me) {
-        //                Component c = findComponentAt(me.getLocationOnScreen());
-        //                if (c.equals(greenPanel)) {
-        //                    System.out.println("MOUSE RELEASED ON GREEN!");
-        //
-        //                } else {
-        //                    System.out.println("MOUSE RELEASED ON: "+c.getName());
-        //                }
-        //            }
-        //
-        //            @Override
-        //            public void mouseEntered(MouseEvent me) {
-        //                System.out.println("ENTERED GREEN!");
-        //            }
-        //
-        //            @Override
-        //            public void mouseExited(MouseEvent me) {
-        //                System.out.println("EXITED GREEN!");
-        //            }
-        //        });
-        //        greenPanel.addMouseMotionListener(new MouseMotionListener() {
-        //            @Override
-        //            public void mouseDragged(MouseEvent me) {
-        //                // System.out.println("DRAGGED IN GREEN!");
-        //            }
-        //
-        //            @Override
-        //            public void mouseMoved(MouseEvent me) {
-        //            }
-        //        });
-        //</editor-fold>
-
-
         
     }
 
@@ -217,6 +139,7 @@ public class DraggableJPanel extends javax.swing.JPanel {
         g.setPaint(new GradientPaint(0, 15, c1, getWidth(), 15, c2));
         g.fillRoundRect(5, 1, getWidth() - 15, 14, 10, 15);
         repaintConnections();
+        
 
     }
     
@@ -260,11 +183,4 @@ public class DraggableJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
-    public void addConnectionStart(ConnectionInfo connectionInfo) {
-        connections.add(connectionInfo);
-    }
-
-    public void addConnectionEnd(ConnectionInfo connectionInfo) {
-        connections.add(connectionInfo);
-    }
 }

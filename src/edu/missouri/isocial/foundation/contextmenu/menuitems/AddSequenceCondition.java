@@ -4,7 +4,7 @@
  */
 package edu.missouri.isocial.foundation.contextmenu.menuitems;
 
-import edu.missouri.isocial.foundation.components.core.DraggableCondition;
+import edu.missouri.isocial.foundation.components.sequence.DraggableCondition;
 import edu.missouri.isocial.foundation.components.sequence.SequenceAction;
 import edu.missouri.isocial.foundation.contextmenu.MenuItem;
 import edu.missouri.isocial.foundation.contextmenu.MenuItemWithEditor;

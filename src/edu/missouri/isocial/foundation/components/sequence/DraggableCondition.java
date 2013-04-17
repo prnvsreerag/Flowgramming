@@ -2,9 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.missouri.isocial.foundation.components.core;
+package edu.missouri.isocial.foundation.components.sequence;
 
 import edu.missouri.isocial.foundation.EditorApplication;
+import edu.missouri.isocial.foundation.components.core.Connector;
+import edu.missouri.isocial.foundation.components.core.DraggableJPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
  *
  * @author Ryan
  */
-@MenuItem(category = "Sequence Events", caption = "Add Draggable")
+@MenuItem(category = "Sequence Events", caption = "Add Event")
 public class AddSequenceEventItem extends MenuItemWithEditor {
 
     @Override

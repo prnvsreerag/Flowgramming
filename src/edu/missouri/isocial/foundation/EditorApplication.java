@@ -9,6 +9,7 @@ import edu.missouri.isocial.foundation.components.core.ConnectionController;
 import edu.missouri.isocial.foundation.components.core.Connector;
 import edu.missouri.isocial.foundation.components.core.DraggableJPanel;
 import edu.missouri.isocial.foundation.components.sequence.SequenceAction;
+import edu.missouri.isocial.foundation.contextmenu.ContextMenu;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,6 +23,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
@@ -37,9 +39,13 @@ public class EditorApplication extends javax.swing.JFrame {
      */
     private Connection c1;
 
+    private ContextMenu contextMenu;
     public EditorApplication() {
         initComponents();
 
+        Lookup lookup = new LookupImpl();
+        
+        contextMenu = new ContextMenuBuilder(lookup).build();
         DraggableJPanel draggable = new DraggableJPanel(this);
         draggable.setSize(200, 200);
         add(draggable);
@@ -70,11 +76,10 @@ public class EditorApplication extends javax.swing.JFrame {
             public void mouseClicked(MouseEvent e) {
 //                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                 if (SwingUtilities.isRightMouseButton(e)) {
-                    System.out.println("MOUSE CLICK!");
-//                if(e.isPopupTrigger()) {
-                    PopupMenu menu = new PopupMenu();
-                    menu.show(e.getComponent(), e.getXOnScreen(), e.getYOnScreen());
-                    menu.setVisible(true);
+
+                    contextMenu.show(e.getComponent(), e.getXOnScreen(), e.getYOnScreen());
+                    contextMenu.setVisible(true);
+
                 }
             }
 
@@ -245,6 +250,9 @@ public class EditorApplication extends javax.swing.JFrame {
             });
             add(addMenuItem);
 
+            JMenu m = new JMenu("Options");
+            add(m);
+            
             exitMenuItem = new JMenuItem("Exit");
             exitMenuItem.addActionListener(new ActionListener() {
                 @Override
@@ -252,7 +260,7 @@ public class EditorApplication extends javax.swing.JFrame {
                     System.exit(0);
                 }
             });
-            add(exitMenuItem);
+            m.add(exitMenuItem);
 
 
 

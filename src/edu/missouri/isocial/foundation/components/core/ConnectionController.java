@@ -44,7 +44,7 @@ public class ConnectionController {
         addComponentListenerToEndConnector();
         
 //        connection.setVisible(true);
-        System.out.println("Z-ORDER: "+editor.getComponentZOrder(connection));
+//        System.out.println("Z-ORDER: "+editor.getComponentZOrder(connection));
         editor.setComponentZOrder(connection, 0);
         update();
     }
@@ -73,7 +73,6 @@ public class ConnectionController {
 
         //lastly repaint component
         connection.repaint();
-        System.out.println("CONNECTION UPDATED!");
     }
 
     private void addMouseListenerToConnection() {
@@ -172,22 +171,47 @@ public class ConnectionController {
         return new Point(x, y);
     }
     
+    private int determineHighestY() {
+        
+        int startY = startConnector.getLocationOnScreen().y - editor.getLocationOnScreen().y;
+        int endY = endConnector.getLocationOnScreen().y - editor.getLocationOnScreen().y;
+        
+        //we use min here because of swing's coordinate system.
+        //y = 0 at the top left corner, ergo the "highest" y, visually, will
+        //be the lowest value.
+        return Math.min(startY, endY);
+    }
+    
+    private int determineLowestX() {
+        int startX = startConnector.getLocationOnScreen().x - editor.getLocationOnScreen().x;
+        int endX = endConnector.getLocationOnScreen().x - editor.getLocationOnScreen().x;
+        
+        return Math.min(startX, endX);
+    }
+    
     private void relocateConnection() {
-        /*
-         * First we need to update the connector points.
-         */
         
-        connection.setStartPoint(new Point(0, 0));
+        //the location needs to be the highest y and lowest x;
+        int highestY = determineHighestY();
+        int lowestX = determineLowestX();
         
-        connection.setEndPoint(subtractPoints(endConnector.getLocationOnScreen(), editor.getLocationOnScreen()));
-        
-        /*
-         * We need to get the new upper left corner
-         * so let's get the highest Y and the lowest X.
-         */
+        //set location in editor coordinates
+        connection.setLocation(lowestX, highestY);
 
-        int endY = this.endConnector.getLocationOnScreen().y - editor.getLocationOnScreen().y;
-        int endX = this.endConnector.getLocationOnScreen().x - editor.getLocationOnScreen().x;
+        //the start point now needs to cohere to the start connector in our new coordinate space
+        int startPointX = startConnector.getLocationOnScreen().x - connection.getLocationOnScreen().x;
+        int startPointY = startConnector.getLocationOnScreen().y - connection.getLocationOnScreen().y;
+        
+        int endPointX = endConnector.getLocationOnScreen().x - connection.getLocationOnScreen().x;
+        int endPointY = endConnector.getLocationOnScreen().y - connection.getLocationOnScreen().y;
+
+        connection.setStartPoint(new Point(startPointX+(Connector.SIDE_SIZE/2), startPointY+(Connector.SIDE_SIZE/2)));
+        connection.setEndPoint(new Point(endPointX+(Connector.SIDE_SIZE/2), endPointY+(Connector.SIDE_SIZE/2)));
+
+//        System.out.println("NEW START POINT: "+connection.getStartPoint());
+//        System.out.println("NEW END POINT: "+connection.getEndPoint());
+
+
 
         //get the larger of the two Y's
         int newX = startConnector.getLocationOnScreen().x - editor.getLocationOnScreen().x + startConnector.getWidth()/2;
@@ -195,8 +219,11 @@ public class ConnectionController {
         //get the lowers of the two X's
 //        int newX = Math.min(startX, endX);
 //
-        connection.setLocation(newX, newY);
-        System.out.println("NEW LOCATION: ("+newX+","+newY+")");
+//        connection.setLocation(newX, newY);
+//        System.out.println("NEW LOCATION: ("+newX+","+newY+")");
+        
+//        System.out.println("CONNECTOR ON SCREEN: "+startConnector.getLocationOnScreen()+"\n"
+//                + "CONNECTION ON SCREEN: "+connection.getLocationOnScreen());
     }
 
     private void resizeConnection() {
@@ -210,11 +237,11 @@ public class ConnectionController {
         int endY = this.endConnector.getLocationOnScreen().y;
         int endX = this.endConnector.getLocationOnScreen().x;
 
-        int newX = endX - startX;
-        int newY = endY - startY;
+        int newX = Math.abs(endX - startX);
+        int newY = Math.abs(endY - startY);
 
-        System.out.println("NEW SIZE: ("+newX+","+newY+")");
+//        System.out.println("NEW SIZE: ("+newX+","+newY+")");
         connection.setSize(newX, newY);
-        connection.setEndPoint(new Point(newX, newY));
+//        connection.setEndPoint(new Point(newX, newY));
     }
 }

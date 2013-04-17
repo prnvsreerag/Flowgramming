@@ -32,12 +32,14 @@ public class Connector extends JComponent {
     
     private static final Color DEFAULT_COLOR = Color.BLACK;
     private static final Color ACTIVE_COLOR = Color.WHITE;
+    public static final int SIDE_SIZE = 10;
+    
     
     
     public Connector(final EditorApplication editor, DraggableJPanel draggableParent) {
         this.editor = editor;
         this.draggableParent = draggableParent;
-        this.setSize(10, 10);
+        this.setSize(SIDE_SIZE, SIDE_SIZE);
 //        this.connections = new ArrayList<Connection>();
         
         this.setOpaque(false);
@@ -130,7 +132,7 @@ public class Connector extends JComponent {
         Graphics2D g = (Graphics2D) g1;
 
         g.setColor(currentColor);
-        g.fillRect(0, 0, 10, 10);
+        g.fillRect(0, 0, SIDE_SIZE, SIDE_SIZE);
 
     }
 

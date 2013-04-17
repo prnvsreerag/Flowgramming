@@ -45,11 +45,11 @@ public class EditorApplication extends javax.swing.JFrame {
 
         Lookup lookup = new LookupImpl();
         
-        contextMenu = new ContextMenuBuilder(lookup).build();
-        DraggableJPanel draggable = new DraggableJPanel(this);
-        draggable.setSize(200, 200);
-        add(draggable);
-        draggable.setVisible(true);
+        contextMenu = new ContextMenuBuilder(lookup, this).build();
+//        DraggableJPanel draggable = new DraggableJPanel(this);
+//        draggable.setSize(200, 200);
+//        add(draggable);
+//        draggable.setVisible(true);
 
         addDefaultFileMenuItems();
         addDefaultEditMenuItems();
@@ -233,37 +233,5 @@ public class EditorApplication extends javax.swing.JFrame {
         //setComponentZOrder(connection, 3);
 
         return connection;
-    }
-
-    private class PopupMenu extends JPopupMenu {
-
-        JMenuItem addMenuItem;
-        JMenuItem exitMenuItem;
-
-        public PopupMenu() {
-            addMenuItem = new JMenuItem("Add Node");
-            addMenuItem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    addNode(MouseInfo.getPointerInfo().getLocation());
-                }
-            });
-            add(addMenuItem);
-
-            JMenu m = new JMenu("Options");
-            add(m);
-            
-            exitMenuItem = new JMenuItem("Exit");
-            exitMenuItem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    System.exit(0);
-                }
-            });
-            m.add(exitMenuItem);
-
-
-
-        }
     }
 }

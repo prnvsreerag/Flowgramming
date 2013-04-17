@@ -5,18 +5,11 @@
 package edu.missouri.isocial.foundation.components.core;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Line2D;
 import javax.swing.JComponent;
-import javax.swing.border.Border;
 
 /**
  *
@@ -70,9 +63,14 @@ public class Connection extends JComponent {
         Graphics2D g = (Graphics2D)g1;
         
         g.setColor(currentColor);
+        Line2D line = new Line2D.Double(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+//        g.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+        g.draw(line);
         
-        g.drawLine(0, 0, endPoint.x, endPoint.y);
+        
+        System.out.println("SIZE: "+this.getSize());
         System.out.println("CONNECTION START->("+startPoint.x+","+startPoint.y+")");
+        System.out.println("CONNECTION END->("+endPoint.x+","+endPoint.y+")");
         
 
     }

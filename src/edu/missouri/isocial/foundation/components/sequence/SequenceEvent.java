@@ -13,13 +13,15 @@ import edu.missouri.isocial.foundation.EditorApplication;
  * @author Ryan
  */
 public class SequenceEvent extends DraggableJPanel {
+    
+    private Connector outConnector;
     public SequenceEvent(EditorApplication editor) {
         super(editor);       
         
-        Connector right = new Connector(editor, this);
-        add(right);
+        outConnector = new Connector(editor, this);
+        add(outConnector);
         System.out.println("NODE WIDTH:"+getWidth());
-        right.setLocation(190, 20);
-        right.setVisible(true);
+        outConnector.setLocation(190, 20);
+        outConnector.setVisible(true);
     }
 }

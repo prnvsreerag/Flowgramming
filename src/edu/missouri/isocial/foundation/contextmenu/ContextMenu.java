@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation.contextmenu;
 
+import edu.missouri.isocial.foundation.EditorApplication;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,9 +24,15 @@ public class ContextMenu {
     private JPopupMenu internalMenu;
     
     private Map<String, JMenu> categories;
-    public ContextMenu() {
+    private final EditorApplication editor;
+    public ContextMenu(EditorApplication editor) {
         internalMenu = new JPopupMenu();
         categories = new HashMap<String, JMenu>();
+    
+        this.editor = editor;
+        
+        
+        addDefaultMenuItems();
     }
     
     public boolean hasCategory(String category) {
@@ -40,6 +47,9 @@ public class ContextMenu {
             //add submenu to context menu
             internalMenu.add(categories.get(category));
         } 
+        
+        spi.setContext(editor);
+        
         
         //retrieve our menu
         JMenu menu = categories.get(category);
@@ -61,5 +71,22 @@ public class ContextMenu {
 
     public void setVisible(boolean b) {
         internalMenu.setVisible(b);
+    }
+
+    private void addDefaultMenuItems() {
+       //create exit item
+        JMenuItem exit = new JMenuItem("Exit");
+        
+        //add action listener
+        
+        exit.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                System.exit(0);
+            }
+        
+        });
+        //add exit item to menu
+        internalMenu.add(exit);
     }
 }

@@ -14,19 +14,21 @@ import edu.missouri.isocial.foundation.EditorApplication;
  */
 public class SequenceAction extends DraggableJPanel {
 
+    private Connector inConnector;
+    private Connector outConnector;
     public SequenceAction(EditorApplication editor) {
         super(editor);
 
-        Connector left = new Connector(editor, this);
-        add(left);
-        left.setLocation(0, 20);
+        inConnector = new Connector(editor, this);
+        add(inConnector);
+        inConnector.setLocation(0, 20);
 //        c.validate();
-        left.setVisible(true);
+        inConnector.setVisible(true);
 
-        Connector right = new Connector(editor, this);
-        add(right);
+        outConnector = new Connector(editor, this);
+        add(outConnector);
         System.out.println("NODE WIDTH:" + getWidth());
-        right.setLocation(190, 20);
-        right.setVisible(true);
+        outConnector.setLocation(190, 20);
+        outConnector.setVisible(true);
     }
 }

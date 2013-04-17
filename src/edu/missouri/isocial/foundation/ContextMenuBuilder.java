@@ -16,11 +16,14 @@ import javax.swing.JPopupMenu;
  */
 public class ContextMenuBuilder {
     private final Lookup lookup;
+    private final EditorApplication editor;
 
-    public ContextMenuBuilder(Lookup lookup) {
+    public ContextMenuBuilder(Lookup lookup, EditorApplication editor) {
                 
         //get discovery mechanism        
         this.lookup = lookup;
+        
+        this.editor = editor;
         
         //set lookup to search for all classes annotated by MenuItem
         lookup.setAnnotation(MenuItem.class);
@@ -30,7 +33,7 @@ public class ContextMenuBuilder {
 
         //create ContextMenu
         
-        ContextMenu menu = new ContextMenu();
+        ContextMenu menu = new ContextMenu(editor);
         
         //discover annoated SPIs
         Set<MenuItemSPI> spis = lookup.lookUp(MenuItemSPI.class);

@@ -5,10 +5,8 @@
 package edu.missouri.isocial.foundation.contextmenu.menuitems;
 
 import edu.missouri.isocial.foundation.components.core.DraggableCondition;
-import edu.missouri.isocial.foundation.components.core.DraggableJPanel;
-import edu.missouri.isocial.foundation.components.sequence.SequenceEvent;
+import edu.missouri.isocial.foundation.components.sequence.SequenceAction;
 import edu.missouri.isocial.foundation.contextmenu.MenuItem;
-import edu.missouri.isocial.foundation.contextmenu.MenuItemSPI;
 import edu.missouri.isocial.foundation.contextmenu.MenuItemWithEditor;
 import java.awt.MouseInfo;
 import java.awt.Point;
@@ -18,19 +16,18 @@ import java.awt.event.ActionEvent;
  *
  * @author Ryan
  */
-@MenuItem(category="Sequence Objects", caption="Add Draggable")
-public class AddSequenceObjectItem extends MenuItemWithEditor {
+@MenuItem(category="Sequence Conditions", caption="Add Condition")
+public class AddSequenceCondition extends MenuItemWithEditor {
 
     @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-//        SequenceEvent event = new SequenceEvent(editor);
+    public void actionPerformed(ActionEvent event) {
         DraggableCondition condition = new DraggableCondition(editor);
         Point mouseLocationOnScreen = MouseInfo.getPointerInfo().getLocation();
         Point editorLocationOnScreen = editor.getLocationOnScreen();
-
+        
         int newX = mouseLocationOnScreen.x - editorLocationOnScreen.x;
         int newY = mouseLocationOnScreen.y - editorLocationOnScreen.y;
-
+        
         Point location = new Point(newX, newY);
         
         condition.setLocation(location);
@@ -38,6 +35,7 @@ public class AddSequenceObjectItem extends MenuItemWithEditor {
         editor.add(condition);
         condition.setVisible(true);
         condition.repaint();
+        
     }
     
 }

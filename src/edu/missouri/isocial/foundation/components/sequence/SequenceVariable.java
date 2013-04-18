@@ -27,8 +27,11 @@ public class SequenceVariable extends DraggableJPanel {
     protected void paintComponent(Graphics g1) {
         Graphics2D g = (Graphics2D)g1;
         
-       g.setColor(Color.GREEN);
+        g.setColor(Color.GREEN);
        g.fill(new Ellipse2D.Double(0, 0, SCALE, SCALE));
+       g.setColor(Color.BLACK);
+       g.draw(new Ellipse2D.Double(0,0, SCALE, SCALE));
+       
         
         
     }

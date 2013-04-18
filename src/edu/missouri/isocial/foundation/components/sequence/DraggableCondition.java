@@ -56,8 +56,11 @@ public class DraggableCondition extends DraggableJPanel {
         path.lineTo(0, SCALE/2);
         path.lineTo(SCALE/2, 0);
 //        g.scale(2, 2);
-        g.draw(path);      
+          
+        g.setColor(Color.RED);
         g.fill(path);
+        g.setColor(Color.BLACK);
+        g.draw(path);    
 //        g.dispose();
 //        
 //        g = (Graphics2D)g.create();

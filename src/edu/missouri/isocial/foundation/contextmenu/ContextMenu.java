@@ -31,7 +31,6 @@ public class ContextMenu {
     
         this.editor = editor;
         
-        
         addDefaultMenuItems();
     }
     
@@ -49,7 +48,6 @@ public class ContextMenu {
         } 
         
         spi.setContext(editor);
-        
         
         //retrieve our menu
         JMenu menu = categories.get(category);

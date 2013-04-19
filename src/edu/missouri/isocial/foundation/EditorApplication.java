@@ -24,7 +24,7 @@ public class EditorApplication extends javax.swing.JFrame {
         addDefaultFileMenuItems();
         addDefaultEditMenuItems();
 
-        this.addComponentListener(new ComponentListener() {
+        addComponentListener(new ComponentListener() {
             @Override
             public void componentResized(ComponentEvent e) {
                 canvas.setSize(e.getComponent().getSize());

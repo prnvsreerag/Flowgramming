@@ -8,6 +8,7 @@ import edu.missouri.isocial.foundation.Editor;
 import edu.missouri.isocial.foundation.components.core.DraggableJPanel;
 import edu.missouri.isocial.foundation.components.core.Connector;
 import edu.missouri.isocial.foundation.EditorApplication;
+import edu.missouri.isocial.foundation.components.core.ParameterConnector;
 
 /**
  *
@@ -31,5 +32,11 @@ public class SequenceAction extends DraggableJPanel {
         System.out.println("NODE WIDTH:" + getWidth());
         outConnector.setLocation(190, 20);
         outConnector.setVisible(true);
+        
+        
+        ParameterConnector pc = new ParameterConnector(editor, this);
+        add(pc);
+        pc.setLocation(190/2, 190);
+        pc.setVisible(true);
     }
 }

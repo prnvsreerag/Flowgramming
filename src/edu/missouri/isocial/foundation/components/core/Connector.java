@@ -149,4 +149,8 @@ public class Connector extends JComponent {
         
         editor.addConnection(this, target);
     }
+    
+    public Color getCurrentColor() {
+        return this.currentColor;
+    }
 }

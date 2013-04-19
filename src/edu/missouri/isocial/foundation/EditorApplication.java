@@ -1,18 +1,9 @@
 package edu.missouri.isocial.foundation;
 
-import edu.missouri.isocial.foundation.components.core.Connection;
-import edu.missouri.isocial.foundation.components.core.ConnectionController;
-import edu.missouri.isocial.foundation.components.core.Connector;
-import edu.missouri.isocial.foundation.components.sequence.SequenceAction;
-import edu.missouri.isocial.foundation.contextmenu.ContextMenu;
-import java.awt.MouseInfo;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowStateListener;
 import javax.swing.JMenuItem;
 
 /**

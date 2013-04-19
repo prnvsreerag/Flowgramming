@@ -35,7 +35,7 @@ public class AddSequenceAction extends MenuItemWithEditor {
         
         action.setLocation(location);
         action.setSize(200, 200);
-        editor.add(action);
+        editor.addDraggable(action);
         action.setVisible(true);
         action.repaint();
         

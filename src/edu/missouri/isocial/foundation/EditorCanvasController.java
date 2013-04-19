@@ -13,11 +13,11 @@ import javax.swing.SwingUtilities;
  *
  * @author Ryan
  */
-public class EditorApplicationController {
+public class EditorCanvasController {
 
-    private final EditorApplication editor;
+    private final EditorCanvas editor;
 
-    public EditorApplicationController(EditorApplication editor) {
+    public EditorCanvasController(EditorCanvas editor) {
         this.editor = editor;
 
         initializeListeners();
@@ -65,7 +65,11 @@ public class EditorApplicationController {
 
     protected void userClickedMouseOnCanvas(MouseEvent me) {
         if (SwingUtilities.isRightMouseButton(me)) {
-            editor.showContextMenu(me.getXOnScreen(), me.getYOnScreen());
+            
+            int x = me.getXOnScreen() - editor.getLocationOnScreen().x;
+            int y = me.getYOnScreen() - editor.getLocationOnScreen().y;
+            
+            editor.showContextMenu(x, y);
         }
     }
 }

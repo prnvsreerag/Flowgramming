@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation;
 
+import edu.missouri.isocial.foundation.annotations.SequenceVariable;
 import edu.missouri.isocial.foundation.contextmenu.ContextMenu;
 import edu.missouri.isocial.foundation.contextmenu.MenuItem;
 import edu.missouri.isocial.foundation.contextmenu.MenuItemSPI;
@@ -16,9 +17,9 @@ import javax.swing.JPopupMenu;
  */
 public class ContextMenuBuilder {
     private final Lookup lookup;
-    private final EditorApplication editor;
+    private final Editor editor;
 
-    public ContextMenuBuilder(Lookup lookup, EditorApplication editor) {
+    public ContextMenuBuilder(Lookup lookup, Editor editor) {
                 
         //get discovery mechanism        
         this.lookup = lookup;
@@ -30,14 +31,34 @@ public class ContextMenuBuilder {
     }
     
     public ContextMenu build() {
+        
+        ContextMenu menu = setupMenuItems();
+        
+        lookup.setAnnotation(SequenceVariable.class);
+        Set<Object> objects = lookup.lookUp(Object.class);
+        
+        for(Object object: objects) {
+            //get main annotation
+            
+            //get in annotation
+            
+            //get out 
+        }
+        
+        
+        
+        
+        
 
+        //return menu
+        return menu;
+    }
+
+    private ContextMenu setupMenuItems() {
         //create ContextMenu
-        
         ContextMenu menu = new ContextMenu(editor);
-        
         //discover annoated SPIs
         Set<MenuItemSPI> spis = lookup.lookUp(MenuItemSPI.class);
-        
         //for every SPI
         for(MenuItemSPI spi: spis) {
         
@@ -52,8 +73,6 @@ public class ContextMenuBuilder {
             //add menu item
             menu.addMenuItem(category, caption, spi);
         }
-
-        //return menu
         return menu;
     }
 }

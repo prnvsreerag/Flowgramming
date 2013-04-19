@@ -36,7 +36,7 @@ public class AddSequenceObjectItem extends MenuItemWithEditor {
         
         variable.setLocation(location);
         variable.setSize(200, 200);
-        editor.add(variable);
+        editor.addDraggable(variable);
         variable.setVisible(true);
         variable.repaint();
     }

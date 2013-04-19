@@ -1,4 +1,3 @@
-
 package edu.missouri.isocial.foundation;
 
 import edu.missouri.isocial.foundation.components.core.Connection;
@@ -10,6 +9,10 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import javax.swing.JMenuItem;
 
 /**
@@ -18,17 +21,36 @@ import javax.swing.JMenuItem;
  */
 public class EditorApplication extends javax.swing.JFrame {
 
-    private ContextMenu contextMenu;
-    private EditorApplicationController controller;
     public EditorApplication() {
         initComponents();
-
-        Lookup lookup = new LookupImpl();
-        controller = new EditorApplicationController(this);
-        contextMenu = new ContextMenuBuilder(lookup, this).build();
+        
+        final EditorCanvas canvas = new EditorCanvas();
+        add(canvas);
+        canvas.setLocation(0, 0);
+        canvas.setSize(getSize());
+        canvas.setVisible(true);
 
         addDefaultFileMenuItems();
-        addDefaultEditMenuItems();        
+        addDefaultEditMenuItems();
+
+        this.addComponentListener(new ComponentListener() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                canvas.setSize(e.getComponent().getSize());
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+            }
+        });
     }
 
     /**
@@ -103,16 +125,6 @@ public class EditorApplication extends javax.swing.JFrame {
         });
     }
 
-    private void addNode(Point location) {
-        SequenceAction node = new SequenceAction(this);
-        node.setLocation(location);
-        node.setSize(200, 200);
-        add(node);
-        node.setVisible(true);
-
-        node.repaint();
-
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenu fileMenu;
@@ -134,25 +146,9 @@ public class EditorApplication extends javax.swing.JFrame {
         JMenuItem addNodeMenuItem = new JMenuItem("Add Node");
         addNodeMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                addNode(MouseInfo.getPointerInfo().getLocation());
+//                addNode(MouseInfo.getPointerInfo().getLocation());
             }
         });
         editMenu.add(addNodeMenuItem);
-    }
-
-    public Connection addConnection(Connector parentConnector, Connector targetConnector) {
-        Connection connection = new Connection(parentConnector, targetConnector);
-
-        add(connection);
-        connection.setVisible(true);
-        ConnectionController cc = new ConnectionController(this, parentConnector, targetConnector, connection);
-        cc.setVisible(true);
-
-        return connection;
-    }
-
-    public void showContextMenu(int xOnScreen, int yOnScreen) {
-        contextMenu.show(this, xOnScreen, yOnScreen);
-        contextMenu.setVisible(true);
     }
 }

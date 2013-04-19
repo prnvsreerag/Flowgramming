@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation.components.sequence;
 
+import edu.missouri.isocial.foundation.Editor;
 import edu.missouri.isocial.foundation.components.core.DraggableJPanel;
 import edu.missouri.isocial.foundation.components.core.Connector;
 import edu.missouri.isocial.foundation.EditorApplication;
@@ -15,7 +16,7 @@ import edu.missouri.isocial.foundation.EditorApplication;
 public class SequenceEvent extends DraggableJPanel {
     
     private Connector outConnector;
-    public SequenceEvent(EditorApplication editor) {
+    public SequenceEvent(Editor editor) {
         super(editor);       
         
         outConnector = new Connector(editor, this);

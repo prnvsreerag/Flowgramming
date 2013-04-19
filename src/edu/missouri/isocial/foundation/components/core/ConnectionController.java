@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation.components.core;
 
+import edu.missouri.isocial.foundation.Editor;
 import edu.missouri.isocial.foundation.components.core.Connection;
 import edu.missouri.isocial.foundation.EditorApplication;
 import java.awt.Color;
@@ -25,9 +26,9 @@ public class ConnectionController {
     private boolean selected = false;
     private static final Color SELECTED_COLOR = Color.WHITE;
     private static final Color DEFAULT_COLOR = Color.BLACK;
-    private final EditorApplication editor;
+    private final Editor editor;
 
-    public ConnectionController(EditorApplication editor, Connector parentConnector, Connector targetConnector, Connection connection) {
+    public ConnectionController(Editor editor, Connector parentConnector, Connector targetConnector, Connection connection) {
         this.startConnector = parentConnector;
         this.endConnector = targetConnector;
         this.connection = connection;
@@ -45,7 +46,11 @@ public class ConnectionController {
         
 //        connection.setVisible(true);
 //        System.out.println("Z-ORDER: "+editor.getComponentZOrder(connection));
-        editor.setComponentZOrder(connection, 0);
+        
+        
+        //TODO: figure out something better to do with this rather
+        //than comment it out. Possibly introduce it to the interface.
+//        editor.setComponentZOrder(connection, 0);
         update();
     }
 

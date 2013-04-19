@@ -31,5 +31,4 @@ public class LookupImpl implements Lookup {
         
         return output;
     }
-    
 }

@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation.components.core;
 
+import edu.missouri.isocial.foundation.Editor;
 import edu.missouri.isocial.foundation.EditorApplication;
 import edu.missouri.isocial.foundation.components.ConnectionInfo;
 import java.awt.Color;
@@ -24,75 +25,34 @@ import java.util.List;
  *
  * @author Ryan
  */
-public class DraggableJPanel extends javax.swing.JPanel {
+public abstract class DraggableJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form DraggableJPanel
      */
-    private volatile int screenX = 0;
-    private volatile int screenY = 0;
-    private volatile int myX = 0;
-    private volatile int myY = 0;
-    private final EditorApplication editor;
-
+    private final Editor editor;
+    private DraggableJPanelController controller;
     private final List<ConnectionInfo> connections;
-    
-    public DraggableJPanel(EditorApplication editor) {
+    private Color borderColor = Color.BLACK;
+    public DraggableJPanel(Editor editor) {
         this.editor = editor;
         this.connections = new ArrayList<ConnectionInfo>();
         initComponents();
 
         this.setOpaque(false);
-        addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent me) {
-            }
-
-            @Override
-            public void mousePressed(MouseEvent me) {
-                screenX = me.getXOnScreen();
-                screenY = me.getYOnScreen();
-                myX = getX();
-                myY = getY();
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent me) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent me) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent me) {
-            }
-        });
         
-        addMouseMotionListener(new MouseMotionListener() {
-            @Override
-            public void mouseDragged(MouseEvent me) {
-                int deltaX = me.getXOnScreen() - screenX;
-                int deltaY = me.getYOnScreen() - screenY;
-
-                setLocation(myX + deltaX, myY + deltaY);
-                
-                repaintConnections();
-            }
-
-            @Override
-            public void mouseMoved(MouseEvent me) {
-            }
-        });
-        
+        controller = new DraggableJPanelController(this);
     }
 
+    public void setBorderColor(Color color) {
+        this.borderColor = color;
+    }
+    
     @Override
     protected void paintComponent(Graphics g1) {
         Graphics2D g = (Graphics2D) g1;
 
-        Color borderColor = Color.BLACK;
+//        borderColor = Color.BLACK;
 
         //if this component is selected change the border color to white.
         //TODO: check EditorApplication to see if this is selected component
@@ -183,4 +143,8 @@ public class DraggableJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
+    
+    public Editor getEditor() {
+        return editor;
+    }
 }

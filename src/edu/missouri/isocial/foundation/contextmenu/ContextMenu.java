@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation.contextmenu;
 
+import edu.missouri.isocial.foundation.Editor;
 import edu.missouri.isocial.foundation.EditorApplication;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -24,8 +25,8 @@ public class ContextMenu {
     private JPopupMenu internalMenu;
     
     private Map<String, JMenu> categories;
-    private final EditorApplication editor;
-    public ContextMenu(EditorApplication editor) {
+    private final Editor editor;
+    public ContextMenu(Editor editor) {
         internalMenu = new JPopupMenu();
         categories = new HashMap<String, JMenu>();
     

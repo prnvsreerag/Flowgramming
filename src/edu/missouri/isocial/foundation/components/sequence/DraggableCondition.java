@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation.components.sequence;
 
+import edu.missouri.isocial.foundation.Editor;
 import edu.missouri.isocial.foundation.EditorApplication;
 import edu.missouri.isocial.foundation.components.core.Connector;
 import edu.missouri.isocial.foundation.components.core.DraggableJPanel;
@@ -24,7 +25,7 @@ public class DraggableCondition extends DraggableJPanel {
     private Connector top;
     private Connector right;
 
-    public DraggableCondition(EditorApplication editor) {
+    public DraggableCondition(Editor editor) {
         super(editor);
 
         bottom = new Connector(editor, this);

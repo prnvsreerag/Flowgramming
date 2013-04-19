@@ -33,7 +33,7 @@ public class AddSequenceEventItem extends MenuItemWithEditor {
 
         event.setLocation(location);
         event.setSize(200, 200);
-        editor.add(event);
+        editor.addDraggable(event);
         event.setVisible(true);
         event.repaint();
 

@@ -32,7 +32,7 @@ public class AddSequenceCondition extends MenuItemWithEditor {
         
         condition.setLocation(location);
         condition.setSize(200, 200);
-        editor.add(condition);
+        editor.addDraggable(condition);
         condition.setVisible(true);
         condition.repaint();
         

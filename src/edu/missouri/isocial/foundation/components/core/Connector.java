@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation.components.core;
 
+import edu.missouri.isocial.foundation.Editor;
 import edu.missouri.isocial.foundation.EditorApplication;
 import java.awt.Color;
 import java.awt.Component;
@@ -24,7 +25,7 @@ import javax.swing.SwingUtilities;
 public class Connector extends JComponent {
 
     private Class valueClassType = Object.class;
-    private final EditorApplication editor;
+    private final Editor editor;
 //    private List<Connection> connections;
     private final DraggableJPanel draggableParent;
     private Color currentColor;
@@ -36,7 +37,7 @@ public class Connector extends JComponent {
     
     
     
-    public Connector(final EditorApplication editor, DraggableJPanel draggableParent) {
+    public Connector(final Editor editor, DraggableJPanel draggableParent) {
         this.editor = editor;
         this.draggableParent = draggableParent;
         this.setSize(SIDE_SIZE, SIDE_SIZE);

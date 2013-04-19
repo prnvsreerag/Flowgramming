@@ -27,4 +27,8 @@ public interface Editor {
     public Point getLocationOnScreen();
     
     public Component findComponentAt(Point location);
+    
+    public void executeProgram();
+
+    public void removeConnection(String id);
 }

@@ -27,12 +27,16 @@ public class ConnectionController {
     private static final Color SELECTED_COLOR = Color.WHITE;
     private static final Color DEFAULT_COLOR = Color.BLACK;
     private final Editor editor;
+    private MouseListener _mouseListener;
+    private ComponentListener _startConnectorParentListener;
+    private ComponentListener _endConnectorParentListener;
 
     public ConnectionController(Editor editor, Connector parentConnector, Connector targetConnector, Connection connection) {
         this.startConnector = parentConnector;
         this.endConnector = targetConnector;
         this.connection = connection;
         this.editor = editor;
+        connection.setController(this);
         connection.setOpaque(false);
                
         //add mouse listener to connection
@@ -81,7 +85,7 @@ public class ConnectionController {
     }
 
     private void addMouseListenerToConnection() {
-        connection.addMouseListener(new MouseListener() {
+        _mouseListener = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 mouseClickedOnConnection();
@@ -102,7 +106,9 @@ public class ConnectionController {
             @Override
             public void mouseExited(MouseEvent e) {
             }
-        });
+        };
+        
+        connection.addMouseListener(_mouseListener);
     }
 
     private void addComponentListenerToStartConnector() {
@@ -110,7 +116,8 @@ public class ConnectionController {
             System.out.println("CONNECTOR HAS NULL PARENT!");
             return;
         }
-        startConnector.getParent().addComponentListener(new ComponentListener() {
+        
+        _startConnectorParentListener=new ComponentListener() {
             @Override
             public void componentResized(ComponentEvent e) {
                 startConnectorResized();
@@ -128,7 +135,8 @@ public class ConnectionController {
             @Override
             public void componentHidden(ComponentEvent e) {
             }
-        });
+        };
+        startConnector.getParent().addComponentListener(_startConnectorParentListener);
     }
 
     private void startConnectorResized() {
@@ -140,7 +148,7 @@ public class ConnectionController {
     }
 
     private void addComponentListenerToEndConnector() {
-        endConnector.getParent().addComponentListener(new ComponentListener() {
+        _endConnectorParentListener = new ComponentListener() {
             @Override
             public void componentResized(ComponentEvent e) {
                 endConnectorResized();
@@ -158,7 +166,9 @@ public class ConnectionController {
             @Override
             public void componentHidden(ComponentEvent e) {
             }
-        });
+        };
+        
+        endConnector.getParent().addComponentListener(_endConnectorParentListener);
     }
 
     private void endConnectorResized() {
@@ -248,5 +258,15 @@ public class ConnectionController {
 //        System.out.println("NEW SIZE: ("+newX+","+newY+")");
         connection.setSize(newX, newY);
 //        connection.setEndPoint(new Point(newX, newY));
+    }
+
+    public void cleanup() {
+       endConnector.getParent().removeComponentListener(_endConnectorParentListener);
+       startConnector.getParent().removeComponentListener(_startConnectorParentListener);
+       connection.removeMouseListener(_mouseListener);
+       
+       _startConnectorParentListener = null;
+       _endConnectorParentListener = null;
+       _mouseListener = null;
     }
 }

@@ -20,8 +20,9 @@ public class Connection extends JComponent {
     private Point endPoint;
     private  Connector start;
     private  Connector end;
-
     private Color currentColor = Color.BLACK;
+
+    private ConnectionController controller;
     
     public Connection(Connector start, Connector end) {
         this.start = start;
@@ -30,7 +31,15 @@ public class Connection extends JComponent {
         this.setOpaque(false);
         this.setBackground(Color.green);
     }
-     
+    
+    public void cleanup() {
+        controller.cleanup();
+    }
+    
+    public void setController(ConnectionController controller) {
+        this.controller = controller;
+    }
+    
     public void setCurrentColor(Color color) {
         this.currentColor = color;
     }
@@ -64,14 +73,6 @@ public class Connection extends JComponent {
         
         g.setColor(currentColor);
         Line2D line = new Line2D.Double(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
-//        g.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
-        g.draw(line);
-        
-        
-        System.out.println("SIZE: "+this.getSize());
-        System.out.println("CONNECTION START->("+startPoint.x+","+startPoint.y+")");
-        System.out.println("CONNECTION END->("+endPoint.x+","+endPoint.y+")");
-        
-
+        g.draw(line);        
     }
 }

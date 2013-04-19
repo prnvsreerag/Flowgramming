@@ -147,4 +147,11 @@ public abstract class DraggableJPanel extends javax.swing.JPanel {
     public Editor getEditor() {
         return editor;
     }
+
+    /**
+     * Perform any upkeep needed before this instance is removed from the editor
+     */
+    protected void cleanup() {
+        //override this.
+    }
 }

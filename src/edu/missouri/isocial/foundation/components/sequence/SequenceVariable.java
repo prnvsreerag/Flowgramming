@@ -6,6 +6,7 @@ package edu.missouri.isocial.foundation.components.sequence;
 
 import edu.missouri.isocial.foundation.Editor;
 import edu.missouri.isocial.foundation.EditorApplication;
+import edu.missouri.isocial.foundation.components.core.Connector;
 import edu.missouri.isocial.foundation.components.core.DraggableJPanel;
 import java.awt.Color;
 import java.awt.Font;
@@ -22,14 +23,20 @@ public class SequenceVariable extends DraggableJPanel {
 
     private static final int SCALE = 100;
     private String caption = "???";
+    private Connector top;
     
     public SequenceVariable(Editor editor) {
         super(editor);
+        
+        initializeConnector(editor);
     }
     
     public SequenceVariable(Editor editor, String caption) {
         super(editor);
         this.caption = caption;
+        
+        
+        initializeConnector(editor);
     }
     
     @Override
@@ -59,5 +66,12 @@ public class SequenceVariable extends DraggableJPanel {
     
     public void setCaption(String caption) {
         this.caption = caption;
+    }
+
+    private void initializeConnector(Editor editor) {
+        top = new Connector(editor, this);
+        add(top);
+        top.setLocation(SCALE/2 -5, 0);
+        top.setVisible(true);
     }
 }

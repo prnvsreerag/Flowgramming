@@ -133,7 +133,8 @@ public class DraggableJPanelController {
                 
                 draggable.setVisible(false);
 
-                draggable.getEditor().removeDraggable(draggable);                
+                draggable.getEditor().removeDraggable(draggable);  
+                
             }
         }
     }
@@ -142,5 +143,7 @@ public class DraggableJPanelController {
         draggable.removeMouseListener(_mouseListener);
         draggable.removeMouseMotionListener(_mouseMotionListener);
         draggable.removeKeyListener(_keyListener);
+        
+        draggable.cleanup();
     }
 }

@@ -18,25 +18,48 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     
     private ContextMenu contextMenu;
     private EditorCanvasController controller;
-    
+    private ConnectionRepository repository;
     public EditorCanvas() {
         initComponents();
         
         Lookup lookup = new LookupImpl();
         controller = new EditorCanvasController(this);
         contextMenu = new ContextMenuBuilder(lookup, this).build();
+        repository = new MappedConnectionRepository();
     }
 
     @Override
     public Connection addConnection(Connector start, Connector end) {
         
         Connection connection = new Connection(start, end);
+        start.addEndPoint(end);
+        end.addEndPoint(start);
+        
         add(connection);
         connection.setVisible(true);
         ConnectionController cc = new ConnectionController(this, start, end, connection);
         cc.setVisible(true);
         
+        
+        String connectionID = start.getID()+"->"+end.getID();
+        repository.addConnection(connectionID, connection);
+        
         return connection;
+    }
+    
+    @Override
+    public void removeConnection(String connectionID) {
+        Connection connection = repository.getConnection(connectionID);
+        repository.removeConnection(connectionID);
+        if(connection == null) {
+            return;
+        }
+        connection.cleanup();
+        connection.setVisible(false);
+        remove(connection);
+ 
+        System.out.println("REMOVING CONNECTION: "+connectionID);
+        
     }
     
     @Override
@@ -55,6 +78,9 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
         remove(draggable);
     }
 
+    public void executeProgram() {
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

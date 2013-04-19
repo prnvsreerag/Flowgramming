@@ -11,11 +11,12 @@ import javax.swing.JMenuItem;
  * @author Ryan
  */
 public class EditorApplication extends javax.swing.JFrame {
+    private final EditorCanvas canvas;
 
     public EditorApplication() {
         initComponents();
-        
-        final EditorCanvas canvas = new EditorCanvas();
+
+         canvas = new EditorCanvas();
         add(canvas);
         canvas.setLocation(0, 0);
         canvas.setSize(getSize());
@@ -115,7 +116,6 @@ public class EditorApplication extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenu fileMenu;
@@ -131,6 +131,15 @@ public class EditorApplication extends javax.swing.JFrame {
         });
 
         fileMenu.add(exitMenuItem);
+
+        JMenuItem executeFlowgram = new JMenuItem("Run!");
+
+        executeFlowgram.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               
+            }
+        });
     }
 
     private void addDefaultEditMenuItems() {

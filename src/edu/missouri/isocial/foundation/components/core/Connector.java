@@ -14,7 +14,9 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
@@ -30,19 +32,23 @@ public class Connector extends JComponent {
     private final DraggableJPanel draggableParent;
     private Color currentColor;
     private boolean mouseIsPressed = false;
-    
     private static final Color DEFAULT_COLOR = Color.BLACK;
     private static final Color ACTIVE_COLOR = Color.WHITE;
     public static final int SIDE_SIZE = 10;
+
     
-    
-    
+    private static Integer nextConnectorID = 0;
+    //Connectors that this connector instance connects to.
+    private Set<Connector> endPoints;
+    private final int ID;
+
     public Connector(final Editor editor, DraggableJPanel draggableParent) {
         this.editor = editor;
         this.draggableParent = draggableParent;
+        this.endPoints = new LinkedHashSet<Connector>();
         this.setSize(SIDE_SIZE, SIDE_SIZE);
 //        this.connections = new ArrayList<Connection>();
-        
+
         this.setOpaque(false);
         this.currentColor = DEFAULT_COLOR;
         this.addMouseListener(new MouseListener() {
@@ -63,46 +69,26 @@ public class Connector extends JComponent {
                 final Component c = editor.findComponentAt(e.getLocationOnScreen());
                 mouseIsPressed = false;
                 repaint();
-                
+
                 if (c == null) {
                     System.out.println("NULL COMPONENT!");
                     return;
                 }
-                //check if we dropped on a connector
-                if (c instanceof Connector) {
 
-                    if (c.equals(parentConnector)) {
-                        System.out.println("CANNOT MAKE CONNECTION TO SELF!");
+                if (c instanceof DraggableJPanel) {
+                    DraggableJPanel d = (DraggableJPanel) c;
+                    final Component c2 = d.findComponentAt(subtract(e.getLocationOnScreen(),d.getLocationOnScreen()));
+                    if(c2 == null) {
+                        System.out.println("NULL COMPONENT IN DRAGGABLE");
                         return;
                     }
-                    Connector target = (Connector) c;
+                    
+                    handleQueryForConnector(c2);
 
-                    Class type = target.getValueClass();
-                    //check that we're meeting the right type
-                    if (type.equals(getValueClass())) {
-                        //add connection
-
-//                        Connection conn = editor.addConnection(parentConnector, target);
-                        
-                        makeConnection(getDraggableParent(), target.getDraggableParent(), target);
-                        
-//                        connections.add(conn);
-                        
-                        System.out.println("CONNECTION MADE!");
-                    } else {
-                        System.out.println("TYPES DON'T MATCH!");
-                    }
                 } else {
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            System.out.println("DID NOT RELEASE ON A CONNECTOR!");
-                            System.out.println("RELEASED ON A: " + c.getClass().getName());
-                        }
-                    });
-
+                    handleQueryForConnector(c);
                 }
-
+                //check if we dropped on a connector
             }
 
             @Override
@@ -114,7 +100,7 @@ public class Connector extends JComponent {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if(!mouseIsPressed) { 
+                if (!mouseIsPressed) {
                     currentColor = DEFAULT_COLOR;
                 }
                 repaint();
@@ -122,12 +108,56 @@ public class Connector extends JComponent {
             }
         });
         
+        synchronized(nextConnectorID) {
+            this.ID = nextConnectorID.intValue();
+            
+            System.out.println("CREATING CONNECTOR: "+ID);
+            nextConnectorID += 1;
+        }
     }
-    
-    
+
+    private void handleQueryForConnector(final Component potentialConnector) {
+        if (potentialConnector instanceof Connector) {
+
+            if (potentialConnector.equals(Connector.this)) {
+                System.out.println("CANNOT MAKE CONNECTION TO SELF!");
+                return;
+            }
+            Connector target = (Connector) potentialConnector;
+
+            Class type = target.getValueClass();
+            //check that we're meeting the right type
+            if (type.equals(getValueClass())) {
+                //add connection
+
+                makeConnection(getDraggableParent(), target.getDraggableParent(), target);
+
+                System.out.println("CONNECTION MADE!");
+            } else {
+                System.out.println("TYPES DON'T MATCH!");
+            }
+        } else {
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("DID NOT RELEASE ON A CONNECTOR!");
+                    System.out.println("RELEASED ON A: " + potentialConnector.getClass().getName());
+                }
+            });
+
+        }
+    }
+
+    private Point subtract(Point one, Point two) {
+        int x = one.x - two.x;
+        int y = one.y - two.y;
+        
+        return new Point(x, y);
+    }
     public DraggableJPanel getDraggableParent() {
         return draggableParent;
     }
+
     @Override
     protected void paintComponent(Graphics g1) {
         Graphics2D g = (Graphics2D) g1;
@@ -140,17 +170,37 @@ public class Connector extends JComponent {
     private Class getValueClass() {
         return this.valueClassType;
     }
-    
+
     private void makeConnection(DraggableJPanel start, DraggableJPanel end, Connector target) {
 //        ConnectionInfo connectionInfo = new ConnectionInfo(start, end, this, target, target.getValueClass());
 //        start.addConnectionStart(connectionInfo);
 //        end.addConnectionEnd(connectionInfo);
-        
-        
+
+        String id = getID() +"->"+target.getID();
+                System.out.println("MAKING CONNECTION: "+id);
         editor.addConnection(this, target);
     }
-    
+
     public Color getCurrentColor() {
         return this.currentColor;
     }
+    
+    public Set<Connector> getEndPoints() {
+        return endPoints;
+    }
+    
+    public void detachConnector(Connector endPoint) {
+        endPoints.remove(endPoint);
+    }
+    
+    public int getID() {
+        return ID;
+    }
+    
+    public void addEndPoint(Connector endPoint) {
+        System.out.println("ADDING ENDPOINT: "+endPoint.getID()+" TO CONNECTOR: "+getID());
+        endPoints.add(endPoint);
+    }
+
+
 }

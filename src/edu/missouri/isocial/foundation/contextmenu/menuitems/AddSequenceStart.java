@@ -20,19 +20,19 @@ public class AddSequenceStart extends MenuItemWithEditor {
     
     @Override
     public void actionPerformed(ActionEvent event) {
-        SequenceStart start = new SequenceStart(editor);
-        Point mouseLocationOnScreen = MouseInfo.getPointerInfo().getLocation();
-        Point editorLocationOnScreen = editor.getLocationOnScreen();
-        
-        int newX = mouseLocationOnScreen.x - editorLocationOnScreen.x;
-        int newY = mouseLocationOnScreen.y - editorLocationOnScreen.y;
-        
-        Point location = new Point(newX, newY);
-        
-        start.setLocation(location);
-        start.setSize(100, 100);
-        editor.addDraggable(start);
-        start.setVisible(true);
-        start.repaint();
+//        SequenceStart start = new SequenceStart(editor);
+//        Point mouseLocationOnScreen = MouseInfo.getPointerInfo().getLocation();
+//        Point editorLocationOnScreen = editor.getLocationOnScreen();
+//        
+//        int newX = mouseLocationOnScreen.x - editorLocationOnScreen.x;
+//        int newY = mouseLocationOnScreen.y - editorLocationOnScreen.y;
+//        
+//        Point location = new Point(newX, newY);
+//        
+//        start.setLocation(location);
+//        start.setSize(100, 100);
+//        editor.addDraggable(start);
+//        start.setVisible(true);
+//        start.repaint();
     }
 }

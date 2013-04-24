@@ -11,4 +11,6 @@ package edu.missouri.isocial.foundation;
 public interface StrategyCollection {
     
     public <T> T get(Class<T> c);
+    
+    <T> void put(Class<T> key, T value);
 }

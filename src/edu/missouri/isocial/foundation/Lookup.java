@@ -15,5 +15,9 @@ public interface Lookup {
     
     public<T> Set<T> lookUp(Class<T> spi);
     
+    public <T> Set<T> getAll(Class<T> c);
+    
     public Set<Object> getAll();
+    
+    
 }

@@ -36,5 +36,7 @@ public enum ApplicationContext {
         
         return strategies;
     }
-    
+    void injectStrategy(Class key, Object value) {
+       getStrategies().put(key, value);
+    }
 }

@@ -17,4 +17,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface SequenceAction {
     String[] parameters();
+    String caption();
+    String category();
 }

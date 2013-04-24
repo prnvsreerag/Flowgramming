@@ -25,20 +25,20 @@ public class AddSequenceObjectItem extends MenuItemWithEditor {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
 //        SequenceEvent event = new SequenceEvent(editor);
-        SequenceVariable variable = new SequenceVariable(editor);
-        Point mouseLocationOnScreen = MouseInfo.getPointerInfo().getLocation();
-        Point editorLocationOnScreen = editor.getLocationOnScreen();
-
-        int newX = mouseLocationOnScreen.x - editorLocationOnScreen.x;
-        int newY = mouseLocationOnScreen.y - editorLocationOnScreen.y;
-
-        Point location = new Point(newX, newY);
-        
-        variable.setLocation(location);
-        variable.setSize(200, 200);
-        editor.addDraggable(variable);
-        variable.setVisible(true);
-        variable.repaint();
+//        SequenceVariable variable = new SequenceVariable(editor);
+//        Point mouseLocationOnScreen = MouseInfo.getPointerInfo().getLocation();
+//        Point editorLocationOnScreen = editor.getLocationOnScreen();
+//
+//        int newX = mouseLocationOnScreen.x - editorLocationOnScreen.x;
+//        int newY = mouseLocationOnScreen.y - editorLocationOnScreen.y;
+//
+//        Point location = new Point(newX, newY);
+//        
+//        variable.setLocation(location);
+//        variable.setSize(200, 200);
+//        editor.addDraggable(variable);
+//        variable.setVisible(true);
+//        variable.repaint();
     }
     
 }

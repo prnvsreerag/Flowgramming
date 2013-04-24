@@ -7,6 +7,7 @@ package edu.missouri.isocial.foundation;
 import edu.missouri.isocial.foundation.components.core.Connection;
 import edu.missouri.isocial.foundation.components.core.Connector;
 import edu.missouri.isocial.foundation.components.core.DraggableJPanel;
+import edu.missouri.isocial.foundation.contextmenu.ContextMenu;
 import java.awt.Component;
 import java.awt.Point;
 
@@ -31,4 +32,6 @@ public interface Editor {
     public void executeProgram();
 
     public void removeConnection(String id);
+    
+    public ContextMenu getContextMenu();
 }

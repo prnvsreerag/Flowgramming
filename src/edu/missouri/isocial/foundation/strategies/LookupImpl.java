@@ -19,6 +19,7 @@ import java.util.logging.Logger;
  */
 @Strategy
 public class LookupImpl implements Lookup {
+
     private Class annotation;
 
     @Override
@@ -30,19 +31,19 @@ public class LookupImpl implements Lookup {
     public <T> Set<T> lookUp(Class<T> spi) {
         Iterator<T> iterator = ScannedClassLoader.INSTANCE().getInstances(annotation, spi);
         Set<T> output = new HashSet<T>();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             T t = iterator.next();
             output.add(t);
         }
-        
+
         return output;
     }
-    
+
     @Override
     public Set<Object> getAll() {
         Set<String> names = ScannedClassLoader.INSTANCE().getClasses(annotation);
         Set<Object> instances = new HashSet<Object>();
-        for(String name: names) {
+        for (String name : names) {
             Object obj;
             try {
                 obj = Class.forName(name).newInstance();
@@ -53,10 +54,27 @@ public class LookupImpl implements Lookup {
                 continue;
             }
         }
-        
+
         return instances;
     }
-    
-    
-    
+
+    public <T> Set<T> getAll(Class<T> c) {
+
+        Set<String> names = ScannedClassLoader.INSTANCE().getClasses(annotation);
+        Set<T> instances = new HashSet<T>();
+        for (String name : names) {
+            T obj;
+            try {
+                obj = (T) Class.forName(name).newInstance();
+                instances.add(obj);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(LookupImpl.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                continue;
+            }
+        }
+
+        return instances;
+
+    }
 }

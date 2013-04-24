@@ -15,11 +15,11 @@ import edu.missouri.isocial.foundation.components.core.ParameterConnector;
  *
  * @author Ryan
  */
-public class SequenceAction<T> extends DraggableJPanel<T> {
+public class DraggableAction<T> extends DraggableJPanel<T> {
 
     private Connector inConnector;
     private Connector outConnector;
-    public SequenceAction(Editor editor, T model) {
+    public DraggableAction(Editor editor, T model, String[] parameters) {
         super(editor, model);
 
         inConnector = new Connector(editor, this);
@@ -34,6 +34,14 @@ public class SequenceAction<T> extends DraggableJPanel<T> {
         outConnector.setLocation(190, 20);
         outConnector.setVisible(true);
         
+        
+        
+        for(String parameter: parameters) {
+            //create a new connector for every parameter
+            
+            //we need a way to prime the domain model's properties with this list of parameter names
+            
+        }
         
         ParameterConnector pc = new ParameterConnector(editor, this);
         add(pc);

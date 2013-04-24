@@ -38,5 +38,10 @@ public class DefaultStrategyCollection implements StrategyCollection {
     public <T> T get(Class<T> c) {
         return (T)internal.get(c);
     }
+
+    @Override
+    public <T> void put(Class<T> key, T value) {
+        internal.put(key, value);
+    }
     
 }

@@ -2,18 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.missouri.isocial.foundation.strategies;
+package edu.missouri.isocial.foundation;
 
-import edu.missouri.isocial.foundation.Application;
-import edu.missouri.isocial.foundation.ApplicationContext;
-import edu.missouri.isocial.foundation.ConnectionRepository;
-import edu.missouri.isocial.foundation.ContextMenuBuilder;
-import edu.missouri.isocial.foundation.Editor;
-import edu.missouri.isocial.foundation.EditorCanvasController;
-import edu.missouri.isocial.foundation.Lookup;
-import edu.missouri.isocial.foundation.MappedConnectionRepository;
-import edu.missouri.isocial.foundation.Startable;
-import edu.missouri.isocial.foundation.strategies.LookupImpl;
 import edu.missouri.isocial.foundation.components.core.Connection;
 import edu.missouri.isocial.foundation.components.core.ConnectionController;
 import edu.missouri.isocial.foundation.components.core.Connector;
@@ -30,8 +20,14 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     private ContextMenu contextMenu;
     private EditorCanvasController controller;
     private ConnectionRepository repository;
+    
+    private ApplicationContext context() {
+        return ApplicationContext.INSTANCE;//injectStrategy(Editor.class, this);
+    }
     public EditorCanvas() {
         initComponents();
+        
+        context().injectStrategy(Editor.class, this);
         
         //controller used for Swing presentation logic
         controller = new EditorCanvasController(this);                
@@ -86,6 +82,11 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     public void showContextMenu(int xOnScreen, int yOnScreen) {
         contextMenu.show(this, xOnScreen, yOnScreen);
         contextMenu.setVisible(true);
+    }
+    
+    @Override
+    public ContextMenu getContextMenu() {
+        return contextMenu;
     }
     
     @Override

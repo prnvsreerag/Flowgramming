@@ -15,12 +15,12 @@ import edu.missouri.isocial.foundation.components.core.ParameterConnector;
  *
  * @author Ryan
  */
-public class SequenceAction extends DraggableJPanel {
+public class SequenceAction<T> extends DraggableJPanel<T> {
 
     private Connector inConnector;
     private Connector outConnector;
-    public SequenceAction(Editor editor) {
-        super(editor);
+    public SequenceAction(Editor editor, T model) {
+        super(editor, model);
 
         inConnector = new Connector(editor, this);
         add(inConnector);

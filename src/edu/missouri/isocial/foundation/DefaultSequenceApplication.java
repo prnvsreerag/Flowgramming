@@ -41,4 +41,20 @@ public class DefaultSequenceApplication implements Application {
             }
         }
     }
+    
+    
+    private static class Tracer {
+        private SequenceItemSPI item;
+        public Tracer(Startable start) {
+            this.item = start;
+        }
+        
+        public void trace(Object input) {
+            item.retrieveParameters();
+            item.run();
+            item.updateParameters();
+
+            item = item.getNextItem();
+        }        
+    }
 }

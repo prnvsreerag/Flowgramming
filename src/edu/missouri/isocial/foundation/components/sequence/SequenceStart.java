@@ -5,6 +5,7 @@
 package edu.missouri.isocial.foundation.components.sequence;
 
 import edu.missouri.isocial.foundation.Editor;
+import edu.missouri.isocial.foundation.Startable;
 import edu.missouri.isocial.foundation.components.core.Connector;
 import edu.missouri.isocial.foundation.components.core.DraggableJPanel;
 import java.awt.Color;
@@ -19,13 +20,14 @@ import java.awt.geom.GeneralPath;
  *
  * @author Ryan
  */
-public class SequenceStart extends DraggableJPanel {
+public class SequenceStart extends DraggableJPanel<Startable> {
     
     private static final int SCALE = 75;
     private static final String caption = "Start";
     private final Connector startConnector;
-    public SequenceStart(Editor editor) {
-        super(editor);
+    
+    public SequenceStart(Editor editor, Startable domainModel) {
+        super(editor, domainModel);
         
         startConnector = new Connector(editor, this);
         add(startConnector);
@@ -33,7 +35,7 @@ public class SequenceStart extends DraggableJPanel {
         startConnector.setVisible(true);
         
     }
-    
+
     @Override
     public void paintComponent(Graphics g1) {
         Graphics2D g = (Graphics2D)g1;

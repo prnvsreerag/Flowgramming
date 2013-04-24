@@ -4,17 +4,21 @@
  */
 package edu.missouri.isocial.foundation.strategies;
 
+import edu.missouri.isocial.foundation.Application;
+import edu.missouri.isocial.foundation.ApplicationContext;
 import edu.missouri.isocial.foundation.ConnectionRepository;
 import edu.missouri.isocial.foundation.ContextMenuBuilder;
 import edu.missouri.isocial.foundation.Editor;
 import edu.missouri.isocial.foundation.EditorCanvasController;
 import edu.missouri.isocial.foundation.Lookup;
 import edu.missouri.isocial.foundation.MappedConnectionRepository;
+import edu.missouri.isocial.foundation.Startable;
 import edu.missouri.isocial.foundation.strategies.LookupImpl;
 import edu.missouri.isocial.foundation.components.core.Connection;
 import edu.missouri.isocial.foundation.components.core.ConnectionController;
 import edu.missouri.isocial.foundation.components.core.Connector;
 import edu.missouri.isocial.foundation.components.core.DraggableJPanel;
+import edu.missouri.isocial.foundation.components.sequence.SequenceStart;
 import edu.missouri.isocial.foundation.contextmenu.ContextMenu;
 
 /**
@@ -29,7 +33,8 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     public EditorCanvas() {
         initComponents();
         
-        controller = new EditorCanvasController(this);
+        //controller used for Swing presentation logic
+        controller = new EditorCanvasController(this);                
         contextMenu = new ContextMenuBuilder().build();
         repository = new MappedConnectionRepository();
     }
@@ -70,6 +75,10 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     
     @Override
     public void addDraggable(DraggableJPanel draggable) {
+        
+        if(draggable instanceof SequenceStart) {
+            application().addToStartItems((Startable)draggable.getModel());
+        }
         add(draggable);
     }
 
@@ -110,5 +119,8 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
+    private Application application() {
+        return ApplicationContext.INSTANCE.getApplication();
+    }
 
 }

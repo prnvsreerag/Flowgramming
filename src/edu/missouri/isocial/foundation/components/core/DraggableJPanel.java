@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Ryan
  */
-public abstract class DraggableJPanel extends javax.swing.JPanel {
+public abstract class DraggableJPanel<T> extends javax.swing.JPanel {
 
     /**
      * Creates new form DraggableJPanel
@@ -28,13 +28,14 @@ public abstract class DraggableJPanel extends javax.swing.JPanel {
     private final List<ConnectionInfo> connections;
     private Color borderColor = Color.BLACK;
     private DraggableJPanelBrush brush;
-    public DraggableJPanel(Editor editor) {
+    private T model;
+    public DraggableJPanel(Editor editor, T model) {
         this.editor = editor;
         this.connections = new ArrayList<ConnectionInfo>();
         initComponents();
 
         this.setOpaque(false);
-        
+        this.model = model;
         controller = new DraggableJPanelController(this);
         brush = new DraggableJPanelBrush(this);
     }
@@ -42,6 +43,14 @@ public abstract class DraggableJPanel extends javax.swing.JPanel {
     public void setBorderColor(Color color) {
         this.borderColor = color;
     }
+    
+        
+    public T getModel() {
+        return model;
+    }
+    
+    
+    
     
     @Override
     protected void paintComponent(Graphics g1) {

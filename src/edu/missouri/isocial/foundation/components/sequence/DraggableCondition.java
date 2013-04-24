@@ -18,15 +18,15 @@ import java.awt.geom.GeneralPath;
  *
  * @author Ryan
  */
-public class DraggableCondition extends DraggableJPanel {
+public class DraggableCondition<T> extends DraggableJPanel<T> {
 
     private final static int SCALE = 150;
     private Connector bottom;
     private Connector top;
     private Connector right;
 
-    public DraggableCondition(Editor editor) {
-        super(editor);
+    public DraggableCondition(Editor editor, T model) {
+        super(editor, model);
 
         bottom = new Connector(editor, this);
         add(bottom);

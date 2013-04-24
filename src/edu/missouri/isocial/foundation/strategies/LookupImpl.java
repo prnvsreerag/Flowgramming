@@ -2,8 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.missouri.isocial.foundation;
+package edu.missouri.isocial.foundation.strategies;
 
+import edu.missouri.isocial.foundation.Lookup;
+import edu.missouri.isocial.foundation.ScannedClassLoader;
 import edu.missouri.isocial.foundation.annotations.Strategy;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -15,6 +17,7 @@ import java.util.logging.Logger;
  *
  * @author Ryan
  */
+@Strategy
 public class LookupImpl implements Lookup {
     private Class annotation;
 

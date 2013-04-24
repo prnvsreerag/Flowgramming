@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation;
 
+import edu.missouri.isocial.foundation.strategies.LookupImpl;
 import edu.missouri.isocial.foundation.annotations.Strategy;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,7 @@ public class DefaultStrategyCollection implements StrategyCollection {
     private Map<Class, Object> internal;
     public DefaultStrategyCollection() {
         internal = new HashMap<Class, Object>();
-        
+                
         Lookup lookup = new LookupImpl();
         lookup.setAnnotation(Strategy.class);
         Set<Object> objs = lookup.getAll();

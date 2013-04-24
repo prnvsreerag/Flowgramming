@@ -2,8 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.missouri.isocial.foundation;
+package edu.missouri.isocial.foundation.strategies;
 
+import edu.missouri.isocial.foundation.ConnectionRepository;
+import edu.missouri.isocial.foundation.ContextMenuBuilder;
+import edu.missouri.isocial.foundation.Editor;
+import edu.missouri.isocial.foundation.EditorCanvasController;
+import edu.missouri.isocial.foundation.Lookup;
+import edu.missouri.isocial.foundation.MappedConnectionRepository;
+import edu.missouri.isocial.foundation.strategies.LookupImpl;
 import edu.missouri.isocial.foundation.components.core.Connection;
 import edu.missouri.isocial.foundation.components.core.ConnectionController;
 import edu.missouri.isocial.foundation.components.core.Connector;
@@ -22,9 +29,8 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     public EditorCanvas() {
         initComponents();
         
-        Lookup lookup = new LookupImpl();
         controller = new EditorCanvasController(this);
-        contextMenu = new ContextMenuBuilder(lookup, this).build();
+        contextMenu = new ContextMenuBuilder().build();
         repository = new MappedConnectionRepository();
     }
 

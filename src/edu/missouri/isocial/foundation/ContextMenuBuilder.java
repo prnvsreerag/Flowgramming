@@ -19,15 +19,17 @@ public class ContextMenuBuilder {
     private final Lookup lookup;
     private final Editor editor;
 
-    public ContextMenuBuilder(Lookup lookup, Editor editor) {
-                
-        //get discovery mechanism        
-        this.lookup = lookup;
-        
-        this.editor = editor;
+    private StrategyCollection strategies() {
+        return ApplicationContext.INSTANCE.getStrategies();
+    }
+    
+    public ContextMenuBuilder() {
+       
+        this.lookup = strategies().get(Lookup.class);
+        this.editor = strategies().get(Editor.class);
         
         //set lookup to search for all classes annotated by MenuItem
-        lookup.setAnnotation(MenuItem.class);
+        this.lookup.setAnnotation(MenuItem.class);
     }
     
     public ContextMenu build() {

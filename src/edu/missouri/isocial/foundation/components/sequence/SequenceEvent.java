@@ -13,11 +13,11 @@ import edu.missouri.isocial.foundation.EditorApplication;
  *
  * @author Ryan
  */
-public class SequenceEvent extends DraggableJPanel {
+public class SequenceEvent<T> extends DraggableJPanel<T> {
     
     private Connector outConnector;
-    public SequenceEvent(Editor editor) {
-        super(editor);       
+    public SequenceEvent(Editor editor, T model) {
+        super(editor, model);       
         
         outConnector = new Connector(editor, this);
         add(outConnector);

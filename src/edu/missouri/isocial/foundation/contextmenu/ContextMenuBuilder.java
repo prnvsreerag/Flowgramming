@@ -2,8 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.missouri.isocial.foundation;
+package edu.missouri.isocial.foundation.contextmenu;
 
+import edu.missouri.isocial.foundation.ApplicationContext;
+import edu.missouri.isocial.foundation.Editor;
+import edu.missouri.isocial.foundation.Lookup;
+import edu.missouri.isocial.foundation.StrategyCollection;
 import edu.missouri.isocial.foundation.annotations.SequenceVariable;
 import edu.missouri.isocial.foundation.contextmenu.ContextMenu;
 import edu.missouri.isocial.foundation.contextmenu.MenuItem;

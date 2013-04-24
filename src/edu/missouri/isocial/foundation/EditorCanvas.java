@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation;
 
+import edu.missouri.isocial.foundation.contextmenu.ContextMenuBuilder;
 import edu.missouri.isocial.foundation.components.core.Connection;
 import edu.missouri.isocial.foundation.components.core.ConnectionController;
 import edu.missouri.isocial.foundation.components.core.Connector;

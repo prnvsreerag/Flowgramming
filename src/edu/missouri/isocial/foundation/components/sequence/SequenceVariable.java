@@ -19,20 +19,20 @@ import java.awt.geom.Ellipse2D;
  *
  * @author Ryan
  */
-public class SequenceVariable extends DraggableJPanel {
+public class SequenceVariable<T> extends DraggableJPanel<T> {
 
     private static final int SCALE = 100;
     private String caption = "???";
     private Connector top;
     
-    public SequenceVariable(Editor editor) {
-        super(editor);
+    public SequenceVariable(Editor editor, T model) {
+        super(editor, model);
         
         initializeConnector(editor);
     }
     
-    public SequenceVariable(Editor editor, String caption) {
-        super(editor);
+    public SequenceVariable(Editor editor, T model, String caption) {
+        super(editor, model);
         this.caption = caption;
         
         

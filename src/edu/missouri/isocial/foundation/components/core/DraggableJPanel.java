@@ -5,19 +5,12 @@
 package edu.missouri.isocial.foundation.components.core;
 
 import edu.missouri.isocial.foundation.Editor;
-import edu.missouri.isocial.foundation.EditorApplication;
 import edu.missouri.isocial.foundation.components.ConnectionInfo;
+import edu.missouri.isocial.foundation.components.core.brushes.DraggableJPanelBrush;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.RadialGradientPaint;
-import java.awt.RenderingHints;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +27,7 @@ public abstract class DraggableJPanel extends javax.swing.JPanel {
     private DraggableJPanelController controller;
     private final List<ConnectionInfo> connections;
     private Color borderColor = Color.BLACK;
+    private DraggableJPanelBrush brush;
     public DraggableJPanel(Editor editor) {
         this.editor = editor;
         this.connections = new ArrayList<ConnectionInfo>();
@@ -42,6 +36,7 @@ public abstract class DraggableJPanel extends javax.swing.JPanel {
         this.setOpaque(false);
         
         controller = new DraggableJPanelController(this);
+        brush = new DraggableJPanelBrush(this);
     }
 
     public void setBorderColor(Color color) {
@@ -50,57 +45,8 @@ public abstract class DraggableJPanel extends javax.swing.JPanel {
     
     @Override
     protected void paintComponent(Graphics g1) {
-        Graphics2D g = (Graphics2D) g1;
-
-//        borderColor = Color.BLACK;
-
-        //if this component is selected change the border color to white.
-        //TODO: check EditorApplication to see if this is selected component
-
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        Color[] colors = new Color[]{new Color(0.6f, 0.6f, 1.0f, 0.9f), new Color(0.6f, 0.6f, 1.0f, 0.5f)};
-
-        float[] factors = {0f, 1f};
-
-        //draw drop shadow
-        g.setPaint(new RadialGradientPaint(getWidth() / 2, getHeight() / 2, getWidth() / 2, factors, colors));
-        g.fillRoundRect(8, 3, getWidth() - 10, getHeight() - 6, 15, 15);
-
-        //draw frame body
-        g.setColor(new Color(170, 170, 170));
-        g.fillRoundRect(5, 1, getWidth() - 9, getHeight() - 6, 15, 15);
-
-        //draw frame border
-        g.setColor(borderColor);
-        g.drawRoundRect(4, 0, getWidth() - 9, getHeight() - 6, 15, 15);
-
-        //Remove artifact in upper right corner
-        g.setColor(new Color(170, 170, 170));
-        g.fillRect(4, 1, 10, 10);
-        g.setColor(borderColor);
-        g.drawLine(4, 0, 14, 0);
-        g.drawLine(4, 0, 4, 10);
-
-        //draw separator between title and body.
-        g.setColor(Color.BLACK);
-        g.drawLine(5, 15, getWidth() - 6, 15);
-
-        //draw lighter line to give 3d effect to separator
-        g.setColor(new Color(190, 190, 190));
-        g.drawLine(5, 16, getWidth() - 6, 16);
-
-
-        //TODO: Parameterize these colors
-        Color c1 = Color.MAGENTA;
-        Color c2 = Color.YELLOW;
-
-        //fill background of title area
-        g.setPaint(new GradientPaint(0, 15, c1, getWidth(), 15, c2));
-        g.fillRoundRect(5, 1, getWidth() - 15, 14, 10, 15);
+        brush.paint((Graphics2D)g1);
         repaintConnections();
-        
-
     }
     
     public void repaintConnections() {
@@ -153,5 +99,9 @@ public abstract class DraggableJPanel extends javax.swing.JPanel {
      */
     protected void cleanup() {
         //override this.
+    }
+    
+    public Color getBorderColor() {
+        return borderColor;
     }
 }

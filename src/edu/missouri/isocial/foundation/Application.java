@@ -8,8 +8,7 @@ package edu.missouri.isocial.foundation;
  *
  * @author Ryan
  */
-public enum Context {
-    DATA,
-    SEQUENCE,
-    FUNCTIONAL;
+public interface Application {
+    public void addToStartItems(Startable item);
+    public void start(Object input);
 }

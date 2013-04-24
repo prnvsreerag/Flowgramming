@@ -14,4 +14,6 @@ public interface Lookup {
     public void setAnnotation(Class annotation);
     
     public<T> Set<T> lookUp(Class<T> spi);
+    
+    public Set<Object> getAll();
 }

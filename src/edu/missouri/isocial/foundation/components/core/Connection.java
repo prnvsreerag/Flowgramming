@@ -8,8 +8,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Line2D;
 import javax.swing.JComponent;
+
 
 /**
  *
@@ -64,14 +66,14 @@ public class Connection extends JComponent {
     }
     
     public void setEndPoint(Point end) {
-        this.endPoint = end;
+        this.endPoint = end;        
     }
     
     @Override
     protected void paintComponent(Graphics g1) {
         Graphics2D g = (Graphics2D)g1;
         
-        g.setColor(currentColor);
+        g.setColor(currentColor);              
         Line2D line = new Line2D.Double(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
         g.draw(line);        
     }

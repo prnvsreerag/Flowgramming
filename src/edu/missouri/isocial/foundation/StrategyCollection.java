@@ -8,8 +8,7 @@ package edu.missouri.isocial.foundation;
  *
  * @author Ryan
  */
-public enum Context {
-    DATA,
-    SEQUENCE,
-    FUNCTIONAL;
+public interface StrategyCollection {
+    
+    public <T> T get(Class<T> c);
 }

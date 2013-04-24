@@ -9,7 +9,7 @@ import edu.missouri.isocial.foundation.annotations.SequenceVariable;
  * @author Ryan
  */
 @SequenceVariable(category="Sequence Objects", caption="Integer")
-public class SequenceInteger {
+public class DraggableInteger {
     private Object value;
     
     

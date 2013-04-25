@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  */
 @SequenceAction(parameters={"Message"}, category="Sequence Actions", caption="Log")
 public class SimpleLogAction extends AbstractConfigurable implements Actionable {
-
+   
     @Override
     public void takeAction() {       
         String msg = (String)properties().get("Message");

@@ -20,13 +20,13 @@ import javax.swing.JComponent;
 public class Connection extends JComponent {
     private Point startPoint;
     private Point endPoint;
-    private  Connector start;
-    private  Connector end;
+    private  Link start;
+    private  Link end;
     private Color currentColor = Color.BLACK;
 
     private ConnectionController controller;
     
-    public Connection(Connector start, Connector end) {
+    public Connection(Link start, Link end) {
         this.start = start;
         this.end = end;
 
@@ -45,11 +45,11 @@ public class Connection extends JComponent {
     public void setCurrentColor(Color color) {
         this.currentColor = color;
     }
-    public Connector getStart() {
+    public Link getStart() {
         return start;
     }
     
-    public Connector getEnd() {
+    public Link getEnd() {
         return end;
     } 
     

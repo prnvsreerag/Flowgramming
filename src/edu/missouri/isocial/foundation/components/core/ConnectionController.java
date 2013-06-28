@@ -20,8 +20,8 @@ import java.awt.event.MouseListener;
  */
 public class ConnectionController {
 
-    private Connector startConnector;
-    private Connector endConnector;
+    private Link startConnector;
+    private Link endConnector;
     private Connection connection;
     private boolean selected = false;
     private static final Color SELECTED_COLOR = Color.WHITE;
@@ -31,7 +31,7 @@ public class ConnectionController {
     private ComponentListener _startConnectorParentListener;
     private ComponentListener _endConnectorParentListener;
 
-    public ConnectionController(Editor editor, Connector parentConnector, Connector targetConnector, Connection connection) {
+    public ConnectionController(Editor editor, Link parentConnector, Link targetConnector, Connection connection) {
         this.startConnector = parentConnector;
         this.endConnector = targetConnector;
         this.connection = connection;
@@ -220,8 +220,8 @@ public class ConnectionController {
         int endPointX = endConnector.getLocationOnScreen().x - connection.getLocationOnScreen().x;
         int endPointY = endConnector.getLocationOnScreen().y - connection.getLocationOnScreen().y;
 
-        connection.setStartPoint(new Point(startPointX+(Connector.SIDE_SIZE/2), startPointY+(Connector.SIDE_SIZE/2)));
-        connection.setEndPoint(new Point(endPointX+(Connector.SIDE_SIZE/2), endPointY+(Connector.SIDE_SIZE/2)));
+        connection.setStartPoint(new Point(startPointX+(Link.SIDE_SIZE/2), startPointY+(Link.SIDE_SIZE/2)));
+        connection.setEndPoint(new Point(endPointX+(Link.SIDE_SIZE/2), endPointY+(Link.SIDE_SIZE/2)));
 
 //        System.out.println("NEW START POINT: "+connection.getStartPoint());
 //        System.out.println("NEW END POINT: "+connection.getEndPoint());

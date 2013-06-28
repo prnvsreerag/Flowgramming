@@ -24,12 +24,16 @@ import javax.swing.SwingUtilities;
  *
  * @author Ryan
  */
-public class Connector extends JComponent {
+public class Link extends JComponent {
 
+    public enum POSITION {
+
+        LEFT, RIGHT, BOTTOM
+    };
     private Class valueClassType = Object.class;
     private final Editor editor;
 //    private List<Connection> connections;
-    private final DraggableJPanel draggableParent;
+    private final DraggableComponent draggableParent;
     private Color currentColor;
     private boolean mouseIsPressed = false;
     private static final Color DEFAULT_COLOR = Color.BLACK;
@@ -39,20 +43,21 @@ public class Connector extends JComponent {
     
     private static Integer nextConnectorID = 0;
     //Connectors that this connector instance connects to.
-    private Set<Connector> endPoints;
+    private Set<Link> endPoints;
     private final int ID;
+    private POSITION defaultPosition = POSITION.LEFT;
 
-    public Connector(final Editor editor, DraggableJPanel draggableParent) {
+    public Link(final Editor editor, DraggableComponent draggableParent, POSITION defaultPosition) {
         this.editor = editor;
         this.draggableParent = draggableParent;
-        this.endPoints = new LinkedHashSet<Connector>();
-        this.setSize(SIDE_SIZE, SIDE_SIZE);
+        this.endPoints = new LinkedHashSet<Link>();
+        this.setSize(SIDE_SIZE + 100, SIDE_SIZE + 2);
 //        this.connections = new ArrayList<Connection>();
-
+        this.defaultPosition = defaultPosition;
         this.setOpaque(false);
         this.currentColor = DEFAULT_COLOR;
         this.addMouseListener(new MouseListener() {
-            Connector parentConnector = Connector.this;
+            Link parentConnector = Link.this;
 
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -75,8 +80,8 @@ public class Connector extends JComponent {
                     return;
                 }
 
-                if (c instanceof DraggableJPanel) {
-                    DraggableJPanel d = (DraggableJPanel) c;
+                if (c instanceof DraggableComponent) {
+                    DraggableComponent d = (DraggableComponent) c;
                     final Component c2 = d.findComponentAt(subtract(e.getLocationOnScreen(),d.getLocationOnScreen()));
                     if(c2 == null) {
                         System.out.println("NULL COMPONENT IN DRAGGABLE");
@@ -117,13 +122,13 @@ public class Connector extends JComponent {
     }
 
     private void handleQueryForConnector(final Component potentialConnector) {
-        if (potentialConnector instanceof Connector) {
+        if (potentialConnector instanceof Link) {
 
-            if (potentialConnector.equals(Connector.this)) {
+            if (potentialConnector.equals(Link.this)) {
                 System.out.println("CANNOT MAKE CONNECTION TO SELF!");
                 return;
             }
-            Connector target = (Connector) potentialConnector;
+            Link target = (Link) potentialConnector;
 
             Class type = target.getValueClass();
             //check that we're meeting the right type
@@ -154,7 +159,7 @@ public class Connector extends JComponent {
         
         return new Point(x, y);
     }
-    public DraggableJPanel getDraggableParent() {
+    public DraggableComponent getDraggableParent() {
         return draggableParent;
     }
 
@@ -163,15 +168,28 @@ public class Connector extends JComponent {
         Graphics2D g = (Graphics2D) g1;
 
         g.setColor(currentColor);
-        g.fillRect(0, 0, SIDE_SIZE, SIDE_SIZE);
-
+        switch (defaultPosition) {
+            case LEFT:
+                g.fillRect(0, 0, SIDE_SIZE, SIDE_SIZE);
+                g.drawString("Test", SIDE_SIZE + 2, SIDE_SIZE + 2);//, TOP_ALIGNMENT, TOP_ALIGNMENT);\
+                break;
+            case RIGHT:
+                g.drawString("Test", 0, 0);
+                g.fillRect(20, 0, SIDE_SIZE + 2, SIDE_SIZE + 2);
+                break;
+            case BOTTOM:
+                //this.setSize(50, 25);
+                //g.drawString("Test", 0, 0);
+                g.fillRect(0, 0, SIDE_SIZE, SIDE_SIZE);
+                break;
+        }
     }
 
     private Class getValueClass() {
         return this.valueClassType;
     }
 
-    private void makeConnection(DraggableJPanel start, DraggableJPanel end, Connector target) {
+    private void makeConnection(DraggableComponent start, DraggableComponent end, Link target) {
 //        ConnectionInfo connectionInfo = new ConnectionInfo(start, end, this, target, target.getValueClass());
 //        start.addConnectionStart(connectionInfo);
 //        end.addConnectionEnd(connectionInfo);
@@ -185,11 +203,11 @@ public class Connector extends JComponent {
         return this.currentColor;
     }
     
-    public Set<Connector> getEndPoints() {
+    public Set<Link> getEndPoints() {
         return endPoints;
     }
     
-    public void detachConnector(Connector endPoint) {
+    public void detachConnector(Link endPoint) {
         endPoints.remove(endPoint);
     }
     
@@ -197,7 +215,7 @@ public class Connector extends JComponent {
         return ID;
     }
     
-    public void addEndPoint(Connector endPoint) {
+    public void addEndPoint(Link endPoint) {
         System.out.println("ADDING ENDPOINT: "+endPoint.getID()+" TO CONNECTOR: "+getID());
         endPoints.add(endPoint);
     }

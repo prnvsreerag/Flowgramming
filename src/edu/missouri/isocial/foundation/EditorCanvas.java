@@ -7,9 +7,9 @@ package edu.missouri.isocial.foundation;
 import edu.missouri.isocial.foundation.contextmenu.ContextMenuBuilder;
 import edu.missouri.isocial.foundation.components.core.Connection;
 import edu.missouri.isocial.foundation.components.core.ConnectionController;
-import edu.missouri.isocial.foundation.components.core.Connector;
-import edu.missouri.isocial.foundation.components.core.DraggableJPanel;
-import edu.missouri.isocial.foundation.components.sequence.SequenceStart;
+import edu.missouri.isocial.foundation.components.core.Link;
+import edu.missouri.isocial.foundation.components.core.DraggableComponent;
+//import edu.missouri.isocial.foundation.components.sequence.SequenceStart;
 import edu.missouri.isocial.foundation.contextmenu.ContextMenu;
 
 /**
@@ -37,7 +37,7 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     }
 
     @Override
-    public Connection addConnection(Connector start, Connector end) {
+    public Connection addConnection(Link start, Link end) {
         
         Connection connection = new Connection(start, end);
         start.addEndPoint(end);
@@ -71,11 +71,11 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     }
     
     @Override
-    public void addDraggable(DraggableJPanel draggable) {
+    public void addDraggable(DraggableComponent draggable) {
         
-        if(draggable instanceof SequenceStart) {
-            application().addToStartItems((Startable)draggable.getModel());
-        }
+//        if(draggable instanceof SequenceStart) {
+//            application().addToStartItems((Startable)draggable.getModel());
+//        }
         add(draggable);
     }
 
@@ -91,7 +91,7 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     }
     
     @Override
-    public void removeDraggable(DraggableJPanel draggable) {
+    public void removeDraggable(DraggableComponent draggable) {
         remove(draggable);
     }
 

@@ -11,8 +11,13 @@ import edu.missouri.isocial.foundation.EditorApplication;
 import edu.missouri.isocial.foundation.Lookup;
 import edu.missouri.isocial.foundation.StrategyCollection;
 import edu.missouri.isocial.foundation.annotations.SequenceAction;
+import edu.missouri.isocial.foundation.components.core.DraggableComponent;
+import edu.missouri.isocial.foundation.components.core.model.DraggableComponentModel;
+import edu.missouri.isocial.foundation.components.core.model.DraggableItem;
 import edu.missouri.isocial.foundation.strategies.MenuItemBuilder;
 import java.awt.Component;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -40,7 +45,7 @@ public class ContextMenu {
         this.editor = editor;
 
         addDefaultMenuItems();
-
+        addDraggableItems();
         addSequenceActions();
     }
 
@@ -104,23 +109,62 @@ public class ContextMenu {
         Set<Actionable> actionables = lookup.getAll(Actionable.class);
 
         MenuItemBuilder builder = new MenuItemBuilder(editor);
-
         for (Actionable actionable : actionables) {
 
             SequenceAction annot = actionable.getClass().getAnnotation(SequenceAction.class);
             final String menuCategory = annot.category();
             final String menuCaption = annot.caption();
-            
 
             MenuItemWithEditor item = builder.buildAction(actionable);
-
             addMenuItem(menuCategory, menuCaption, item);
         }
-
-
     }
 
     private StrategyCollection strategies() {
         return ApplicationContext.INSTANCE.getStrategies();
+    }
+
+    private void addDraggableItems() {
+        Lookup lookup = strategies().get(Lookup.class);
+        lookup.setAnnotation(DraggableItem.class);
+        Set<DraggableComponentModel> draggables = lookup.getAll(DraggableComponentModel.class);
+
+        for (final DraggableComponentModel draggable : draggables) {
+            //build menu item 
+            MenuItemSPI item = new MenuItemSPI() {
+                private Editor editor;
+
+                @Override
+                public void actionPerformed(ActionEvent event) {
+                    DraggableComponent _component = new DraggableComponent(editor, draggable);
+
+
+                    Point mouseLocationOnScreen = MouseInfo.getPointerInfo().getLocation();
+                    Point editorLocationOnScreen = editor.getLocationOnScreen();
+
+                    int newX = mouseLocationOnScreen.x - editorLocationOnScreen.x;
+                    int newY = mouseLocationOnScreen.y - editorLocationOnScreen.y;
+
+                    Point location = new Point(newX, newY);
+
+                    _component.setLocation(location);
+
+                    editor.addDraggable(_component);
+                    _component.setSize(200, 200);
+                    _component.setVisible(true);
+                    _component.repaint();
+
+                }
+
+                @Override
+                public void setContext(Editor editor) {
+                    this.editor = editor;
+                }
+            };
+
+            addMenuItem(draggable.getObjCategory(),
+                    draggable.getObjName(),
+                    item);
+        }
     }
 }

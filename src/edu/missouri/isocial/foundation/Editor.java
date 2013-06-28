@@ -5,8 +5,8 @@
 package edu.missouri.isocial.foundation;
 
 import edu.missouri.isocial.foundation.components.core.Connection;
-import edu.missouri.isocial.foundation.components.core.Connector;
-import edu.missouri.isocial.foundation.components.core.DraggableJPanel;
+import edu.missouri.isocial.foundation.components.core.Link;
+import edu.missouri.isocial.foundation.components.core.DraggableComponent;
 import edu.missouri.isocial.foundation.contextmenu.ContextMenu;
 import java.awt.Component;
 import java.awt.Point;
@@ -17,13 +17,13 @@ import java.awt.Point;
  */
 public interface Editor {
     
-    public Connection addConnection(Connector start, Connector end);
+    public Connection addConnection(Link start, Link end);
         
-    public void addDraggable(DraggableJPanel draggable);
+    public void addDraggable(DraggableComponent draggable);
     
     public void showContextMenu(int xOnScreen, int yOnScreen);
     
-    public void removeDraggable(DraggableJPanel draggable);
+    public void removeDraggable(DraggableComponent draggable);
     
     public Point getLocationOnScreen();
     

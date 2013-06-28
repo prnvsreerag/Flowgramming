@@ -14,10 +14,10 @@ import java.awt.geom.GeneralPath;
  *
  * @author Ryan
  */
-public class ParameterConnector extends Connector {
+public class ParameterConnector extends Link {
     
-    public ParameterConnector(Editor editor, DraggableJPanel draggable) {
-        super(editor, draggable);
+    public ParameterConnector(Editor editor, DraggableComponent draggable) {
+        super(editor, draggable, POSITION.LEFT);
     }
  
     @Override

@@ -4,23 +4,23 @@
  */
 package edu.missouri.isocial.foundation.components;
 
-import edu.missouri.isocial.foundation.components.core.DraggableJPanel;
-import edu.missouri.isocial.foundation.components.core.Connector;
+import edu.missouri.isocial.foundation.components.core.DraggableComponent;
+import edu.missouri.isocial.foundation.components.core.Link;
 
 /**
  *
  * @author Ryan
  */
 public class ConnectionInfo {
-    private DraggableJPanel startNode;
-    private DraggableJPanel endNode;
+    private DraggableComponent startNode;
+    private DraggableComponent endNode;
     
-    private Connector startConnector;
-    private Connector endConnector;
+    private Link startConnector;
+    private Link endConnector;
     
     private Class connectionClass;
     
-    public ConnectionInfo(DraggableJPanel startNode, DraggableJPanel endNode, Connector startConnector, Connector endConnector, Class connectionClass) {
+    public ConnectionInfo(DraggableComponent startNode, DraggableComponent endNode, Link startConnector, Link endConnector, Class connectionClass) {
         this.startNode = startNode;
         this.endNode = endNode;
         this.startConnector = startConnector;
@@ -28,19 +28,19 @@ public class ConnectionInfo {
         this.connectionClass = connectionClass;
     }
 
-    public DraggableJPanel getStartNode() {
+    public DraggableComponent getStartNode() {
         return startNode;
     }
 
-    public DraggableJPanel getEndNode() {
+    public DraggableComponent getEndNode() {
         return endNode;
     }
 
-    public Connector getStartConnector() {
+    public Link getStartConnector() {
         return startConnector;
     }
 
-    public Connector getEndConnector() {
+    public Link getEndConnector() {
         return endConnector;
     }
 

@@ -22,7 +22,6 @@ import static org.mockito.Mockito.*;
  * @author Ryan
  */
 public class ApplicationTest {
-    
 
     @Test
     public void scratchPad() {

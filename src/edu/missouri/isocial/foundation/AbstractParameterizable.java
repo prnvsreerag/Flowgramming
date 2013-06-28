@@ -11,24 +11,24 @@ import java.util.Map;
  *
  * @author Ryan
  */
-public abstract class AbstractConfigurable {
+public abstract class AbstractParameterizable {
     
-    private Map<String, Object> properties;
+    private Map<String, Object> parameters;
     
-    public AbstractConfigurable() {
-        properties = new HashMap<String, Object>();
+    public AbstractParameterizable() {
+        parameters = new HashMap<String, Object>();
     }
     
-    protected Map<String, Object> properties() {
-       return properties;
+    protected Map<String, Object> parameters() {
+        return parameters;
     }
     
     public void setParameter(String key, Object value) {
-        properties.put(key, value);
+        parameters.put(key, value);
     }
     
     public Object getParameter(String key) {
-        return properties.get(key);
+        return parameters.get(key);
     }
 
 }

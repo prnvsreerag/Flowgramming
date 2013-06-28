@@ -4,7 +4,7 @@
  */
 package edu.missouri.isocial.foundation.components.core.brushes;
 
-import edu.missouri.isocial.foundation.components.core.DraggableJPanel;
+import edu.missouri.isocial.foundation.components.core.DraggableComponent;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
@@ -16,13 +16,13 @@ import java.awt.RenderingHints;
  * @author Ryan
  */
 public class DraggableJPanelBrush {
-    private final DraggableJPanel draggable;
+    private final DraggableComponent draggable;
     
     /**
      *
      * @param draggable
      */
-    public DraggableJPanelBrush(DraggableJPanel draggable) {
+    public DraggableJPanelBrush(DraggableComponent draggable) {
         this.draggable = draggable;
     }
     

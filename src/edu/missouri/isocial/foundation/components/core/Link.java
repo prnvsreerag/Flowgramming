@@ -46,8 +46,16 @@ public class Link extends JComponent {
     private Set<Link> endPoints;
     private final int ID;
     private POSITION defaultPosition = POSITION.LEFT;
+    private String caption;
 
-    public Link(final Editor editor, DraggableComponent draggableParent, POSITION defaultPosition) {
+    private Link(Editor editor, DraggableComponent parent, POSITION position, String caption) {
+
+        this(editor, parent, position);
+        this.caption = caption;
+
+    }
+
+    private Link(final Editor editor, DraggableComponent draggableParent, POSITION defaultPosition) {
         this.editor = editor;
         this.draggableParent = draggableParent;
         this.endPoints = new LinkedHashSet<Link>();
@@ -220,5 +228,39 @@ public class Link extends JComponent {
         endPoints.add(endPoint);
     }
 
+    public static LinkBuilder builder() {
+        return new LinkBuilder();
+    }
 
+    public static class LinkBuilder {
+
+        private Editor editor;
+        private DraggableComponent parent;
+        private POSITION position;
+        private String caption;
+
+        public LinkBuilder withEditor(Editor editor) {
+            this.editor = editor;
+            return this;
+        }
+
+        public LinkBuilder withParent(DraggableComponent parent) {
+            this.parent = parent;
+            return this;
+        }
+
+        public LinkBuilder withPosition(POSITION position) {
+            this.position = position;
+            return this;
+        }
+
+        public LinkBuilder withCaption(String caption) {
+            this.caption = caption;
+            return this;
+        }
+
+        public Link build() {
+            return new Link(editor, parent, position, caption);
+        }
+    }
 }

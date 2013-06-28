@@ -146,7 +146,11 @@ public class DraggableComponent extends javax.swing.JPanel {
                 continue;
             }
 
-            Link link = new Link(editor, this, Link.POSITION.LEFT);
+            Link link = Link.builder()
+                    .withEditor(editor)
+                    .withParent(this)
+                    .withPosition(Link.POSITION.LEFT)
+                    .withCaption(linkModel.getCaption()).build();//w Link(editor, this, Link.POSITION.LEFT);
             leftLinks.put(linkModel.getCaption(), link);
             double yPosition = desiredHeight * (1.0 / (model.getLeft().length + 1.0)) * (index + 1.0);
             link.setLocation(0, new Double(yPosition).intValue());
@@ -164,7 +168,13 @@ public class DraggableComponent extends javax.swing.JPanel {
             }
 
 
-            Link link = new Link(editor, this, Link.POSITION.RIGHT);
+            Link link = Link.builder()
+                    .withEditor(editor)
+                    .withParent(this)
+                    .withPosition(Link.POSITION.RIGHT)
+                    .withCaption(linkModel.getCaption())
+                    .build();
+
             rightLinks.put(linkModel.getCaption(), link);
             double yPosition = desiredHeight * (1.0 / (model.getRight().length + 1.0)) * (index + 1.0);
 
@@ -180,7 +190,13 @@ public class DraggableComponent extends javax.swing.JPanel {
             if (linkModel == null) {
                 continue;
             }
-            Link link = new Link(editor, this, Link.POSITION.BOTTOM);
+            Link link = Link.builder()
+                    .withEditor(editor)
+                    .withParent(this)
+                    .withPosition(Link.POSITION.BOTTOM)
+                    .withCaption(linkModel.getCaption())
+                    .build();
+
             bottomLinks.put(linkModel.getCaption(), link);
 
             double xPosition = desiredWidth * (1.0 / (model.getBottom().length + 1.0)) * (index + 1.0);

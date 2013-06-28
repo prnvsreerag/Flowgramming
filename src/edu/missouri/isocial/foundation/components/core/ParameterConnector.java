@@ -14,13 +14,16 @@ import java.awt.geom.GeneralPath;
  *
  * @author Ryan
  */
-public class ParameterConnector extends Link {
+public class ParameterConnector  {
     
-    public ParameterConnector(Editor editor, DraggableComponent draggable) {
-        super(editor, draggable, POSITION.LEFT);
+//    public ParameterConnector(Editor editor, DraggableComponent draggable) {
+//       
+//    }
+    public Color getCurrentColor() {
+        return Color.BLACK;
     }
  
-    @Override
+//    @Override
     protected void paintComponent(Graphics g1) {
         Graphics2D g = (Graphics2D)g1;
         

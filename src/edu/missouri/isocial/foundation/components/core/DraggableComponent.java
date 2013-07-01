@@ -69,6 +69,9 @@ public class DraggableComponent extends javax.swing.JPanel {
         repaintConnections();
     }
 
+    public String getCaption() {
+        return this.model.getDisplayText();
+    }
     public DraggableComponentModel getModel() {
         return this.model;
     }
@@ -128,20 +131,21 @@ public class DraggableComponent extends javax.swing.JPanel {
 
     protected void initializeFromModel() {
 
-        model.default_properties();
+        //model.default_properties();
 
-        int maxSideLinks = Math.max(model.getLeft().length, model.getRight().length);
+        int maxSideLinks = Math.max(model.getLeft().size(), model.getRight().length);
         int maxBottomLinks = model.getBottom().length;
 
         double desiredHeight = Math.max(200, (maxSideLinks * 2) + 1);
+        System.out.println("DESIRED HEIGHT: " + desiredHeight);
         double desiredWidth = Math.max(200, (maxBottomLinks * 2) + 1);
         double sizeOfConnectorSide = Link.SIDE_SIZE;
         this.setSize(new Double(desiredWidth).intValue(),
                 new Double(desiredHeight).intValue());
 
         //make left links
-        for (int index = 0; index < model.getLeft().length; index++) {
-            LinkModel linkModel = model.getLeft()[index];
+        for (int index = 0; index < model.getLeft().size(); index++) {
+            LinkModel linkModel = model.getLeft().get(index);
             if (linkModel == null) {
                 continue;
             }
@@ -152,7 +156,7 @@ public class DraggableComponent extends javax.swing.JPanel {
                     .withPosition(Link.POSITION.LEFT)
                     .withCaption(linkModel.getCaption()).build();//w Link(editor, this, Link.POSITION.LEFT);
             leftLinks.put(linkModel.getCaption(), link);
-            double yPosition = desiredHeight * (1.0 / (model.getLeft().length + 1.0)) * (index + 1.0);
+            double yPosition = desiredHeight * (1.0 / (model.getLeft().size() + 1.0)) * (index + 1.0);
             link.setLocation(0, new Double(yPosition).intValue());
             link.setVisible(true);
 

@@ -71,6 +71,10 @@ public class DraggableJPanelBrush {
         Color c2 = Color.YELLOW;
         
         drawBackgroundOfTitleArea(g, c1, c2);
+
+        //draw title
+        drawTitle(g);
+
     }
 
     protected void drawDropShadow(Graphics2D g, float[] factors, Color[] colors) {
@@ -105,5 +109,18 @@ public class DraggableJPanelBrush {
         //fill background of title area
         g.setPaint(new GradientPaint(0, 15, c1, getWidth(), 15, c2));
         g.fillRoundRect(5, 1, getWidth() - 15, 14, 10, 15);
+    }
+
+    private void drawTitle(Graphics2D g) {
+        double width = draggable.getWidth();
+        double halfWidth = width / 2.0;
+        String title = draggable.getCaption();
+        double titleWidth = g.getFontMetrics().stringWidth(title);
+        System.out.println("HEIGHT OF FONT: " + g.getFontMetrics().getHeight());
+        g.setColor(Color.BLACK);
+
+        g.drawString(title,
+                new Double(width - halfWidth - (titleWidth / 2.0)).intValue(),
+                g.getFontMetrics().getHeight() - 4);
     }
 }

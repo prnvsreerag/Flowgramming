@@ -31,7 +31,7 @@ public class LinkBrush {
         double padding = 4;
         double totalWidth = stringWidth + padding + boxWidth;
         link.setSize(new Double(totalWidth).intValue(),
-                g.getFontMetrics().getHeight());
+                g.getFontMetrics().getHeight() + 10);
 
         g.setColor(link.getCurrentColor());
         switch (link.getDefaultPosition()) {
@@ -40,9 +40,11 @@ public class LinkBrush {
                 g.drawString("Test", SIDE_SIZE + 2, SIDE_SIZE + 2);//, TOP_ALIGNMENT, TOP_ALIGNMENT);\
                 break;
             case RIGHT:
-                g.drawString(link.getCaption(), 0, 0);
+                link.setLocation(link.getParent().getWidth() - link.getWidth(), link.getLocation().y);
+
+                g.drawString(link.getCaption(), 0, 10);
                 g.fillRect(new Double(stringWidth + padding).intValue(), 0, SIDE_SIZE + 2,
-                        SIDE_SIZE + 2);
+                SIDE_SIZE + 2);
                 break;
             case BOTTOM:
                 //this.setSize(50, 25);

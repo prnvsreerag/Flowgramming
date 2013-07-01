@@ -64,12 +64,13 @@ public class Link extends JComponent {
         this.editor = editor;
         this.draggableParent = draggableParent;
         this.endPoints = new LinkedHashSet<Link>();
-        this.setSize(SIDE_SIZE + 100, SIDE_SIZE + 2);
+        this.setSize(SIDE_SIZE + 100, SIDE_SIZE + 20);
 //        this.connections = new ArrayList<Connection>();
         this.defaultPosition = defaultPosition;
         this.setOpaque(false);
         this.currentColor = DEFAULT_COLOR;
         this.brush = new LinkBrush(this);
+        
         this.addMouseListener(new MouseListener() {
             Link parentConnector = Link.this;
 

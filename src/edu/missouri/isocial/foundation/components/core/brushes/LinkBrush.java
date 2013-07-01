@@ -47,9 +47,19 @@ public class LinkBrush {
                 SIDE_SIZE + 2);
                 break;
             case BOTTOM:
-                //this.setSize(50, 25);
-                //g.drawString("Test", 0, 0);
-                g.fillRect(0, 0, SIDE_SIZE, SIDE_SIZE);
+                link.setSize(new Double(stringWidth).intValue(),
+                        new Double(SIDE_SIZE + padding + 10).intValue());
+
+                link.setLocation(link.getLocation().x,
+                        link.getParent().getHeight() - link.getHeight());
+                g.drawString(link.getCaption(), 0, 10);
+
+                double xPos = link.getWidth() / 2.0 - SIDE_SIZE / 2;
+
+                g.fillRect(new Double(xPos).intValue(),
+                        new Double(10 + padding).intValue(),
+                        SIDE_SIZE,
+                        SIDE_SIZE);
                 break;
             default:
                 throw new AssertionError(link.getDefaultPosition().name());

@@ -6,11 +6,14 @@ package edu.missouri.isocial.foundation.components.core;
 
 import edu.missouri.isocial.foundation.Editor;
 import edu.missouri.isocial.foundation.EditorApplication;
+import edu.missouri.isocial.foundation.components.core.brushes.LinkBrush;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ import javax.swing.SwingUtilities;
  * @author Ryan
  */
 public class Link extends JComponent {
+    private final LinkBrush brush;
 
     public enum POSITION {
 
@@ -53,6 +57,7 @@ public class Link extends JComponent {
         this(editor, parent, position);
         this.caption = caption;
 
+
     }
 
     private Link(final Editor editor, DraggableComponent draggableParent, POSITION defaultPosition) {
@@ -64,6 +69,7 @@ public class Link extends JComponent {
         this.defaultPosition = defaultPosition;
         this.setOpaque(false);
         this.currentColor = DEFAULT_COLOR;
+        this.brush = new LinkBrush(this);
         this.addMouseListener(new MouseListener() {
             Link parentConnector = Link.this;
 
@@ -173,24 +179,41 @@ public class Link extends JComponent {
 
     @Override
     protected void paintComponent(Graphics g1) {
-        Graphics2D g = (Graphics2D) g1;
+//        Graphics2D g = (Graphics2D) g1;
+//        double stringWidth = g.getFontMetrics().stringWidth(caption);
+//        double boxWidth = SIDE_SIZE;
+//        double padding = 4;
+//        double totalWidth = stringWidth + padding + boxWidth;
+//        this.setSize(new Double(totalWidth).intValue(),
+//                g.getFontMetrics().getHeight());
+//
+//        g.setColor(currentColor);
+//        switch (defaultPosition) {
+//            case LEFT:
+//                g.fillRect(0, 0, SIDE_SIZE, SIDE_SIZE);
+//                g.drawString("Test", SIDE_SIZE + 2, SIDE_SIZE + 2);//, TOP_ALIGNMENT, TOP_ALIGNMENT);\
+//                break;
+//            case RIGHT:
+//                g.drawString(caption, 0, 0);
+//                g.fillRect(new Double(stringWidth + padding).intValue(), 0, SIDE_SIZE + 2,
+//                        SIDE_SIZE + 2);
+//                break;
+//            case BOTTOM:
+//                //this.setSize(50, 25);
+//                //g.drawString("Test", 0, 0);
+//                g.fillRect(0, 0, SIDE_SIZE, SIDE_SIZE);
+//                break;
+//        }
 
-        g.setColor(currentColor);
-        switch (defaultPosition) {
-            case LEFT:
-                g.fillRect(0, 0, SIDE_SIZE, SIDE_SIZE);
-                g.drawString("Test", SIDE_SIZE + 2, SIDE_SIZE + 2);//, TOP_ALIGNMENT, TOP_ALIGNMENT);\
-                break;
-            case RIGHT:
-                g.drawString("Test", 0, 0);
-                g.fillRect(20, 0, SIDE_SIZE + 2, SIDE_SIZE + 2);
-                break;
-            case BOTTOM:
-                //this.setSize(50, 25);
-                //g.drawString("Test", 0, 0);
-                g.fillRect(0, 0, SIDE_SIZE, SIDE_SIZE);
-                break;
-        }
+        brush.paintComponent(g1);
+    }
+
+    public POSITION getDefaultPosition() {
+        return defaultPosition;
+    }
+
+    public String getCaption() {
+        return caption;
     }
 
     private Class getValueClass() {

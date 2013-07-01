@@ -182,7 +182,7 @@ public class DraggableComponent extends javax.swing.JPanel {
             rightLinks.put(linkModel.getCaption(), link);
             double yPosition = desiredHeight * (1.0 / (model.getRight().length + 1.0)) * (index + 1.0);
 
-            link.setLocation(new Double(desiredWidth - sizeOfConnectorSide).intValue(),
+            link.setLocation(new Double(desiredWidth - link.getWidth()).intValue(),
                     new Double(yPosition).intValue());
             link.setVisible(true);
             add(link);

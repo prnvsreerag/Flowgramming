@@ -116,7 +116,6 @@ public class DraggableJPanelBrush {
         double halfWidth = width / 2.0;
         String title = draggable.getCaption();
         double titleWidth = g.getFontMetrics().stringWidth(title);
-        System.out.println("HEIGHT OF FONT: " + g.getFontMetrics().getHeight());
         g.setColor(Color.BLACK);
 
         g.drawString(title,

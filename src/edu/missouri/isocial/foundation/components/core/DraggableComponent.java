@@ -133,7 +133,7 @@ public class DraggableComponent extends javax.swing.JPanel {
 
         //model.default_properties();
 
-        int maxSideLinks = Math.max(model.getLeft().size(), model.getRight().length);
+        int maxSideLinks = Math.max(model.getLeft().size(), model.getRight().size());
         int maxBottomLinks = model.getBottom().length;
 
         double desiredHeight = Math.max(200, (maxSideLinks * 2) + 1);
@@ -165,8 +165,8 @@ public class DraggableComponent extends javax.swing.JPanel {
         }
 
         //make right links
-        for (int index = 0; index < model.getRight().length; index++) {
-            LinkModel linkModel = model.getRight()[index];
+        for (int index = 0; index < model.getRight().size(); index++) {
+            LinkModel linkModel = model.getRight().get(index);
             if (linkModel == null) {
                 continue;
             }
@@ -180,7 +180,7 @@ public class DraggableComponent extends javax.swing.JPanel {
                     .build();
 
             rightLinks.put(linkModel.getCaption(), link);
-            double yPosition = desiredHeight * (1.0 / (model.getRight().length + 1.0)) * (index + 1.0);
+            double yPosition = desiredHeight * (1.0 / (model.getRight().size() + 1.0)) * (index + 1.0);
 
             link.setLocation(new Double(desiredWidth - link.getWidth()).intValue(),
                     new Double(yPosition).intValue());

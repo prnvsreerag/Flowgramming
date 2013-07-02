@@ -15,32 +15,47 @@ import java.awt.RenderingHints;
  *
  * @author Ryan
  */
-public class DraggableJPanelBrush {
-    private final DraggableComponent draggable;
-    
+public class DraggableComponentBrush {
+
+    private DraggableComponent draggable;
+    private int width;
+    private int height;
+
     /**
      *
      * @param draggable
      */
-    public DraggableJPanelBrush(DraggableComponent draggable) {
+    public DraggableComponentBrush(DraggableComponent draggable) {
         this.draggable = draggable;
+        width = this.draggable.getWidth();
+        height = this.draggable.getHeight();
     }
-    
-    
+
     private int getWidth() {
-        return draggable.getWidth();
+        return width;
     }
-    
+
     private int getHeight() {
-        return draggable.getHeight();
+        return height;
     }
-    
+
     private Color getBorderColor() {
         return draggable.getBorderColor();
     }
-    
+
+    public void setDraggable(DraggableComponent draggable) {
+        this.draggable = draggable;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     public void paint(Graphics2D g) {
-//        borderColor = Color.BLACK;
 
         //if this component is selected change the border color to white.
         //TODO: check EditorApplication to see if this is selected component
@@ -50,9 +65,9 @@ public class DraggableJPanelBrush {
         Color[] colors = new Color[]{new Color(0.6f, 0.6f, 1.0f, 0.9f), new Color(0.6f, 0.6f, 1.0f, 0.5f)};
 
         float[] factors = {0f, 1f};
-        
+
         drawDropShadow(g, factors, colors);
-        
+
         drawFrameBody(g);
         drawFrameBorder(g);
 
@@ -62,18 +77,19 @@ public class DraggableJPanelBrush {
         g.setColor(getBorderColor());
         g.drawLine(4, 0, 14, 0);
         g.drawLine(4, 0, 4, 10);
-        
+
         drawSeparator(g);
 
 
         //TODO: Parameterize these colors
         Color c1 = Color.MAGENTA;
         Color c2 = Color.YELLOW;
-        
+
         drawBackgroundOfTitleArea(g, c1, c2);
 
         //draw title
         drawTitle(g);
+
 
     }
 
@@ -112,7 +128,7 @@ public class DraggableJPanelBrush {
     }
 
     private void drawTitle(Graphics2D g) {
-        double width = draggable.getWidth();
+        double width = getWidth();
         double halfWidth = width / 2.0;
         String title = draggable.getCaption();
         double titleWidth = g.getFontMetrics().stringWidth(title);

@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation.components.core.model;
 
+import edu.missouri.isocial.foundation.ObservableObserver;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +22,11 @@ public abstract class DraggableComponentModel {
     protected List<LinkModel> bottom;
 
     public DraggableComponentModel() {
+        
         left = new ArrayList<LinkModel>();
         right = new ArrayList<LinkModel>();
         bottom = new ArrayList<LinkModel>();
+
 
         default_properties();
     }
@@ -68,5 +71,14 @@ public abstract class DraggableComponentModel {
 
     protected void bottom(int index, LinkModel model) {
         bottom.add(index, model);
+    }
+
+    private <T> void meh(T t) {
+    }
+
+    protected void meh2() {
+        meh(5);
+
+        meh("equals");
     }
 }

@@ -7,11 +7,12 @@ package edu.missouri.isocial.foundation.components.core;
 import edu.missouri.isocial.foundation.Editor;
 import edu.missouri.isocial.foundation.RelativeDirection;
 import edu.missouri.isocial.foundation.components.ConnectionInfo;
-import edu.missouri.isocial.foundation.components.core.brushes.DraggableJPanelBrush;
+import edu.missouri.isocial.foundation.components.core.brushes.DraggableComponentBrush;
 import edu.missouri.isocial.foundation.components.core.model.DefaultDraggableComponentModel;
 import edu.missouri.isocial.foundation.components.core.model.DraggableComponentModel;
 import edu.missouri.isocial.foundation.components.core.model.LinkModel;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -30,10 +31,10 @@ public class DraggableComponent extends javax.swing.JPanel {
      * Creates new form DraggableJPanel
      */
     private Editor editor;
-    private DraggableJPanelController controller;
+    private DraggableComponentController controller;
     private List<ConnectionInfo> connections;
     private Color borderColor = Color.BLACK;
-    private DraggableJPanelBrush brush;
+    private DraggableComponentBrush brush;
     private DraggableComponentModel model;
     private Map<RelativeDirection, List<Link>> allLinks;
     protected Map<String, Link> leftLinks;
@@ -47,15 +48,16 @@ public class DraggableComponent extends javax.swing.JPanel {
         initComponents();
 
         this.setOpaque(false);
-        controller = new DraggableJPanelController(this);
-        brush = new DraggableJPanelBrush(this);
-        this.setSize(200, 200);
+        controller = new DraggableComponentController(this);
+        
+        //this.setSize(500, 500);
 
         leftLinks = new HashMap<String, Link>();
         rightLinks = new HashMap<String, Link>();
         bottomLinks = new HashMap<String, Link>();
 
         initializeFromModel();
+        brush = new DraggableComponentBrush(this);
     }
 
     public void setBorderColor(Color color) {
@@ -128,22 +130,44 @@ public class DraggableComponent extends javax.swing.JPanel {
         return borderColor;
     }
 
+//    @Override
+//    public void setSize(int _width, int _height) {
+//        super.setSize(_width, _height);
+//
+//        brush.setWidth(_width);
+//        brush.setHeight(_height);
+//    }
     protected void initializeFromModel() {
         int maxSideLinks = Math.max(model.getLeft().size(), model.getRight().size());
-        int maxBottomLinks = model.getBottom().size();
 
         double desiredHeight = Math.max(200, (maxSideLinks * 2) + 1);
         System.out.println("DESIRED HEIGHT: " + desiredHeight);
-        double desiredWidth = Math.max(200, (maxBottomLinks * 2) + 1);
-        double sizeOfConnectorSide = Link.SIDE_SIZE;
-        this.setSize(new Double(desiredWidth).intValue(),
-                new Double(desiredHeight).intValue());
+        double desiredWidth = Math.max(200, calculateDesiredWidth(model.getBottom()));
 
+//        this.setMinimumSize(new Dimension(Int(desiredWidth), Int(desiredHeight)));
+//        this.setPreferredSize(new Dimension(Int(desiredWidth), Int(desiredHeight)));
+//        this.setMaximumSize(new Dimension(5000, 5000));
+        this.setSize(Int(desiredWidth), Int(desiredHeight));
+        this.getWidth();
         makeLeftLinks(desiredHeight);
 
         makeRightLinks(desiredHeight, desiredWidth);
 
         makeBottomLinks(desiredWidth, desiredHeight);
+        //brush.setDraggable(this);
+        
+        
+    }
+
+    private int calculateDesiredWidth(List<LinkModel> bottomLinks) {
+        int width = 0;
+        for (LinkModel link : bottomLinks) {
+            System.out.println("STRING LENGTH IN PIXELS: " + getFontMetrics(getFont()).stringWidth(link.getCaption()));
+            width += getFontMetrics(getFont()).stringWidth(link.getCaption());
+            width += 32;
+        }
+        System.out.println("CALCULATED DESIRED WIDTH: " + width);
+        return width;
     }
 
     //<editor-fold defaultstate="collapsed" desc="legacy">
@@ -230,6 +254,7 @@ public class DraggableComponent extends javax.swing.JPanel {
         //for every link in links.
         for (int index = 0; index < model.getLeft().size(); index++) {
             //retrieve the info we need.
+
             LinkModel linkModel = model.getLeft().get(index);
 
             //build the link object

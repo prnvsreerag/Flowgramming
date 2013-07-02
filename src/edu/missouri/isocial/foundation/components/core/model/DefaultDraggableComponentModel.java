@@ -14,6 +14,9 @@ import java.util.ArrayList;
 @DraggableItem
 public class DefaultDraggableComponentModel extends DraggableComponentModel {
 
+    public DefaultDraggableComponentModel() {
+        super();
+    }
     @Override
     public void default_properties() {
         displayText = "example";
@@ -25,12 +28,7 @@ public class DefaultDraggableComponentModel extends DraggableComponentModel {
 
         right(0, link().withCaption("output").expectingType(Object.class).build());
         bottom(0, link().withCaption("parameter1").expectingType(Integer.class).build());
-
-        
-
-
+        bottom(1, link().withCaption("parameter22").expectingType(Integer.class).build());
+        bottom(2, link().withCaption("parameter333").expectingType(Integer.class).build());
     }
-
-
-    
 }

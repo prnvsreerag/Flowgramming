@@ -8,6 +8,10 @@ package edu.missouri.isocial.foundation;
  *
  * @author Ryan
  */
-public interface Observer {
-    public <T> void update(T value);
+public abstract class ObservableObserver<T> extends AbstractObservable
+        implements Observer {
+
+    public ObservableObserver(T value) {
+        super(value);
+    }
 }

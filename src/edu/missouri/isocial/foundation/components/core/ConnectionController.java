@@ -20,8 +20,8 @@ import java.awt.event.MouseListener;
  */
 public class ConnectionController {
 
-    private Link startConnector;
-    private Link endConnector;
+    private Link startLink;
+    private Link endLink;
     private Connection connection;
     private boolean selected = false;
     private static final Color SELECTED_COLOR = Color.WHITE;
@@ -31,9 +31,9 @@ public class ConnectionController {
     private ComponentListener _startConnectorParentListener;
     private ComponentListener _endConnectorParentListener;
 
-    public ConnectionController(Editor editor, Link parentConnector, Link targetConnector, Connection connection) {
-        this.startConnector = parentConnector;
-        this.endConnector = targetConnector;
+    public ConnectionController(Editor editor, Link parentLink, Link targetLink, Connection connection) {
+        this.startLink = parentLink;
+        this.endLink = targetLink;
         this.connection = connection;
         this.editor = editor;
         connection.setController(this);
@@ -112,7 +112,7 @@ public class ConnectionController {
     }
 
     private void addComponentListenerToStartConnector() {
-        if(startConnector.getParent() == null) {
+        if (startLink.getParent() == null) {
             System.out.println("CONNECTOR HAS NULL PARENT!");
             return;
         }
@@ -136,7 +136,7 @@ public class ConnectionController {
             public void componentHidden(ComponentEvent e) {
             }
         };
-        startConnector.getParent().addComponentListener(_startConnectorParentListener);
+        startLink.getParent().addComponentListener(_startConnectorParentListener);
     }
 
     private void startConnectorResized() {
@@ -168,7 +168,7 @@ public class ConnectionController {
             }
         };
         
-        endConnector.getParent().addComponentListener(_endConnectorParentListener);
+        endLink.getParent().addComponentListener(_endConnectorParentListener);
     }
 
     private void endConnectorResized() {
@@ -188,8 +188,8 @@ public class ConnectionController {
     
     private int determineHighestY() {
         
-        int startY = startConnector.getLocationOnScreen().y - editor.getLocationOnScreen().y;
-        int endY = endConnector.getLocationOnScreen().y - editor.getLocationOnScreen().y;
+        int startY = startLink.getLocationOnScreen().y - editor.getLocationOnScreen().y;
+        int endY = endLink.getLocationOnScreen().y - editor.getLocationOnScreen().y;
         
         //we use min here because of swing's coordinate system.
         //y = 0 at the top left corner, ergo the "highest" y, visually, will
@@ -198,8 +198,8 @@ public class ConnectionController {
     }
     
     private int determineLowestX() {
-        int startX = startConnector.getLocationOnScreen().x - editor.getLocationOnScreen().x;
-        int endX = endConnector.getLocationOnScreen().x - editor.getLocationOnScreen().x;
+        int startX = startLink.getLocationOnScreen().x - editor.getLocationOnScreen().x;
+        int endX = endLink.getLocationOnScreen().x - editor.getLocationOnScreen().x;
         
         return Math.min(startX, endX);
     }
@@ -214,14 +214,14 @@ public class ConnectionController {
         connection.setLocation(lowestX, highestY);
 
         //the start point now needs to cohere to the start connector in our new coordinate space
-        int startPointX = startConnector.getLocationOnScreen().x - connection.getLocationOnScreen().x;
-        int startPointY = startConnector.getLocationOnScreen().y - connection.getLocationOnScreen().y;
+        int startPointX = startLink.getLocationOnScreen().x - connection.getLocationOnScreen().x;
+        int startPointY = startLink.getLocationOnScreen().y - connection.getLocationOnScreen().y;
         
-        int endPointX = endConnector.getLocationOnScreen().x - connection.getLocationOnScreen().x;
-        int endPointY = endConnector.getLocationOnScreen().y - connection.getLocationOnScreen().y;
+        int endPointX = endLink.getLocationOnScreen().x - connection.getLocationOnScreen().x;
+        int endPointY = endLink.getLocationOnScreen().y - connection.getLocationOnScreen().y;
 
-        connection.setStartPoint(new Point(startPointX+(Link.SIDE_SIZE/2), startPointY+(Link.SIDE_SIZE/2)));
-        connection.setEndPoint(new Point(endPointX+(Link.SIDE_SIZE/2), endPointY+(Link.SIDE_SIZE/2)));
+        connection.setStartPoint(new Point(startPointX + (Link.SIDE_SIZE / 2), startPointY + (Link.SIDE_SIZE / 2)));
+        connection.setEndPoint(new Point(endPointX + (Link.SIDE_SIZE / 2), endPointY + (Link.SIDE_SIZE / 2)));
 
 //        System.out.println("NEW START POINT: "+connection.getStartPoint());
 //        System.out.println("NEW END POINT: "+connection.getEndPoint());
@@ -229,8 +229,8 @@ public class ConnectionController {
 
 
         //get the larger of the two Y's
-        int newX = startConnector.getLocationOnScreen().x - editor.getLocationOnScreen().x + startConnector.getWidth()/2;
-        int newY = startConnector.getLocationOnScreen().y - editor.getLocationOnScreen().y + startConnector.getHeight()/2;
+        int newX = startLink.getLocationOnScreen().x - editor.getLocationOnScreen().x + startLink.getWidth() / 2;
+        int newY = startLink.getLocationOnScreen().y - editor.getLocationOnScreen().y + startLink.getHeight() / 2;
         //get the lowers of the two X's
 //        int newX = Math.min(startX, endX);
 //
@@ -246,11 +246,11 @@ public class ConnectionController {
          * We need to get the absolute value of the difference of each component.
          */
 
-        int startY = this.startConnector.getLocationOnScreen().y;
-        int startX = this.startConnector.getLocationOnScreen().x;
+        int startY = this.startLink.getLocationOnScreen().y;
+        int startX = this.startLink.getLocationOnScreen().x;
 
-        int endY = this.endConnector.getLocationOnScreen().y;
-        int endX = this.endConnector.getLocationOnScreen().x;
+        int endY = this.endLink.getLocationOnScreen().y;
+        int endX = this.endLink.getLocationOnScreen().x;
 
         int newX = Math.abs(endX - startX);
         int newY = Math.abs(endY - startY);
@@ -261,8 +261,8 @@ public class ConnectionController {
     }
 
     public void cleanup() {
-       endConnector.getParent().removeComponentListener(_endConnectorParentListener);
-       startConnector.getParent().removeComponentListener(_startConnectorParentListener);
+        endLink.getParent().removeComponentListener(_endConnectorParentListener);
+        startLink.getParent().removeComponentListener(_startConnectorParentListener);
        connection.removeMouseListener(_mouseListener);
        
        _startConnectorParentListener = null;

@@ -8,7 +8,7 @@ package edu.missouri.isocial.foundation;
  *
  * @author Ryan
  */
-public interface Observable<T> {
+public interface Observable {
 
     public void addObserver(Observer observer);
 

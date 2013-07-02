@@ -16,7 +16,7 @@ import javax.swing.SwingUtilities;
  *
  * @author Ryan
  */
-public class DraggableJPanelController {
+public class DraggableComponentController {
 
     private final DraggableComponent draggable;
     private volatile int screenX = 0;
@@ -28,7 +28,7 @@ public class DraggableJPanelController {
     private MouseMotionListener _mouseMotionListener;
     private KeyListener _keyListener;
 
-    public DraggableJPanelController(DraggableComponent draggable) {
+    public DraggableComponentController(DraggableComponent draggable) {
         this.draggable = draggable;
 
 //        Class.forName(null).getMethod(null, null).in

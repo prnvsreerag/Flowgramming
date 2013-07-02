@@ -4,21 +4,24 @@
  */
 package edu.missouri.isocial.foundation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author Ryan
  */
-public class AbstractObservable<T> implements Observable<T> {
+public class AbstractObservable<T> implements Observable {
 
     private String name;
     private List<Observer> observers;
     private T value;
 
-    public AbstractObservable(String name, T value) {
-        this.name = name;
+
+    public AbstractObservable(T value) {
         this.value = value;
+        observers = new ArrayList<Observer>();
+
     }
     @Override
     public void addObserver(Observer observer) {
@@ -38,7 +41,7 @@ public class AbstractObservable<T> implements Observable<T> {
     public void update() {
         synchronized (observers) {
             for (Observer observer : observers) {
-                observer.update(name, value);
+                observer.update(value);
             }
         }
     }

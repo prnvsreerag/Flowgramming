@@ -55,7 +55,6 @@ public class DraggableComponent extends javax.swing.JPanel {
         rightLinks = new HashMap<String, Link>();
         bottomLinks = new HashMap<String, Link>();
 
-
         initializeFromModel();
     }
 
@@ -130,11 +129,8 @@ public class DraggableComponent extends javax.swing.JPanel {
     }
 
     protected void initializeFromModel() {
-
-        //model.default_properties();
-
         int maxSideLinks = Math.max(model.getLeft().size(), model.getRight().size());
-        int maxBottomLinks = model.getBottom().length;
+        int maxBottomLinks = model.getBottom().size();
 
         double desiredHeight = Math.max(200, (maxSideLinks * 2) + 1);
         System.out.println("DESIRED HEIGHT: " + desiredHeight);
@@ -143,72 +139,11 @@ public class DraggableComponent extends javax.swing.JPanel {
         this.setSize(new Double(desiredWidth).intValue(),
                 new Double(desiredHeight).intValue());
 
-        //make left links
-        for (int index = 0; index < model.getLeft().size(); index++) {
-            LinkModel linkModel = model.getLeft().get(index);
-            if (linkModel == null) {
-                continue;
-            }
+        makeLeftLinks(desiredHeight);
 
-            Link link = Link.builder()
-                    .withEditor(editor)
-                    .withParent(this)
-                    .withPosition(Link.POSITION.LEFT)
-                    .withCaption(linkModel.getCaption()).build();//w Link(editor, this, Link.POSITION.LEFT);
-            leftLinks.put(linkModel.getCaption(), link);
-            double yPosition = desiredHeight * (1.0 / (model.getLeft().size() + 1.0)) * (index + 1.0);
-            link.setLocation(0, new Double(yPosition).intValue());
-            link.setVisible(true);
+        makeRightLinks(desiredHeight, desiredWidth);
 
-            add(link);
-
-        }
-
-        //make right links
-        for (int index = 0; index < model.getRight().size(); index++) {
-            LinkModel linkModel = model.getRight().get(index);
-            if (linkModel == null) {
-                continue;
-            }
-
-
-            Link link = Link.builder()
-                    .withEditor(editor)
-                    .withParent(this)
-                    .withPosition(Link.POSITION.RIGHT)
-                    .withCaption(linkModel.getCaption())
-                    .build();
-
-            rightLinks.put(linkModel.getCaption(), link);
-            double yPosition = desiredHeight * (1.0 / (model.getRight().size() + 1.0)) * (index + 1.0);
-
-            link.setLocation(new Double(desiredWidth - link.getWidth()).intValue(),
-                    new Double(yPosition).intValue());
-            link.setVisible(true);
-            add(link);
-        }
-
-        //make bottom links
-        for (int index = 0; index < model.getBottom().length; index++) {
-            LinkModel linkModel = model.getBottom()[index];
-            if (linkModel == null) {
-                continue;
-            }
-            Link link = Link.builder()
-                    .withEditor(editor)
-                    .withParent(this)
-                    .withPosition(Link.POSITION.BOTTOM)
-                    .withCaption(linkModel.getCaption())
-                    .build();
-
-            bottomLinks.put(linkModel.getCaption(), link);
-
-            double xPosition = desiredWidth * (1.0 / (model.getBottom().length + 1.0)) * (index + 1.0);
-            
-            link.setLocation(new Double(xPosition).intValue(), new Double(desiredHeight - Link.SIDE_SIZE).intValue());
-            link.setVisible(true);
-            add(link);
-        }
+        makeBottomLinks(desiredWidth, desiredHeight);
     }
 
     //<editor-fold defaultstate="collapsed" desc="legacy">
@@ -291,5 +226,81 @@ public class DraggableComponent extends javax.swing.JPanel {
 //        }
 //    }
     //</editor-fold>
+    private void makeLeftLinks(double desiredHeight) {
+        //for every link in links.
+        for (int index = 0; index < model.getLeft().size(); index++) {
+            //retrieve the info we need.
+            LinkModel linkModel = model.getLeft().get(index);
 
+            //build the link object
+            Link link = Link.builder()
+                    .withEditor(editor)
+                    .withParent(this)
+                    .withPosition(Link.POSITION.LEFT)
+                    .withCaption(linkModel.getCaption()).build();
+
+            //add the link to our map for quick retrieval
+            leftLinks.put(linkModel.getCaption(), link);
+
+            //formulate the correct yPosition 
+            double yPosition = desiredHeight * (1.0 / (model.getLeft().size() + 1.0)) * (index + 1.0);
+            link.setLocation(0, Int(yPosition));
+            link.setVisible(true);
+
+            //finally add it to ourself as a subcomponent
+            add(link);
+        }
+    }
+
+    private void makeRightLinks(double desiredHeight, double desiredWidth) {
+        //make right links
+        for (int index = 0; index < model.getRight().size(); index++) {
+            LinkModel linkModel = model.getRight().get(index);
+
+            Link link = Link.builder()
+                    .withEditor(editor)
+                    .withParent(this)
+                    .withPosition(Link.POSITION.RIGHT)
+                    .withCaption(linkModel.getCaption())
+                    .build();
+
+            rightLinks.put(linkModel.getCaption(), link);
+            double yPosition = desiredHeight * (1.0 / (model.getRight().size() + 1.0)) * (index + 1.0);
+
+            link.setLocation(Int(desiredWidth - link.getWidth()),
+                    Int(yPosition));
+            link.setVisible(true);
+            add(link);
+        }
+    }
+
+    private void makeBottomLinks(double desiredWidth, double desiredHeight) {
+        //make bottom links
+        for (int index = 0; index < model.getBottom().size(); index++) {
+            LinkModel linkModel = model.getBottom().get(index);
+
+            Link link = Link.builder()
+                    .withEditor(editor)
+                    .withParent(this)
+                    .withPosition(Link.POSITION.BOTTOM)
+                    .withCaption(linkModel.getCaption())
+                    .build();
+
+            bottomLinks.put(linkModel.getCaption(), link);
+
+            double xPosition = desiredWidth * (1.0 / (model.getBottom().size() + 1.0)) * (index + 1.0);
+            xPosition -= stringLengthInPixels(linkModel.getCaption()) / 2.0;
+            link.setLocation(Int(xPosition), Int(desiredHeight - Link.SIDE_SIZE));
+            link.setVisible(true);
+            add(link);
+        }
+    }
+
+    private int Int(double value) {
+        return new Double(value).intValue();
+    }
+
+    private int stringLengthInPixels(String string) {
+        return this.getFontMetrics(this.getFont()).stringWidth(string);
+    }
 }

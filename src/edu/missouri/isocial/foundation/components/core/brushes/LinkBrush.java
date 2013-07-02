@@ -30,14 +30,13 @@ public class LinkBrush {
         double boxWidth = SIDE_SIZE;
         double padding = 4;
         double totalWidth = stringWidth + padding + boxWidth;
-        link.setSize(new Double(totalWidth).intValue(),
-                g.getFontMetrics().getHeight() + 10);
+        link.setSize(Int(totalWidth), g.getFontMetrics().getHeight() + 10);
 
         g.setColor(link.getCurrentColor());
         switch (link.getDefaultPosition()) {
             case LEFT:
                 g.fillRect(0, 0, SIDE_SIZE, SIDE_SIZE);
-                g.drawString("Test", SIDE_SIZE + 2, SIDE_SIZE + 2);//, TOP_ALIGNMENT, TOP_ALIGNMENT);\
+                g.drawString(link.getCaption(), SIDE_SIZE + 2, SIDE_SIZE + 2);
                 break;
             case RIGHT:
                 link.setLocation(link.getParent().getWidth() - link.getWidth(), link.getLocation().y);
@@ -50,19 +49,25 @@ public class LinkBrush {
                 link.setSize(new Double(stringWidth).intValue(),
                         new Double(SIDE_SIZE + padding + 10).intValue());
 
-                link.setLocation(link.getLocation().x,
-                        link.getParent().getHeight() - link.getHeight());
+                link.setLocation(link.getLocation().x, link.getParent().getHeight() - link.getHeight());
                 g.drawString(link.getCaption(), 0, 10);
 
                 double xPos = link.getWidth() / 2.0 - SIDE_SIZE / 2;
 
-                g.fillRect(new Double(xPos).intValue(),
-                        new Double(10 + padding).intValue(),
-                        SIDE_SIZE,
-                        SIDE_SIZE);
+                g.fillRect(Int(xPos), Int(10 + padding), SIDE_SIZE, SIDE_SIZE);
                 break;
             default:
                 throw new AssertionError(link.getDefaultPosition().name());
         }
+    }
+
+    /**
+     * Syntactic sugar for retrieving an int value from a double value
+     *
+     * @param value the double value to transform into int
+     * @return the int representation of the given double
+     */
+    private int Int(double value) {
+        return new Double(value).intValue();
     }
 }

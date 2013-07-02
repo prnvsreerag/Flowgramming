@@ -24,7 +24,7 @@ public class DefaultDraggableComponentModel extends DraggableComponentModel {
         left(1, link().withCaption("input").expectingType(Object.class).build());
 
         right(0, link().withCaption("output").expectingType(Object.class).build());
-        bottom[0] = link().withCaption("parameter1").expectingType(Integer.class).build();
+        bottom(0, link().withCaption("parameter1").expectingType(Integer.class).build());
 
         
 

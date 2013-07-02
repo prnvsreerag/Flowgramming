@@ -18,12 +18,12 @@ public abstract class DraggableComponentModel {
     protected String ObjCategory;
     protected List<LinkModel> left;
     protected List<LinkModel> right;
-    protected LinkModel[] bottom;
+    protected List<LinkModel> bottom;
 
     public DraggableComponentModel() {
         left = new ArrayList<LinkModel>();
         right = new ArrayList<LinkModel>();
-        bottom = new LinkModel[10];
+        bottom = new ArrayList<LinkModel>();
 
         default_properties();
     }
@@ -50,7 +50,7 @@ public abstract class DraggableComponentModel {
         return right;
     }
 
-    public LinkModel[] getBottom() {
+    public List<LinkModel> getBottom() {
         return bottom;
     }
 
@@ -64,5 +64,9 @@ public abstract class DraggableComponentModel {
 
     protected void right(int index, LinkModel model) {
         right.add(index, model);
+    }
+
+    protected void bottom(int index, LinkModel model) {
+        bottom.add(index, model);
     }
 }

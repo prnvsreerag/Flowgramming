@@ -115,9 +115,7 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
 //        }
         DraggableItem itemType = model.getClass().getAnnotation(DraggableItem.class);
 
-        context().getGraph().addNode(String.valueOf(model.getIssue()),
-                newNode(itemType.value(),
-                String.valueOf(model.getIssue())));
+        graph().addNode(String.valueOf(model.getIssue()), newNode(itemType.value(), String.valueOf(model.getIssue())));
         add(draggable);
     }
 

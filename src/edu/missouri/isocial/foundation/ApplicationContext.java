@@ -15,6 +15,7 @@ public enum ApplicationContext {
     
     private Application currentApplication;
     private StrategyCollection strategies;
+    private ApplicationGraph graph;
     
     public Application getApplication() {
         if(currentApplication == null) {
@@ -38,5 +39,9 @@ public enum ApplicationContext {
     }
     void injectStrategy(Class key, Object value) {
        getStrategies().put(key, value);
+    }
+
+    public ApplicationGraph getGraph() {
+        return graph;
     }
 }

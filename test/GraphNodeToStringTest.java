@@ -83,9 +83,13 @@ public class GraphNodeToStringTest {
     static class GraphNode extends AbstractGraphNode<DraggableComponentModel> {
 
         public GraphNode(DraggableComponentModel model) {
-            super(model.getObjName() + model.getIssue(), model);
+            super(model.getObjName() + model.getIssue());
         }
 
+        @Override
+        public DraggableComponentModel getValue() {
+            return null;
+        }
         public String getSerializedID() {
             return getValue().getObjName() + "_" + getValue().getIssue();
         }

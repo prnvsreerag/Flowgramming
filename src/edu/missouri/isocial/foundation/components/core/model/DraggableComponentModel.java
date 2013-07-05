@@ -35,6 +35,10 @@ public abstract class DraggableComponentModel {
         default_properties();
     }
 
+    public String getID() {
+        return ObjName + "_" + issue;
+    }
+
     private static void incrementIssue() {
         issues += 1;
     }
@@ -96,6 +100,14 @@ public abstract class DraggableComponentModel {
         meh(5);
 
         meh("equals");
+
+
+    }
+
+    protected <S> S meh3(String s) {
+
+
+        return null;
     }
 
 }

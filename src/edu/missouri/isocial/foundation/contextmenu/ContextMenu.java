@@ -149,7 +149,7 @@ public class ContextMenu {
 
                     _component.setLocation(location);
 
-                    editor.addDraggable(_component);
+                    editor.addDraggable(draggable, _component);
                     //_component.setSize(200, 200);
                     _component.setVisible(true);
                     _component.repaint();

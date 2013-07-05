@@ -14,12 +14,11 @@ import java.util.Map;
 public abstract class AbstractGraphNode<T> {
 
     private Map<String, AbstractGraphNode<T>> adjacentNodes;
-    private final T value;
     private final String id;
 
-    public AbstractGraphNode(String ID, T value) {
+    public AbstractGraphNode(String ID) {
         this.id = ID;
-        this.value = value;
+
         adjacentNodes = new HashMap<String, AbstractGraphNode<T>>();
     }
 
@@ -27,15 +26,17 @@ public abstract class AbstractGraphNode<T> {
         return id;
     }
 
-    public T getValue() {
-        return this.value;
-    }
+    public abstract T getValue();
 
     public Map<String, AbstractGraphNode<T>> getAdjacentNodes() {
         return adjacentNodes;
     }
 
-    public void addAdjacentNode(AbstractGraphNode<T> adjacentNode) {
+    public void addAdjacentNode(String fieldName, AbstractGraphNode<T> adjacentNode) {
         adjacentNodes.put(adjacentNode.getID(), adjacentNode);
+    }
+
+    public <T> T retrieve(String key, Class<T> clazz) {
+        return (T) adjacentNodes.get(key).getValue();
     }
 }

@@ -9,8 +9,13 @@ import edu.missouri.isocial.foundation.components.core.Connection;
 import edu.missouri.isocial.foundation.components.core.ConnectionController;
 import edu.missouri.isocial.foundation.components.core.Link;
 import edu.missouri.isocial.foundation.components.core.DraggableComponent;
+import edu.missouri.isocial.foundation.components.core.model.DraggableComponentModel;
+import edu.missouri.isocial.foundation.components.core.model.DraggableItem;
 //import edu.missouri.isocial.foundation.components.sequence.SequenceStart;
 import edu.missouri.isocial.foundation.contextmenu.ContextMenu;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,6 +30,10 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     private ApplicationContext context() {
         return ApplicationContext.INSTANCE;//injectStrategy(Editor.class, this);
     }
+
+    private ApplicationGraph graph() {
+        return context().getGraph();
+    }
     public EditorCanvas() {
         initComponents();
         
@@ -38,7 +47,13 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
 
     @Override
     public Connection addConnection(Link start, Link end) {
-        
+
+//        context().getGraph().getNode(start.getDraggableParent().getModel().getClassName()).
+        ApplicationGraph graph = graph();
+        AbstractGraphNode startNode = graph.getNode(start.getDraggableParent().getModel().getID());
+        AbstractGraphNode endNode = graph.getNode(end.getDraggableParent().getModel().getID());
+
+        startNode.addAdjacentNode(start.getCaption(), endNode);
         Connection connection = new Connection(start, end);
         start.addEndPoint(end);
         end.addEndPoint(start);
@@ -69,13 +84,40 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
         System.out.println("REMOVING CONNECTION: "+connectionID);
         
     }
-    
+
+    private <T extends AbstractGraphNode> T newNode(Class<T> clazz, String ID) {
+        T obj = null;
+        try {
+            obj = clazz.getConstructor(String.class).newInstance(ID);
+
+        } catch (InstantiationException ex) {
+            Logger.getLogger(EditorCanvas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(EditorCanvas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(EditorCanvas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvocationTargetException ex) {
+            Logger.getLogger(EditorCanvas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(EditorCanvas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(EditorCanvas.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return obj;
+        }
+    }
+
     @Override
-    public void addDraggable(DraggableComponent draggable) {
+    public void addDraggable(DraggableComponentModel model, DraggableComponent draggable) {
         
 //        if(draggable instanceof SequenceStart) {
 //            application().addToStartItems((Startable)draggable.getModel());
 //        }
+        DraggableItem itemType = model.getClass().getAnnotation(DraggableItem.class);
+
+        context().getGraph().addNode(String.valueOf(model.getIssue()),
+                newNode(itemType.value(),
+                String.valueOf(model.getIssue())));
         add(draggable);
     }
 

@@ -16,7 +16,7 @@ public class EditorApplication extends javax.swing.JFrame {
     public EditorApplication() {
         initComponents();
 
-         canvas = new EditorCanvas();
+        canvas = new EditorCanvas();
         add(canvas);
         canvas.setLocation(0, 0);
         canvas.setSize(getSize());

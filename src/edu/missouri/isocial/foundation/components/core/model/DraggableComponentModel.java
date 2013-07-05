@@ -20,6 +20,8 @@ public abstract class DraggableComponentModel {
     protected List<LinkModel> left;
     protected List<LinkModel> right;
     protected List<LinkModel> bottom;
+    private static int issues = 0;
+    private int issue = 0;
 
     public DraggableComponentModel() {
         
@@ -27,8 +29,18 @@ public abstract class DraggableComponentModel {
         right = new ArrayList<LinkModel>();
         bottom = new ArrayList<LinkModel>();
 
+        issue = issues;
+        incrementIssue();
 
         default_properties();
+    }
+
+    private static void incrementIssue() {
+        issues += 1;
+    }
+
+    public int getIssue() {
+        return issue;
     }
 
     public abstract void default_properties();
@@ -57,6 +69,10 @@ public abstract class DraggableComponentModel {
         return bottom;
     }
 
+    public String getClassName() {
+        return getClass().getName();
+    }
+
     protected LinkModel.LinkModelBuilder link() {
         return LinkModel.builder();
     }
@@ -81,4 +97,5 @@ public abstract class DraggableComponentModel {
 
         meh("equals");
     }
+
 }

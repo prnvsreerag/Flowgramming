@@ -42,6 +42,9 @@ public enum ApplicationContext {
     }
 
     public ApplicationGraph getGraph() {
+        if (graph == null) {
+            graph = new ApplicationGraph();
+        }
         return graph;
     }
 }

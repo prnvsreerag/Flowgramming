@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -15,6 +16,7 @@ public class ApplicationGraph {
     private Map<String, AbstractGraphNode> nodes;
 
     public ApplicationGraph() {
+        nodes = new HashMap<String, AbstractGraphNode>();
     }
 
     public AbstractGraphNode getNode(String key) {

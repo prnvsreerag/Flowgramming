@@ -99,7 +99,7 @@ public class LinkController {
     }
 
     public void userExitedMouse(MouseEvent e) {
-        if (mouseIsPressed) {
+        if (!mouseIsPressed) {
             link.setCurrentColor(DEFAULT_COLOR);
         }
         link.repaint();
@@ -110,6 +110,7 @@ public class LinkController {
         if (potentialLink instanceof Link) {
             //also make sure we're not just connecting with ourselves.
             if (potentialLink.equals(link)) {
+                link.setCurrentColor(DEFAULT_COLOR);
                 System.out.println("CANNOT MAKE CONNECTION TO SELF!");
                 return;
             }
@@ -122,9 +123,11 @@ public class LinkController {
                 makeConnection(link.getDraggableParent(), target.getDraggableParent(), target);
                 System.out.println("TYPES: " + link.getExpectedType() + " MATCHED SUCCESSFULLY!");
             } else {
+                link.setCurrentColor(DEFAULT_COLOR);
                 System.out.println("TYPE: " + type + " DOES NOT MATCH: " + link.getExpectedType());
             }
         } else {
+            link.setCurrentColor(DEFAULT_COLOR);
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {

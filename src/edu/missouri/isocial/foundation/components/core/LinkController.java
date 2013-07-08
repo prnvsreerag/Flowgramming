@@ -115,6 +115,13 @@ public class LinkController {
                 return;
             }
 
+            //make sure we're not connecting two connectors on the same node
+            if (potentialLink.getParent().equals(link.getParent())) {
+                link.setCurrentColor(DEFAULT_COLOR);
+                System.out.println("CANNOT MAKE CONNECTION TO NODE SELF.");
+                return;
+            }
+
             Link target = (Link) potentialLink;
             Class type = target.getExpectedType();
             //check that the two expected types for the links match

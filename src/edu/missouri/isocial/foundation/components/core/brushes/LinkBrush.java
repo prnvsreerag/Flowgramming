@@ -9,6 +9,7 @@ import static edu.missouri.isocial.foundation.components.core.Link.POSITION.BOTT
 import static edu.missouri.isocial.foundation.components.core.Link.POSITION.LEFT;
 import static edu.missouri.isocial.foundation.components.core.Link.POSITION.RIGHT;
 import static edu.missouri.isocial.foundation.components.core.Link.SIDE_SIZE;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -59,6 +60,9 @@ public class LinkBrush {
             default:
                 throw new AssertionError(link.getDefaultPosition().name());
         }
+
+        g.setColor(Color.RED);
+        g.drawRect(0, 0, link.getWidth() - 1, link.getHeight() - 1);
     }
 
     /**

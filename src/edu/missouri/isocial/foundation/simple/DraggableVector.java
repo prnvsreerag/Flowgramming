@@ -12,6 +12,7 @@ import edu.missouri.isocial.foundation.components.core.model.DraggableItem;
  *
  * @author Ryan
  */
+
 @DraggableItem(VectorDataNode.class)
 public class DraggableVector extends DraggableComponentModel {
 

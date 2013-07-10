@@ -26,4 +26,11 @@ public class ApplicationGraph {
     public void addNode(String key, AbstractGraphNode node) {
         nodes.put(key, node);
     }
+
+    public void listValues() {
+        for (Map.Entry<String, AbstractGraphNode> entry : nodes.entrySet()) {
+            System.out.println("[" + entry.getKey() + "] ->" + entry.getValue().getValue());
+
+        }
+    }
 }

@@ -100,6 +100,21 @@ public class ContextMenu {
         });
         //add exit item to menu
         internalMenu.add(exit);
+
+        JMenuItem listValues = new JMenuItem("List Values");
+
+        listValues.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                context().getGraph().listValues();
+            }
+        });
+
+        internalMenu.add(listValues);
+    }
+
+    private ApplicationContext context() {
+        return ApplicationContext.INSTANCE;
     }
 
     private void addSequenceActions() {

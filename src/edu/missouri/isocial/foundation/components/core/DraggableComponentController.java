@@ -108,11 +108,31 @@ public class DraggableComponentController {
             if (selected) {
                 draggable.setBorderColor(Color.WHITE);
                 draggable.requestFocusInWindow();
+
+
+                int x = getCorrectXCoordinate(e);//e.getXOnScreen() - draggable.getLocationOnScreen().x - draggable.getEditor().getLocationOnScreen().x;
+                int y = getCorrectYCoordinate(e);
+                //e.getYOnScreen() - draggable.getLocationOnScreen().y - draggable.getEditor().getLocationOnScreen().y;
+
+                draggable.showContextMenu(x, y);
             } else {
                 draggable.setBorderColor(Color.BLACK);
             }
             draggable.repaint();
         }
+    }
+
+    private int getCorrectXCoordinate(MouseEvent e) {
+        return e.getXOnScreen()
+                - draggable.getLocationOnScreen().x
+                - draggable.getEditor().getLocationOnScreen().x;
+    }
+
+    private int getCorrectYCoordinate(MouseEvent e) {
+        return e.getYOnScreen()
+                - draggable.getLocationOnScreen().y
+                - draggable.getEditor().getLocationOnScreen().y;
+
     }
 
     protected void userDraggedMouse(MouseEvent e) {

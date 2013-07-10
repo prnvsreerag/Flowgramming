@@ -5,8 +5,14 @@
 package edu.missouri.isocial.foundation.components.core.model;
 
 import edu.missouri.isocial.foundation.ObservableObserver;
+import edu.missouri.isocial.foundation.annotations.Configurable;
+import edu.missouri.isocial.foundation.components.core.DraggableComponent;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,8 +26,9 @@ public abstract class DraggableComponentModel {
     protected List<LinkModel> left;
     protected List<LinkModel> right;
     protected List<LinkModel> bottom;
-    private static int issues = 0;
-    private int issue = 0;
+    //private static int issues = 0;
+    //private int issue = 0;
+    private DraggableProperties propertiesModel;
 
     public DraggableComponentModel() {
         
@@ -29,25 +36,53 @@ public abstract class DraggableComponentModel {
         right = new ArrayList<LinkModel>();
         bottom = new ArrayList<LinkModel>();
 
-        issue = issues;
-        incrementIssue();
+        //issue = issues;
+        //incrementIssue();
+
+        //handleConfigurable();
 
         default_properties();
     }
 
-    public String getID() {
-        return ObjName + "_" + issue;
-    }
+//    public String getID() {
+//        return ObjName + "_" + issue;
+//    }
 
-    private static void incrementIssue() {
-        issues += 1;
-    }
+//    private static void incrementIssue() {
+//        issues += 1;
+//    }
 
-    public int getIssue() {
-        return issue;
-    }
+//    public int getIssue() {
+//        return issue;
+//    }
 
     public abstract void default_properties();
+
+    private void handleConfigurable() {
+        try {
+
+            Configurable annotation = getClass().getAnnotation(Configurable.class);
+            if (annotation == null) {
+                return;
+            }
+            Class propertiesClass = annotation.value();
+            Constructor constructor = propertiesClass.getConstructor(getClass());
+            DraggableProperties propertiesModel = (DraggableProperties) constructor.newInstance(this);
+            this.propertiesModel = propertiesModel;
+        } catch (NoSuchMethodException ex) {
+            Logger.getLogger(DraggableProperties.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(DraggableProperties.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            Logger.getLogger(DraggableComponentModel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(DraggableComponentModel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            Logger.getLogger(DraggableComponentModel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvocationTargetException ex) {
+            Logger.getLogger(DraggableComponentModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public String getDisplayText() {
         return displayText;
@@ -92,22 +127,4 @@ public abstract class DraggableComponentModel {
     protected void bottom(int index, LinkModel model) {
         bottom.add(index, model);
     }
-
-    private <T> void meh(T t) {
-    }
-
-    protected void meh2() {
-        meh(5);
-
-        meh("equals");
-
-
-    }
-
-    protected <S> S meh3(String s) {
-
-
-        return null;
-    }
-
 }

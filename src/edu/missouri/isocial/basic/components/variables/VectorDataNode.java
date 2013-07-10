@@ -17,15 +17,20 @@ public class VectorDataNode extends DataGraphNode<Vector3f> {
         super(ID);
     }
 
-
     @Override
     public Vector3f getValue() {
-        float x = retrieve("x", Float.class);
-        float y = retrieve("y", Float.class);
-        float z = retrieve("z", Float.class);
+        float x = retrieve("X", Float.class);
+        float y = retrieve("Y", Float.class);
+        float z = retrieve("Z", Float.class);
 
         return new Vector3f(x, y, z);
     }
+
+    @Override
+    public void fromString(String input) {
+        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     class Vector3f {
 
@@ -37,6 +42,12 @@ public class VectorDataNode extends DataGraphNode<Vector3f> {
             this.x = x;
             this.y = y;
             this.z = z;
+        }
+
+        @Override
+        public String toString() {
+            return "{" + x + "," + y + "," + z + "}";
+
         }
     }
 }

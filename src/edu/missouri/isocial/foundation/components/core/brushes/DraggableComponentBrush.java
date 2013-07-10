@@ -90,6 +90,9 @@ public class DraggableComponentBrush {
         //draw title
         drawTitle(g);
 
+        g.setColor(Color.RED);
+        g.drawRect(0, 0, width - 1, height - 1);
+
 
     }
 

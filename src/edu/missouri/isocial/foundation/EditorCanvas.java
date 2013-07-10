@@ -13,6 +13,10 @@ import edu.missouri.isocial.foundation.components.core.model.DraggableComponentM
 import edu.missouri.isocial.foundation.components.core.model.DraggableItem;
 //import edu.missouri.isocial.foundation.components.sequence.SequenceStart;
 import edu.missouri.isocial.foundation.contextmenu.ContextMenu;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,8 +54,8 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
 
 //        context().getGraph().getNode(start.getDraggableParent().getModel().getClassName()).
         ApplicationGraph graph = graph();
-        AbstractGraphNode startNode = graph.getNode(start.getDraggableParent().getModel().getID());
-        AbstractGraphNode endNode = graph.getNode(end.getDraggableParent().getModel().getID());
+        AbstractGraphNode startNode = graph.getNode(start.getDraggableParent().getID());
+        AbstractGraphNode endNode = graph.getNode(end.getDraggableParent().getID());
 
         startNode.addAdjacentNode(start.getCaption(), endNode);
         Connection connection = new Connection(start, end);
@@ -115,7 +119,7 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
 //        }
         DraggableItem itemType = model.getClass().getAnnotation(DraggableItem.class);
 
-        graph().addNode(model.getID(), newNode(itemType.value(), model.getID()));
+        graph().addNode(draggable.getID(), newNode(itemType.value(), draggable.getID()));
         add(draggable);
     }
 
@@ -136,7 +140,10 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     }
 
     public void executeProgram() {
-        
+    }
+
+    protected void paintComponent(Graphics g1) {
+        super.paintComponent(g1);
     }
     /**
      * This method is called from within the constructor to initialize the form.

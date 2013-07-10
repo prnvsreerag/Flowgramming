@@ -65,29 +65,37 @@ public class LinkController {
 
     public void userReleasedMouseButton(MouseEvent e) {
         //get the draggable from the editor based on where the mouse was released.
-        final Component c = link.getEditor().findComponentAt(e.getLocationOnScreen());
-
+        final Component c = link.getEditor().findComponentAt(subtract(e.getLocationOnScreen(), link.getEditor().getLocationOnScreen()));
+        System.out.println("MOUSE RELEASED ON SCREEN: " + e.getLocationOnScreen());
         mouseIsPressed = false;
         link.repaint();
 
         //check edge cases
         if (c == null) {
             //fail
+            System.out.println("NO COMPONENT FOUND AT: " + e.getLocationOnScreen());
             return;
         }
 
         if (c instanceof DraggableComponent) {
             //pass
             DraggableComponent d = (DraggableComponent) c;
+            
+            System.out.println("DRAGGABLE LOOKING FOR COMPONENT AT: " + subtract(e.getLocationOnScreen(), d.getLocationOnScreen()));
             final Component c2 = d.findComponentAt(subtract(e.getLocationOnScreen(), d.getLocationOnScreen()));
             if (c2 == null) {
                 //fail
                 System.out.println("NULL COMPONENT IN DRAGGABLE");
                 return;
             }
-
+            System.out.println("EDITOR FOUND DRAGGABLE!");
             handleQueryForLink(c2);
+        } else if (c.equals(link.getEditor())) {
+            System.out.println("EDITOR FOUND EDITOR...IGNORING");
         } else {
+            //it's possible that the component found from the editor is a Link
+            //rather than a DraggableComponent. In such a case, handle it here.
+            System.out.println("EDITOR FOUND LINK!");
             handleQueryForLink(c);
         }
     }

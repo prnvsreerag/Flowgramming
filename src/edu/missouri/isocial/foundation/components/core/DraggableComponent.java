@@ -11,6 +11,7 @@ import edu.missouri.isocial.foundation.components.core.brushes.DraggableComponen
 import edu.missouri.isocial.foundation.components.core.model.DefaultDraggableComponentModel;
 import edu.missouri.isocial.foundation.components.core.model.DraggableComponentModel;
 import edu.missouri.isocial.foundation.components.core.model.LinkModel;
+import edu.missouri.isocial.foundation.contextmenu.ComponentContextMenu;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -40,6 +41,9 @@ public class DraggableComponent extends javax.swing.JPanel {
     protected Map<String, Link> leftLinks;
     protected Map<String, Link> rightLinks;
     protected Map<String, Link> bottomLinks;
+    private final ComponentContextMenu menu;
+    private static int issues = 0;
+    private int issue = 0;
 
     public DraggableComponent(Editor editor, DraggableComponentModel model) {
         this.editor = editor;
@@ -48,6 +52,9 @@ public class DraggableComponent extends javax.swing.JPanel {
         initComponents();
 
         this.setOpaque(false);
+        issue = issues;
+        incrementIssues();
+
         controller = new DraggableComponentController(this);
         
         //this.setSize(500, 500);
@@ -57,9 +64,25 @@ public class DraggableComponent extends javax.swing.JPanel {
         bottomLinks = new HashMap<String, Link>();
 
         initializeFromModel();
+
         brush = new DraggableComponentBrush(this);
+        menu = new ComponentContextMenu(this);
+
+
     }
 
+    private static void incrementIssues() {
+        issues += 1;
+    }
+    public void showContextMenu(int xOnScreen, int yOnScreen) {
+        menu.showMenu(this, xOnScreen, yOnScreen);
+        
+    }
+
+    public void hideContextMenu() {
+        
+    }
+    
     public void setBorderColor(Color color) {
         this.borderColor = color;
     }
@@ -70,8 +93,11 @@ public class DraggableComponent extends javax.swing.JPanel {
         repaintConnections();
     }
 
+    public String getID() {
+        return this.model.getDisplayText() + "_" + issue;
+    }
     public String getCaption() {
-        return this.model.getDisplayText();
+        return getID();
     }
     public DraggableComponentModel getModel() {
         return this.model;
@@ -140,7 +166,7 @@ public class DraggableComponent extends javax.swing.JPanel {
     protected void initializeFromModel() {
         int maxSideLinks = Math.max(model.getLeft().size(), model.getRight().size());
 
-        double desiredHeight = Math.max(200, (maxSideLinks * 2) + 1);
+        double desiredHeight = Math.max(50, Link.SIDE_SIZE * ((maxSideLinks * 2) + 1) + 10);
         System.out.println("DESIRED HEIGHT: " + desiredHeight);
         double desiredWidth = Math.max(200, calculateDesiredWidth(model.getBottom()));
 

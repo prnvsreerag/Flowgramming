@@ -71,7 +71,8 @@ public class Link extends JComponent {
         this.editor = editor;
         this.draggableParent = draggableParent;
         this.endPoints = new LinkedHashSet<Link>();
-        this.setSize(SIDE_SIZE + 100, SIDE_SIZE + 20);
+        this.setSize(SIDE_SIZE + 100, SIDE_SIZE + 5);
+
         this.defaultPosition = defaultPosition;
         this.setOpaque(false);
         this.currentColor = Color.BLACK;

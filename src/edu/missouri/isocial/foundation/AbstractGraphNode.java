@@ -28,12 +28,14 @@ public abstract class AbstractGraphNode<T> {
 
     public abstract T getValue();
 
+    public abstract void fromString(String input);
+
     public Map<String, AbstractGraphNode<T>> getAdjacentNodes() {
         return adjacentNodes;
     }
 
     public void addAdjacentNode(String fieldName, AbstractGraphNode<T> adjacentNode) {
-        adjacentNodes.put(adjacentNode.getID(), adjacentNode);
+        adjacentNodes.put(fieldName, adjacentNode);
     }
 
     public <T> T retrieve(String key, Class<T> clazz) {

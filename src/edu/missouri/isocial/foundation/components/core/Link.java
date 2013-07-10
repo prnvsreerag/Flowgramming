@@ -5,23 +5,12 @@
 package edu.missouri.isocial.foundation.components.core;
 
 import edu.missouri.isocial.foundation.Editor;
-import edu.missouri.isocial.foundation.EditorApplication;
 import edu.missouri.isocial.foundation.components.core.brushes.LinkBrush;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -87,6 +76,11 @@ public class Link extends JComponent {
         }
     }
 
+    public void cleanup() {
+        linkController.cleanup();
+
+    }
+
     public void setCurrentColor(Color color) {
         this.currentColor = color;
     }
@@ -128,6 +122,16 @@ public class Link extends JComponent {
         System.out.println("ADDING ENDPOINT: "+endPoint.getID()+" TO CONNECTOR: "+getID());
         endPoints.add(endPoint);
     }
+
+    public void removeConnections() {
+        for (Link endPoint : endPoints) {
+            String first = endPoint.ID + "<->" + ID;
+            String second = ID + "<->" + endPoint.ID;
+            this.getEditor().removeConnection(first);
+            this.getEditor().removeConnection(second);
+        }
+    }
+
 
     public static LinkBuilder builder() {
         return new LinkBuilder();

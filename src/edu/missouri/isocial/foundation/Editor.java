@@ -37,4 +37,6 @@ public interface Editor {
     public void removeConnection(String id);
     
     public ContextMenu getContextMenu();
+
+    public ConnectionRepository getConnectionRepository();
 }

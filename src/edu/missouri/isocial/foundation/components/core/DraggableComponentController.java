@@ -136,7 +136,7 @@ public class DraggableComponentController {
         int deltaY = e.getYOnScreen() - screenY;
 
         draggable.setLocation(myX + deltaX, myY + deltaY);
-        draggable.repaintConnections();
+        //draggable.repaintConnections();
     }
 
     protected void userPressedAKey(KeyEvent e) {
@@ -155,7 +155,7 @@ public class DraggableComponentController {
         }
     }
 
-    protected void cleanup() {
+    public void cleanup() {
         draggable.removeMouseListener(_mouseListener);
         draggable.removeMouseMotionListener(_mouseMotionListener);
         draggable.removeKeyListener(_keyListener);

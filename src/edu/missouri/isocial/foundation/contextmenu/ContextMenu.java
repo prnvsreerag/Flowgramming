@@ -111,6 +111,17 @@ public class ContextMenu {
         });
 
         internalMenu.add(listValues);
+
+
+        JMenuItem listConnections = new JMenuItem("List Connections");
+
+        listConnections.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                editor.getConnectionRepository().listConnections();
+            }
+        });
+        internalMenu.add(listConnections);
+
     }
 
     private ApplicationContext context() {

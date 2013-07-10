@@ -50,39 +50,53 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     }
 
     @Override
-    public Connection addConnection(Link start, Link end) {
+    public Connection addConnection(Link startLink, Link endLink) {
 
-//        context().getGraph().getNode(start.getDraggableParent().getModel().getClassName()).
+        //add connection to graph
         ApplicationGraph graph = graph();
-        AbstractGraphNode startNode = graph.getNode(start.getDraggableParent().getID());
-        AbstractGraphNode endNode = graph.getNode(end.getDraggableParent().getID());
+        AbstractGraphNode startNode = graph.getNode(startLink.getDraggableParent().getID());
+        AbstractGraphNode endNode = graph.getNode(endLink.getDraggableParent().getID());
+        startNode.addAdjacentNode(startLink.getCaption(), endNode);
+        endNode.addAdjacentNode(endLink.getCaption(), startNode);
 
-        startNode.addAdjacentNode(start.getCaption(), endNode);
-        Connection connection = new Connection(start, end);
-        start.addEndPoint(end);
-        end.addEndPoint(start);
+
+        //create connection view
+        Connection connection = new Connection(startLink, endLink);
+        startLink.addEndPoint(endLink);
+        endLink.addEndPoint(startLink);
         
         add(connection);
         connection.setVisible(true);
-        ConnectionController cc = new ConnectionController(this, start, end, connection);
+        ConnectionController cc = new ConnectionController(this, startLink, endLink, connection);
         cc.setVisible(true);
         
-        
-        String connectionID = start.getID()+"->"+end.getID();
+
+        //store connection in repository
+        String connectionID = startLink.getID() + "<->" + endLink.getID();
         repository.addConnection(connectionID, connection);
-        
+
+        connectionID = endLink.getID() + "<->" + startLink.getID();        
+        repository.addConnection(connectionID, connection);
+
         return connection;
     }
     
     @Override
     public void removeConnection(String connectionID) {
+
         Connection connection = repository.getConnection(connectionID);
+
+        //remove connection from repository
         repository.removeConnection(connectionID);
         if(connection == null) {
             return;
         }
-        connection.cleanup();
+        //remove connection view
         connection.setVisible(false);
+        connection.cleanup();
+
+
+
         remove(connection);
  
         System.out.println("REMOVING CONNECTION: "+connectionID);
@@ -137,6 +151,7 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     @Override
     public void removeDraggable(DraggableComponent draggable) {
         remove(draggable);
+        repaint();
     }
 
     public void executeProgram() {
@@ -170,6 +185,10 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
 
     private Application application() {
         return ApplicationContext.INSTANCE.getApplication();
+    }
+
+    public ConnectionRepository getConnectionRepository() {
+        return repository;
     }
 
 }

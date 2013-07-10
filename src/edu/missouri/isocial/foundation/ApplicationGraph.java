@@ -33,4 +33,24 @@ public class ApplicationGraph {
 
         }
     }
+
+    public void removeNodeWithKey(String id) {
+
+        if (nodes.containsKey(id)) {
+            //get node                   
+            AbstractGraphNode node = getNode(id);
+
+            //get adjacent nodes to this node
+            for (Object adjacent : node.getAdjacentNodes().values()) {
+                //remove us as adjacent to them.
+                ((AbstractGraphNode) adjacent).removeAdjacentNodeWithKey(id);
+            }
+
+            //remove node from the graph
+            nodes.remove(id);
+
+        } else {
+            //nothing to do here.
+        }
+    }
 }

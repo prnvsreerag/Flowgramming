@@ -59,6 +59,10 @@ public class LinkController {
         link.addMouseListener(_mouseListener);
     }
 
+    public void cleanup() {
+        link.removeMouseListener(_mouseListener);
+    }
+
     public void userPressedMouseButton(MouseEvent e) {
         mouseIsPressed = true;
     }

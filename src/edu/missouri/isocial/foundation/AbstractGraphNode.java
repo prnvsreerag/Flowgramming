@@ -49,4 +49,12 @@ public abstract class AbstractGraphNode<T> {
         }
 
     }
+
+    public void removeAdjacentNodeWithKey(String id) {
+        if (adjacentNodes.containsKey(id)) {
+            adjacentNodes.remove(id);
+        } else {
+            //nothing to do
+        }
+    }
 }

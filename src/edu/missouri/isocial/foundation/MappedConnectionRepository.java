@@ -19,6 +19,12 @@ public class MappedConnectionRepository implements ConnectionRepository {
         _internal = new HashMap<String, Connection>();
     }
 
+    public void listConnections() {
+        for (String key : _internal.keySet()) {
+            System.out.println(key);
+        }
+    }
+
     @Override
     public void addConnection(String connectionId, Connection connection) {
         if(idIsValid(connectionId)) {
@@ -44,11 +50,11 @@ public class MappedConnectionRepository implements ConnectionRepository {
     
     private boolean idIsValid(String connectionId) {
         
-        if(!connectionId.contains("->")) {
+        if (!connectionId.contains("<->")) {
             return false;
         }
         
-        String[] tokens = connectionId.split("->");
+        String[] tokens = connectionId.split("<->");
         if(tokens.length != 2) {
             return false;
         }

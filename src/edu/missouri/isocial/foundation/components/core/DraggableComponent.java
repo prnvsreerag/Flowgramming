@@ -71,6 +71,10 @@ public class DraggableComponent extends javax.swing.JPanel {
 
     }
 
+    public DraggableComponentController getController() {
+        return controller;
+    }
+
     private static void incrementIssues() {
         issues += 1;
     }
@@ -90,7 +94,7 @@ public class DraggableComponent extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics g1) {
         brush.paint((Graphics2D) g1);
-        repaintConnections();
+        //repaintConnections();
     }
 
     public String getID() {
@@ -103,20 +107,20 @@ public class DraggableComponent extends javax.swing.JPanel {
         return this.model;
     }
 
-    public void repaintConnections() {
-        for (ConnectionInfo connection : connections) {
-
-            Point startPoint = connection.getStartConnector().getLocationOnScreen();
-            Point endPoint = connection.getEndConnector().getLocationOnScreen();
-            this.getGraphics().setColor(Color.green);
-            this.getGraphics().drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
-            System.out.println("DRAWING CONNECTION: "
-                    + "\nSTART->(" + startPoint.x + "," + startPoint.y + ")\n"
-                    + "END->(" + endPoint.x + "," + endPoint.y + ")");
-
-
-        }
-    }
+//    public void repaintConnections() {
+//        for (ConnectionInfo connection : connections) {
+//
+//            Point startPoint = connection.getStartConnector().getLocationOnScreen();
+//            Point endPoint = connection.getEndConnector().getLocationOnScreen();
+//            this.getGraphics().setColor(Color.green);
+//            this.getGraphics().drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+//            System.out.println("DRAWING CONNECTION: "
+//                    + "\nSTART->(" + startPoint.x + "," + startPoint.y + ")\n"
+//                    + "END->(" + endPoint.x + "," + endPoint.y + ")");
+//
+//
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -148,8 +152,23 @@ public class DraggableComponent extends javax.swing.JPanel {
     /**
      * Perform any upkeep needed before this instance is removed from the editor
      */
-    protected void cleanup() {
+    public void cleanup() {
         //override this.
+        for (Link link : leftLinks.values()) {
+
+            link.removeConnections();
+            link.cleanup();
+        }
+
+        for (Link link : rightLinks.values()) {
+            link.removeConnections();
+            link.cleanup();
+        }
+
+        for (Link link : bottomLinks.values()) {
+            link.removeConnections();
+            link.cleanup();
+        }
     }
 
     public Color getBorderColor() {

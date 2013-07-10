@@ -6,6 +6,8 @@ package edu.missouri.isocial.foundation.contextmenu;
 
 import edu.missouri.isocial.foundation.AbstractGraphNode;
 import edu.missouri.isocial.foundation.ApplicationContext;
+import edu.missouri.isocial.foundation.ApplicationGraph;
+import edu.missouri.isocial.foundation.Editor;
 import edu.missouri.isocial.foundation.components.core.DraggableComponent;
 import edu.missouri.isocial.foundation.components.core.model.DraggableProperties;
 import java.awt.event.ActionEvent;
@@ -28,7 +30,8 @@ public class ComponentContextMenu {
         this.component = component;
         internalMenu = new JPopupMenu();
 
-        addPropertiesMenuItem();
+        addSetValueMenuItem();
+        addDeleteMenuItem();
     }
 
     public void showMenu(JComponent component, int xOnScreen, int yOnScreen) {
@@ -36,8 +39,8 @@ public class ComponentContextMenu {
         internalMenu.setVisible(true);
     }
 
-    private void addPropertiesMenuItem() {
-        JMenuItem item = new JMenuItem("Properties");
+    private void addSetValueMenuItem() {
+        JMenuItem item = new JMenuItem("Set Value");
         item.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -55,6 +58,35 @@ public class ComponentContextMenu {
             }
         });
 
+        internalMenu.add(item);
+    }
+
+    private ApplicationContext context() {
+        return ApplicationContext.INSTANCE;
+    }
+
+    private ApplicationGraph graph() {
+        return ApplicationContext.INSTANCE.getGraph();
+    }
+
+    private void addDeleteMenuItem() {
+        JMenuItem item = new JMenuItem("Delete");
+        item.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                //remove from graph
+                graph().removeNodeWithKey(component.getID());
+
+                component.getController().cleanup();
+                //remove view
+                // - disconnect all links
+                // - remove from EditorCanvas
+                Editor editor = component.getEditor();
+                editor.removeDraggable(component);
+                
+            }
+        });
         internalMenu.add(item);
     }
 }

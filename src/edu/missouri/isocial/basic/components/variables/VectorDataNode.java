@@ -31,6 +31,16 @@ public class VectorDataNode extends DataGraphNode<Vector3f> {
         // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public <K> K defaultInputValue(Class<K> clazz) {
+
+        if (clazz.getName().contains("Float")) {
+            return (K) new Float(0);
+        } else {
+            return null;
+        }
+    }
+
 
     class Vector3f {
 

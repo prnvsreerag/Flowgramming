@@ -24,6 +24,15 @@ public class FloatDataNode extends DataGraphNode<Float> {
     }
 
     @Override
+    public <K> K defaultInputValue(Class<K> clazz) {
+
+        if (clazz.getName().contains("Float")) {
+            return (K) new Float(0.0);
+        } else {
+            return null;
+        }
+    }
+    @Override
     public void fromString(String input) {
         configured = Float.valueOf(input);
     }

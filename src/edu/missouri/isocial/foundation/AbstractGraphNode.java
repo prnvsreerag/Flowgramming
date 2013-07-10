@@ -28,6 +28,8 @@ public abstract class AbstractGraphNode<T> {
 
     public abstract T getValue();
 
+    public abstract <K> K defaultInputValue(Class<K> clazz);
+
     public abstract void fromString(String input);
 
     public Map<String, AbstractGraphNode<T>> getAdjacentNodes() {
@@ -38,7 +40,13 @@ public abstract class AbstractGraphNode<T> {
         adjacentNodes.put(fieldName, adjacentNode);
     }
 
-    public <T> T retrieve(String key, Class<T> clazz) {
-        return (T) adjacentNodes.get(key).getValue();
+    public <K> K retrieve(String key, Class<K> clazz) {
+        if (adjacentNodes.containsKey(key)) {
+            K value = (K) adjacentNodes.get(key).getValue();
+            return value != null ? value : defaultInputValue(clazz);
+        } else {
+            return defaultInputValue(clazz);
+        }
+
     }
 }

@@ -123,15 +123,11 @@ public class DraggableComponentController {
     }
 
     private int getCorrectXCoordinate(MouseEvent e) {
-        return e.getXOnScreen()
-                - draggable.getLocationOnScreen().x
-                - draggable.getEditor().getLocationOnScreen().x;
+        return e.getXOnScreen() - draggable.getLocationOnScreen().x;
     }
 
     private int getCorrectYCoordinate(MouseEvent e) {
-        return e.getYOnScreen()
-                - draggable.getLocationOnScreen().y
-                - draggable.getEditor().getLocationOnScreen().y;
+        return e.getYOnScreen() - draggable.getLocationOnScreen().y;
 
     }
 

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-import edu.missouri.isocial.foundation.io.FragmentImporterSPI;
+import edu.missouri.isocial.foundation.io.FlowImporterSPI;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -17,12 +17,12 @@ import static org.mockito.Mockito.*;
  *
  * @author Ryan
  */
-public class FragmentImporterTest {
+public class FlowtImporterTest {
 
-    private FragmentImporterSPI importer;
-    private String s = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Fragment><uses-module with-name=\"core\"/><uses-module with-name=\"utils\"/><uses-module with-name=\"lang\"/><instances><Instance with-position=\"0,0\" of=\"TestClass\" with-id=\"TestClass_0\"><Connection to=\"#Float_2\" forParameter=\"X\"/></Instance></instances></Fragment>\n";
+    private FlowImporterSPI importer;
+    private String s = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Flow><uses-module with-name=\"core\"/><uses-module with-name=\"utils\"/><uses-module with-name=\"lang\"/><instances><Instance with-position=\"0,0\" of=\"TestClass\" with-id=\"TestClass_0\"><Connection to=\"#Float_2\" forParameter=\"X\"/></Instance></instances></Flow>\n";
 
-    public FragmentImporterTest() {
+    public FlowtImporterTest() {
     }
 
     @Test
@@ -32,7 +32,7 @@ public class FragmentImporterTest {
 
     @Test
     public void shouldImportFromString() {
-        importer = mock(FragmentImporterSPI.class);
+        importer = mock(FlowImporterSPI.class);
         when(importer.importFromString(s)).thenReturn(new Object());
 
         importer.importFromString(s);
@@ -42,7 +42,7 @@ public class FragmentImporterTest {
 
     @Test
     public void shouldImportFromFile() {
-        importer = mock(FragmentImporterSPI.class);
+        importer = mock(FlowImporterSPI.class);
         when(importer.importFromFile(writeStringToFile())).thenReturn(new Object());
 
         importer.importFromFile(writeStringToFile());
@@ -60,7 +60,7 @@ public class FragmentImporterTest {
             writer.write(s);
             return f;
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FragmentImporterTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FlowtImporterTest.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             writer.close();
             return f;

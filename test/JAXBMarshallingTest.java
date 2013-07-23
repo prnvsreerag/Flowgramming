@@ -17,7 +17,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import models.ExampleFragment;
+import models.ExampleFlow;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -32,7 +32,7 @@ public class JAXBMarshallingTest {
 
     public JAXBMarshallingTest() {
         try {
-            context = JAXBContext.newInstance(models.ExampleFragment.class);
+            context = JAXBContext.newInstance(models.ExampleFlow.class);
             marshaller = context.createMarshaller();
         } catch (JAXBException ex) {
             Logger.getLogger(JAXBMarshallingTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -49,7 +49,7 @@ public class JAXBMarshallingTest {
     public void shouldPrintOutExampleFragment() {
         try {
             File file = new File("test-file");
-            marshaller.marshal(new ExampleFragment(), file);
+            marshaller.marshal(new ExampleFlow(), file);
 
             printFile(file);
 
@@ -63,10 +63,10 @@ public class JAXBMarshallingTest {
     @Test
     public void shouldReadExampleFragmentCorrectly() {
         try {
-            String input = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Fragment><uses-module with-name=\"core\"/><uses-module with-name=\"utils\"/><uses-module with-name=\"lang\"/><instances><Instance with-position=\"0,0\" of=\"TestClass\" with-id=\"TestClass_0\"><Connection to=\"#Float_2\" forParameter=\"X\"/></Instance></instances></Fragment>\n"
+            String input = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Flow><uses-module with-name=\"core\"/><uses-module with-name=\"utils\"/><uses-module with-name=\"lang\"/><instances><Instance with-position=\"0,0\" of=\"TestClass\" with-id=\"TestClass_0\"><Connection to=\"#Float_2\" forParameter=\"X\"/></Instance></instances></Flow>\n"
                     + "";
             unmarshaller = context.createUnmarshaller();
-            ExampleFragment frag = (ExampleFragment) unmarshaller.unmarshal(new ByteArrayInputStream(input.getBytes()));
+            ExampleFlow frag = (ExampleFlow) unmarshaller.unmarshal(new ByteArrayInputStream(input.getBytes()));
             assertTrue(frag.getModule() != null);
             assertTrue(frag.getModule().length == 3);
 

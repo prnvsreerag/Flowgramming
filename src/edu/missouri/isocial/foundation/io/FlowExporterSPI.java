@@ -10,7 +10,7 @@ import java.io.File;
  *
  * @author Ryan
  */
-public interface FragmentExporterSPI {
+public interface FlowExporterSPI {
     public String exportToString(Object obj);
 
     public File exportToFile(Object obj);

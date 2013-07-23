@@ -16,9 +16,9 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author Ryan
  */
-@XmlRootElement(name = "Fragment")
+@XmlRootElement(name = "Flow")
 @XmlType(propOrder = {"module", "instances"})
-public class ExampleFragment {
+public class ExampleFlow {
 
     @XmlElement(name = "uses-module")
     public UsesModule[] getModule() {

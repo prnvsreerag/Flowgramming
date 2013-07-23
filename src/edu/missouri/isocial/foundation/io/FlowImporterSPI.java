@@ -10,7 +10,7 @@ import java.io.File;
  *
  * @author Ryan
  */
-public interface FragmentImporterSPI {
+public interface FlowImporterSPI {
 
     public Object importFromString(String s);
 

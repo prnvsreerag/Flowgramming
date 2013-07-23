@@ -4,6 +4,7 @@
  */
 
 import edu.missouri.isocial.foundation.io.FlowImporterSPI;
+import edu.missouri.isocial.foundation.io.JAXBFlowImporter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -17,12 +18,12 @@ import static org.mockito.Mockito.*;
  *
  * @author Ryan
  */
-public class FlowtImporterTest {
+public class FlowImporterTest {
 
     private FlowImporterSPI importer;
     private String s = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Flow><uses-module with-name=\"core\"/><uses-module with-name=\"utils\"/><uses-module with-name=\"lang\"/><instances><Instance with-position=\"0,0\" of=\"TestClass\" with-id=\"TestClass_0\"><Connection to=\"#Float_2\" forParameter=\"X\"/></Instance></instances></Flow>\n";
 
-    public FlowtImporterTest() {
+    public FlowImporterTest() {
     }
 
     @Test
@@ -50,6 +51,21 @@ public class FlowtImporterTest {
         verify(importer).importFromFile(writeStringToFile());
     }
 
+    @Test
+    public void JAXBImporterShouldImportFromString() {
+        importer = new JAXBFlowImporter();
+
+        assertNotNull(importer.importFromString(s));
+
+    }
+
+    @Test
+    public void JAXBImporterShouldImportFromFile() {
+        importer = new JAXBFlowImporter();
+        assertNotNull(importer.importFromFile(writeStringToFile()));
+    }
+
+
     private File writeStringToFile() {
         File f = null;
         PrintWriter writer = null;
@@ -60,7 +76,7 @@ public class FlowtImporterTest {
             writer.write(s);
             return f;
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FlowtImporterTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FlowImporterTest.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             writer.close();
             return f;

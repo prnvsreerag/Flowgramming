@@ -373,4 +373,25 @@ public class DraggableComponent extends javax.swing.JPanel {
     private int stringLengthInPixels(String string) {
         return this.getFontMetrics(this.getFont()).stringWidth(string);
     }
+
+    public Link getLinkWithID(String ID) {
+
+        //search left links first
+        if (leftLinks.containsKey(ID)) {
+            return leftLinks.get(ID);
+        }
+
+
+        //search right links
+        if (rightLinks.containsKey(ID)) {
+            return rightLinks.get(ID);
+        }
+
+        //search bottom links
+        if (bottomLinks.containsKey(ID)) {
+            return bottomLinks.get(ID);
+        }
+
+        throw new RuntimeException("LINK WITH ID: " + ID + " NOT FOUND IN DRAGGABLE COMPONENT WITH ID: " + getID());
+    }
 }

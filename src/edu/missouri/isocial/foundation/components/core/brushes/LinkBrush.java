@@ -23,6 +23,7 @@ public class LinkBrush {
 
     public LinkBrush(Link link) {
         this.link = link;
+
     }
 
     public void paintComponent(Graphics g1) {

@@ -75,6 +75,10 @@ public class Connection extends JComponent {
         
         g.setColor(currentColor);              
         Line2D line = new Line2D.Double(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
-        g.draw(line);        
+        g.draw(line);
+
+        //draw bounds of this component.
+        g.setColor(Color.MAGENTA);
+        g.drawRect(0, 0, this.getWidth() - 1, this.getHeight() - 1);
     }
 }

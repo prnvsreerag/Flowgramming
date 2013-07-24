@@ -18,6 +18,8 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,7 +32,8 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     private ContextMenu contextMenu;
     private EditorCanvasController controller;
     private ConnectionRepository repository;
-    
+    private Map<String, DraggableComponent> draggables;
+
     private ApplicationContext context() {
         return ApplicationContext.INSTANCE;//injectStrategy(Editor.class, this);
     }
@@ -47,6 +50,7 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
         controller = new EditorCanvasController(this);                
         contextMenu = new ContextMenuBuilder().build();
         repository = new MappedConnectionRepository();
+        draggables = new HashMap<String, DraggableComponent>();
     }
 
     @Override
@@ -135,6 +139,13 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
 
         graph().addNode(draggable.getID(), newNode(itemType.value(), draggable.getID()));
         add(draggable);
+
+        draggables.put(draggable.getID(), draggable);
+    }
+
+    @Override
+    public DraggableComponent getDraggableWithID(String ID) {
+        return draggables.get(ID);
     }
 
     @Override
@@ -151,6 +162,7 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     @Override
     public void removeDraggable(DraggableComponent draggable) {
         remove(draggable);
+        draggables.remove(draggable.getID());
         repaint();
     }
 

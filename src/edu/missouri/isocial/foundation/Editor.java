@@ -39,4 +39,6 @@ public interface Editor {
     public ContextMenu getContextMenu();
 
     public ConnectionRepository getConnectionRepository();
+
+    public DraggableComponent getDraggableWithID(String ID);
 }

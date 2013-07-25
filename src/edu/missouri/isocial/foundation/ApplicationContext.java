@@ -15,7 +15,7 @@ public enum ApplicationContext {
     
     private Application currentApplication;
     private StrategyCollection strategies;
-    private ApplicationGraph graph;
+    private FlowGraph graph;
     
     public Application getApplication() {
         if(currentApplication == null) {
@@ -41,9 +41,9 @@ public enum ApplicationContext {
        getStrategies().put(key, value);
     }
 
-    public ApplicationGraph getGraph() {
+    public FlowGraph getGraph() {
         if (graph == null) {
-            graph = new ApplicationGraph();
+            graph = new FlowGraph();
         }
         return graph;
     }

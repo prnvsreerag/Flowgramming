@@ -38,7 +38,7 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
         return ApplicationContext.INSTANCE;//injectStrategy(Editor.class, this);
     }
 
-    private ApplicationGraph graph() {
+    private FlowGraph graph() {
         return context().getGraph();
     }
     public EditorCanvas() {
@@ -57,12 +57,11 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     public Connection addConnection(Link startLink, Link endLink) {
 
         //add connection to graph
-        ApplicationGraph graph = graph();
+        FlowGraph graph = graph();
         AbstractGraphNode startNode = graph.getNode(startLink.getDraggableParent().getID());
         AbstractGraphNode endNode = graph.getNode(endLink.getDraggableParent().getID());
         startNode.addAdjacentNode(startLink.getCaption(), endNode);
         endNode.addAdjacentNode(endLink.getCaption(), startNode);
-
 
         //create connection view
         Connection connection = new Connection(startLink, endLink);
@@ -74,7 +73,6 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
         ConnectionController cc = new ConnectionController(this, startLink, endLink, connection);
         cc.setVisible(true);
         
-
         //store connection in repository
         String connectionID = startLink.getID() + "<->" + endLink.getID();
         repository.addConnection(connectionID, connection);

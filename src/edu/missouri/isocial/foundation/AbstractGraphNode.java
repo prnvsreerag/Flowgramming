@@ -57,4 +57,14 @@ public abstract class AbstractGraphNode<T> {
             //nothing to do
         }
     }
+
+    public String getKeyForNode(AbstractGraphNode node) {
+        for (Map.Entry<String, AbstractGraphNode<T>> entry : adjacentNodes.entrySet()) {
+            if (entry.getValue().equals(node)) {
+                return entry.getKey();
+            }
+        }
+
+        return null;
+    }
 }

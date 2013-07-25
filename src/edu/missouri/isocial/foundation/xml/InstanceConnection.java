@@ -22,11 +22,11 @@ public class InstanceConnection {
     private String to;
     private String forParameter;
 
-    private void setTo(String float_2) {
+    public void setTo(String float_2) {
         this.to = "#" + float_2;
     }
 
-    private void setForParameter(String x) {
+    public void setForParameter(String x) {
         this.forParameter = x;
     }
 

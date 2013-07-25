@@ -6,7 +6,7 @@ package edu.missouri.isocial.foundation.contextmenu;
 
 import edu.missouri.isocial.foundation.AbstractGraphNode;
 import edu.missouri.isocial.foundation.ApplicationContext;
-import edu.missouri.isocial.foundation.ApplicationGraph;
+import edu.missouri.isocial.foundation.FlowGraph;
 import edu.missouri.isocial.foundation.Editor;
 import edu.missouri.isocial.foundation.components.core.DraggableComponent;
 import edu.missouri.isocial.foundation.components.core.model.DraggableProperties;
@@ -65,7 +65,7 @@ public class ComponentContextMenu {
         return ApplicationContext.INSTANCE;
     }
 
-    private ApplicationGraph graph() {
+    private FlowGraph graph() {
         return ApplicationContext.INSTANCE.getGraph();
     }
 

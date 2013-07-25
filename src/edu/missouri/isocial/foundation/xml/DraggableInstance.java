@@ -14,24 +14,50 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 //@XmlRootElement(name = "Instance")
 public class DraggableInstance {
+    private String model;
+    private String position;
+    private InstanceConnection[] connections;
+    private String id;
 
+    /**
+     * The test class of the model to use to reproduce the draggable view.
+     * Typically a subclass of DraggableModelComponent
+     *
+     * @return A string consisting of a classname
+     */
     @XmlAttribute(name = "of")
     public String getModel() {
-        return "TestClass";
+        return this.model;
     }
 
     @XmlAttribute(name = "with-id")
     public String getID() {
-        return "TestClass_0";
+        return id;
     }
 
     @XmlAttribute(name = "with-position")
     public String getPosition() {
-        return "0,0";
+        return this.position;
     }
 
     @XmlElement(name = "Connection")
     public InstanceConnection[] getConnection() {
-        return new InstanceConnection[]{InstanceConnection.defaultInstance()};
+        return this.connections;
+    }
+
+    public void setModel(String className) {
+        this.model = className;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public void setConnections(InstanceConnection[] connections) {
+        this.connections = connections;
+    }
+
+    public void setID(String id) {
+        this.id = id;
     }
 }

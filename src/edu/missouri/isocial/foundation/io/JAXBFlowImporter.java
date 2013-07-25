@@ -23,7 +23,7 @@ public class JAXBFlowImporter implements FlowImporterSPI {
 
     public JAXBFlowImporter() {
         try {
-            context = JAXBContext.newInstance(edu.missouri.isocial.foundation.xml.ExampleFlow.class);
+            context = JAXBContext.newInstance(edu.missouri.isocial.foundation.xml.FlowDTO.class);
             unmarshaller = context.createUnmarshaller();
         } catch (JAXBException ex) {
             Logger.getLogger(JAXBFlowImporter.class.getName()).log(Level.SEVERE, null, ex);

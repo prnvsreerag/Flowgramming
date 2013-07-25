@@ -13,5 +13,5 @@ import java.io.File;
 public interface FlowExporterSPI {
     public String exportToString(Object obj);
 
-    public File exportToFile(Object obj);
+    public File exportToFile(Object obj, File file);
 }

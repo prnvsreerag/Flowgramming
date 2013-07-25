@@ -23,7 +23,7 @@ public class JAXBFlowExporter implements FlowExporterSPI {
 
     public JAXBFlowExporter() {
         try {
-            context = JAXBContext.newInstance(edu.missouri.isocial.foundation.xml.ExampleFlow.class);
+            context = JAXBContext.newInstance(edu.missouri.isocial.foundation.xml.FlowDTO.class);
             marshaller = context.createMarshaller();
         } catch (JAXBException ex) {
             Logger.getLogger(JAXBFlowExporter.class.getName()).log(Level.SEVERE, null, ex);
@@ -46,9 +46,7 @@ public class JAXBFlowExporter implements FlowExporterSPI {
 
 
     @Override
-    public File exportToFile(Object obj) {
-        File output = new File("Test-JAXB-File");
-
+    public File exportToFile(Object obj, File output) {
         try {
 
             marshaller.marshal(obj, output);

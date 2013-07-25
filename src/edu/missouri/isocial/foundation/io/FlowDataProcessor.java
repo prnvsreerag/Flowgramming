@@ -30,8 +30,6 @@ public class FlowDataProcessor {
 
     public void process(ExampleFlow flowData) {
         processInstances(flowData.getInstances().getInstances());
-
-
     }
 
     private void processInstances(List<DraggableInstance> instances) {

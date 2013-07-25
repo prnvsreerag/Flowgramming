@@ -6,16 +6,17 @@ package edu.missouri.isocial.foundation;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
  * @author Ryan
  */
-public class ApplicationGraph {
+public class FlowGraph {
 
     private Map<String, AbstractGraphNode> nodes;
 
-    public ApplicationGraph() {
+    public FlowGraph() {
         nodes = new HashMap<String, AbstractGraphNode>();
     }
 
@@ -30,7 +31,6 @@ public class ApplicationGraph {
     public void listValues() {
         for (Map.Entry<String, AbstractGraphNode> entry : nodes.entrySet()) {
             System.out.println("[" + entry.getKey() + "] ->" + entry.getValue().getValue());
-
         }
     }
 
@@ -52,5 +52,13 @@ public class ApplicationGraph {
         } else {
             //nothing to do here.
         }
+    }
+
+    public int getNumberOfNodes() {
+        return nodes.size();
+    }
+
+    public Set<String> keyValues() {
+        return nodes.keySet();
     }
 }

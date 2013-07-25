@@ -35,6 +35,7 @@ public class JAXBFlowExporter implements FlowExporterSPI {
         String output = null;
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(obj, baos);
             output = baos.toString();
         } catch (JAXBException ex) {

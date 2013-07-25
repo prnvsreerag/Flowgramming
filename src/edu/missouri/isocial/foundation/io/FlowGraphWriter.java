@@ -33,7 +33,6 @@ public class FlowGraphWriter {
     public FlowGraphWriter(FlowGraph graph, Editor editor) {
         this.graph = graph;
         this.editor = editor;
-
     }
 
     public String writeToString() {
@@ -57,8 +56,15 @@ public class FlowGraphWriter {
             fileToSaveTo = new File("Temp.flow");
         }
 
-
         return exporter.exportToFile(flow, fileToSaveTo);
+    }
+
+    public void writeToFile(File file) {
+        //use JAXBExporter for now
+        FlowExporterSPI exporter = FlowIO.JAXBExporter();
+        FlowDTO flow = constructFlowDTO();
+
+        exporter.exportToFile(flow, file);
     }
 
     private InstanceConnection[] processConnections(AbstractGraphNode node) {

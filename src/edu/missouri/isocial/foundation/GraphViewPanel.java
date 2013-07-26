@@ -20,6 +20,7 @@ import java.awt.Graphics2D;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,7 +28,7 @@ import java.util.logging.Logger;
  *
  * @author Ryan
  */
-public class EditorCanvas extends javax.swing.JPanel implements Editor {
+public class GraphViewPanel extends javax.swing.JPanel implements GraphView {
     
     private ContextMenu contextMenu;
     private EditorCanvasController controller;
@@ -41,16 +42,25 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
     private FlowGraph graph() {
         return context().getGraph();
     }
-    public EditorCanvas() {
+
+    @Override
+    public <T> AbstractGraphNode<T> getNodeFromFlowGraph(String nodeID) {
+        return graph().getNode(nodeID);
+    }
+    public GraphViewPanel() {
         initComponents();
         
-        context().injectStrategy(Editor.class, this);
+        context().injectStrategy(GraphView.class, this);
         
         //controller used for Swing presentation logic
         controller = new EditorCanvasController(this);                
         contextMenu = new ContextMenuBuilder().build();
         repository = new MappedConnectionRepository();
         draggables = new HashMap<String, DraggableComponent>();
+    }
+
+    public Set<String> getKeysOfDraggables() {
+        return draggables.keySet();
     }
 
     @Override
@@ -111,17 +121,17 @@ public class EditorCanvas extends javax.swing.JPanel implements Editor {
             obj = clazz.getConstructor(String.class).newInstance(ID);
 
         } catch (InstantiationException ex) {
-            Logger.getLogger(EditorCanvas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GraphViewPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(EditorCanvas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GraphViewPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalArgumentException ex) {
-            Logger.getLogger(EditorCanvas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GraphViewPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InvocationTargetException ex) {
-            Logger.getLogger(EditorCanvas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GraphViewPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NoSuchMethodException ex) {
-            Logger.getLogger(EditorCanvas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GraphViewPanel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SecurityException ex) {
-            Logger.getLogger(EditorCanvas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GraphViewPanel.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             return obj;
         }

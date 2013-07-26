@@ -15,9 +15,9 @@ import javax.swing.SwingUtilities;
  */
 public class EditorCanvasController {
 
-    private final EditorCanvas editor;
+    private final GraphViewPanel editor;
 
-    public EditorCanvasController(EditorCanvas editor) {
+    public EditorCanvasController(GraphViewPanel editor) {
         this.editor = editor;
 
         initializeListeners();

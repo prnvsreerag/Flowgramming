@@ -4,7 +4,7 @@
  */
 package edu.missouri.isocial.foundation.components.core;
 
-import edu.missouri.isocial.foundation.Editor;
+import edu.missouri.isocial.foundation.GraphView;
 import edu.missouri.isocial.foundation.components.core.Connection;
 import edu.missouri.isocial.foundation.EditorApplication;
 import java.awt.Color;
@@ -26,12 +26,12 @@ public class ConnectionController {
     private boolean selected = false;
     private static final Color SELECTED_COLOR = Color.WHITE;
     private static final Color DEFAULT_COLOR = Color.BLACK;
-    private final Editor editor;
+    private final GraphView editor;
     private MouseListener _mouseListener;
     private ComponentListener _startConnectorParentListener;
     private ComponentListener _endConnectorParentListener;
 
-    public ConnectionController(Editor editor, Link parentLink, Link targetLink, Connection connection) {
+    public ConnectionController(GraphView editor, Link parentLink, Link targetLink, Connection connection) {
         this.startLink = parentLink;
         this.endLink = targetLink;
         this.connection = connection;

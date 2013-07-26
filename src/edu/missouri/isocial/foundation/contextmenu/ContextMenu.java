@@ -6,7 +6,7 @@ package edu.missouri.isocial.foundation.contextmenu;
 
 import edu.missouri.isocial.foundation.Actionable;
 import edu.missouri.isocial.foundation.ApplicationContext;
-import edu.missouri.isocial.foundation.Editor;
+import edu.missouri.isocial.foundation.GraphView;
 import edu.missouri.isocial.foundation.EditorApplication;
 import edu.missouri.isocial.foundation.Lookup;
 import edu.missouri.isocial.foundation.StrategyCollection;
@@ -37,9 +37,9 @@ public class ContextMenu {
 
     private JPopupMenu internalMenu;
     private Map<String, JMenu> categories;
-    private final Editor editor;
+    private final GraphView editor;
 
-    public ContextMenu(Editor editor) {
+    public ContextMenu(GraphView editor) {
         internalMenu = new JPopupMenu();
         categories = new HashMap<String, JMenu>();
 
@@ -169,7 +169,7 @@ public class ContextMenu {
         for (final DraggableComponentModel draggable : draggables) {
             //build menu item 
             MenuItemSPI item = new MenuItemSPI() {
-                private Editor editor;
+                private GraphView editor;
 
                 @Override
                 public void actionPerformed(ActionEvent event) {
@@ -194,7 +194,7 @@ public class ContextMenu {
                 }
 
                 @Override
-                public void setContext(Editor editor) {
+                public void setContext(GraphView editor) {
                     this.editor = editor;
                 }
             };

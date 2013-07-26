@@ -4,7 +4,7 @@
  */
 package edu.missouri.isocial.foundation.components.core;
 
-import edu.missouri.isocial.foundation.Editor;
+import edu.missouri.isocial.foundation.GraphView;
 import edu.missouri.isocial.foundation.components.core.brushes.LinkBrush;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -26,7 +26,7 @@ public class Link extends JComponent {
         LEFT, RIGHT, BOTTOM
     };
     
-    private final Editor editor;
+    private final GraphView editor;
     private final DraggableComponent draggableParent;
     private Color currentColor; 
     public static final int SIDE_SIZE = 10;  
@@ -37,7 +37,7 @@ public class Link extends JComponent {
     private POSITION defaultPosition = POSITION.LEFT;
     private String caption;
 
-    private Link(Editor editor,
+    private Link(GraphView editor,
             DraggableComponent parent,
             POSITION position,
             String caption,
@@ -53,10 +53,10 @@ public class Link extends JComponent {
         return ID;
     }
 
-    public Editor getEditor() {
+    public GraphView getEditor() {
         return this.editor;
     }
-    private Link(final Editor editor, DraggableComponent draggableParent, POSITION defaultPosition) {
+    private Link(final GraphView editor, DraggableComponent draggableParent, POSITION defaultPosition) {
         this.editor = editor;
         this.draggableParent = draggableParent;
         this.endPoints = new LinkedHashSet<Link>();
@@ -139,13 +139,13 @@ public class Link extends JComponent {
 
     public static class LinkBuilder {
 
-        private Editor editor = null;
+        private GraphView editor = null;
         private DraggableComponent parent = null;
         private POSITION position = POSITION.LEFT;
         private String caption = "n/a";
         private Class expectedType = Object.class;
 
-        public LinkBuilder withEditor(Editor editor) {
+        public LinkBuilder withEditor(GraphView editor) {
             this.editor = editor;
             return this;
         }

@@ -4,7 +4,7 @@
  */
 package edu.missouri.isocial.foundation.components.core;
 
-import edu.missouri.isocial.foundation.Editor;
+import edu.missouri.isocial.foundation.GraphView;
 import edu.missouri.isocial.foundation.RelativeDirection;
 import edu.missouri.isocial.foundation.components.ConnectionInfo;
 import edu.missouri.isocial.foundation.components.core.brushes.DraggableComponentBrush;
@@ -31,7 +31,7 @@ public class DraggableComponent extends javax.swing.JPanel {
     /**
      * Creates new form DraggableJPanel
      */
-    private Editor editor;
+    private GraphView editor;
     private DraggableComponentController controller;
     private List<ConnectionInfo> connections;
     private Color borderColor = Color.BLACK;
@@ -45,7 +45,7 @@ public class DraggableComponent extends javax.swing.JPanel {
     private static int issues = 0;
     private int issue = 0;
 
-    public DraggableComponent(Editor editor, DraggableComponentModel model) {
+    public DraggableComponent(GraphView editor, DraggableComponentModel model) {
         this.editor = editor;
         this.connections = new ArrayList<ConnectionInfo>();
         this.model = model;
@@ -145,7 +145,7 @@ public class DraggableComponent extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
-    public Editor getEditor() {
+    public GraphView getEditor() {
         return editor;
     }
 

@@ -6,7 +6,7 @@ package edu.missouri.isocial.foundation.contextmenu;
 
 import edu.missouri.isocial.foundation.Actionable;
 import edu.missouri.isocial.foundation.ApplicationContext;
-import edu.missouri.isocial.foundation.Editor;
+import edu.missouri.isocial.foundation.GraphView;
 import edu.missouri.isocial.foundation.EditorApplication;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,9 +17,9 @@ import java.awt.event.ActionListener;
  */
 public abstract class MenuItemWithEditor implements MenuItemSPI {
 
-    protected Editor editor;
+    protected GraphView editor;
 
-    public void setContext(Editor editor) {
+    public void setContext(GraphView editor) {
         this.editor = editor;
     }
 

@@ -12,12 +12,12 @@ import javax.swing.JMenuItem;
  * @author Ryan
  */
 public class EditorApplication extends javax.swing.JFrame {
-    private final EditorCanvas canvas;
+    private final GraphViewPanel canvas;
 
     public EditorApplication() {
         initComponents();
 
-        canvas = new EditorCanvas();
+        canvas = new GraphViewPanel();
         add(canvas);
         canvas.setLocation(0, 0);
         canvas.setSize(getSize());

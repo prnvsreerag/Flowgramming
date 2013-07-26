@@ -11,12 +11,13 @@ import edu.missouri.isocial.foundation.components.core.model.DraggableComponentM
 import edu.missouri.isocial.foundation.contextmenu.ContextMenu;
 import java.awt.Component;
 import java.awt.Point;
+import java.util.Set;
 
 /**
  *
  * @author Ryan
  */
-public interface Editor {
+public interface GraphView {
     
     public Connection addConnection(Link start, Link end);
         
@@ -32,8 +33,6 @@ public interface Editor {
 
     public Component getComponentAt(Point location);
 
-    public void executeProgram();
-
     public void removeConnection(String id);
     
     public ContextMenu getContextMenu();
@@ -41,4 +40,8 @@ public interface Editor {
     public ConnectionRepository getConnectionRepository();
 
     public DraggableComponent getDraggableWithID(String ID);
+
+    public Set<String> getKeysOfDraggables();
+
+    public <T> AbstractGraphNode<T> getNodeFromFlowGraph(String nodeID);
 }

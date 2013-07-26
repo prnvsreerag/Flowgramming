@@ -5,13 +5,13 @@
 package edu.missouri.isocial.foundation.io;
 
 import edu.missouri.isocial.foundation.ApplicationContext;
-import edu.missouri.isocial.foundation.Editor;
+import edu.missouri.isocial.foundation.GraphView;
 import edu.missouri.isocial.foundation.components.core.DraggableComponent;
 import edu.missouri.isocial.foundation.components.core.Link;
 import edu.missouri.isocial.foundation.components.core.model.DraggableComponentModel;
 import edu.missouri.isocial.foundation.utils.ClassUtils;
 import edu.missouri.isocial.foundation.xml.DraggableInstance;
-import edu.missouri.isocial.foundation.xml.ExampleFlow;
+import edu.missouri.isocial.foundation.xml.FlowDTO;
 import edu.missouri.isocial.foundation.xml.InstanceConnection;
 import java.awt.Point;
 import java.util.List;
@@ -22,13 +22,13 @@ import java.util.List;
  */
 public class FlowDataProcessor {
 
-    private Editor editor;
+    private GraphView editor;
 
-    public FlowDataProcessor(Editor editor) {
+    public FlowDataProcessor(GraphView editor) {
         this.editor = editor;
     }
 
-    public void process(ExampleFlow flowData) {
+    public void process(FlowDTO flowData) {
         processInstances(flowData.getInstances().getInstances());
     }
 

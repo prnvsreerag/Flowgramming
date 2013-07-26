@@ -4,7 +4,7 @@
  */
 package edu.missouri.isocial.foundation.components.core;
 
-import edu.missouri.isocial.foundation.Editor;
+import edu.missouri.isocial.foundation.GraphView;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

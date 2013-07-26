@@ -5,7 +5,7 @@
 package edu.missouri.isocial.foundation.contextmenu;
 
 import edu.missouri.isocial.foundation.ApplicationContext;
-import edu.missouri.isocial.foundation.Editor;
+import edu.missouri.isocial.foundation.GraphView;
 import edu.missouri.isocial.foundation.Lookup;
 import edu.missouri.isocial.foundation.StrategyCollection;
 import edu.missouri.isocial.foundation.annotations.SequenceVariable;
@@ -21,7 +21,7 @@ import javax.swing.JPopupMenu;
  */
 public class ContextMenuBuilder {
     private final Lookup lookup;
-    private final Editor editor;
+    private final GraphView editor;
 
     private StrategyCollection strategies() {
         return ApplicationContext.INSTANCE.getStrategies();
@@ -30,7 +30,7 @@ public class ContextMenuBuilder {
     public ContextMenuBuilder() {
        
         this.lookup = strategies().get(Lookup.class);
-        this.editor = strategies().get(Editor.class);
+        this.editor = strategies().get(GraphView.class);
         
         //set lookup to search for all classes annotated by MenuItem
         this.lookup.setAnnotation(MenuItem.class);

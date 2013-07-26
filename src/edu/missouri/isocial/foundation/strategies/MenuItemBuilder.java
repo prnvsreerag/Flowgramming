@@ -5,7 +5,7 @@
 package edu.missouri.isocial.foundation.strategies;
 
 import edu.missouri.isocial.foundation.Actionable;
-import edu.missouri.isocial.foundation.Editor;
+import edu.missouri.isocial.foundation.GraphView;
 import edu.missouri.isocial.foundation.annotations.SequenceAction;
 //import edu.missouri.isocial.foundation.components.core.DraggableAction;
 import edu.missouri.isocial.foundation.contextmenu.MenuItemWithEditor;
@@ -19,9 +19,9 @@ import java.awt.event.ActionEvent;
  */
 public class MenuItemBuilder {
 
-    private final Editor editorFromBuilder;
+    private final GraphView editorFromBuilder;
 
-    public MenuItemBuilder(Editor editor) {
+    public MenuItemBuilder(GraphView editor) {
         this.editorFromBuilder = editor;
     }
 

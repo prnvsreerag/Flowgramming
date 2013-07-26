@@ -7,7 +7,7 @@ package edu.missouri.isocial.foundation.contextmenu;
 import edu.missouri.isocial.foundation.AbstractGraphNode;
 import edu.missouri.isocial.foundation.ApplicationContext;
 import edu.missouri.isocial.foundation.FlowGraph;
-import edu.missouri.isocial.foundation.Editor;
+import edu.missouri.isocial.foundation.GraphView;
 import edu.missouri.isocial.foundation.components.core.DraggableComponent;
 import edu.missouri.isocial.foundation.components.core.model.DraggableProperties;
 import java.awt.event.ActionEvent;
@@ -82,7 +82,7 @@ public class ComponentContextMenu {
                 //remove view
                 // - disconnect all links
                 // - remove from EditorCanvas
-                Editor editor = component.getEditor();
+                GraphView editor = component.getEditor();
                 editor.removeDraggable(component);
                 
             }

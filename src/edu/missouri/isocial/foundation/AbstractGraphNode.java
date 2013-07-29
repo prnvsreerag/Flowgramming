@@ -26,7 +26,8 @@ public abstract class AbstractGraphNode<T> {
         return id;
     }
 
-    public abstract T getValue();
+//    public abstract T getValue();
+    public abstract T call(Object obj);
 
     public abstract <K> K defaultInputValue(Class<K> clazz);
 
@@ -40,15 +41,15 @@ public abstract class AbstractGraphNode<T> {
         adjacentNodes.put(fieldName, adjacentNode);
     }
 
-    public <K> K retrieve(String key, Class<K> clazz) {
-        if (adjacentNodes.containsKey(key)) {
-            K value = (K) adjacentNodes.get(key).getValue();
-            return value != null ? value : defaultInputValue(clazz);
-        } else {
-            return defaultInputValue(clazz);
-        }
-
-    }
+//    public <K> K retrieve(String key, Class<K> clazz) {
+//        if (adjacentNodes.containsKey(key)) {
+//            K value = (K) adjacentNodes.get(key).getValue();
+//            return value != null ? value : defaultInputValue(clazz);
+//        } else {
+//            return defaultInputValue(clazz);
+//        }
+//
+//    }
 
     public void removeAdjacentNodeWithKey(String id) {
         if (adjacentNodes.containsKey(id)) {

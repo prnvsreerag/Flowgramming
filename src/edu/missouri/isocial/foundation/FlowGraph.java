@@ -30,7 +30,7 @@ public class FlowGraph {
 
     public void listValues() {
         for (Map.Entry<String, AbstractGraphNode> entry : nodes.entrySet()) {
-            System.out.println("[" + entry.getKey() + "] ->" + entry.getValue().getValue());
+            System.out.println("[" + entry.getKey() + "] ->" + entry.getValue().call(null));
         }
     }
 

@@ -25,10 +25,12 @@ public class LogSequenceNode extends SequenceGraphNode {
         return null;
     }
 
+    @Override
     public <K> K defaultInputValue(Class<K> clazz) {
         return null;
     }
 
+    @Override
     public void fromString(String input) {
         this.logMessage = input;
     }

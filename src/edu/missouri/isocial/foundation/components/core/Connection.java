@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation.components.core;
 
+import edu.missouri.isocial.foundation.ApplicationContext;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -78,7 +79,9 @@ public class Connection extends JComponent {
         g.draw(line);
 
         //draw bounds of this component.
-        g.setColor(Color.MAGENTA);
-        g.drawRect(0, 0, this.getWidth() - 1, this.getHeight() - 1);
+        if (ApplicationContext.INSTANCE.isInDebugMode()) {
+            g.setColor(Color.MAGENTA);
+            g.drawRect(0, 0, this.getWidth() - 1, this.getHeight() - 1);
+        }
     }
 }

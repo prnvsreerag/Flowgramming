@@ -47,7 +47,7 @@ public class ContextMenu {
 
         addDefaultMenuItems();
         addDraggableItems();
-        addSequenceActions();
+        // addSequenceActions();
     }
 
     public boolean hasCategory(String category) {

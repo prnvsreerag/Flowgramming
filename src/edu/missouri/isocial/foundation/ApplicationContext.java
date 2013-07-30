@@ -47,4 +47,8 @@ public enum ApplicationContext {
         }
         return graph;
     }
+
+    public boolean isInDebugMode() {
+        return false;
+    }
 }

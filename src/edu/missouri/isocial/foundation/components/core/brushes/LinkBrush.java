@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation.components.core.brushes;
 
+import edu.missouri.isocial.foundation.ApplicationContext;
 import edu.missouri.isocial.foundation.components.core.Link;
 import static edu.missouri.isocial.foundation.components.core.Link.POSITION.BOTTOM;
 import static edu.missouri.isocial.foundation.components.core.Link.POSITION.LEFT;
@@ -62,8 +63,10 @@ public class LinkBrush {
                 throw new AssertionError(link.getDefaultPosition().name());
         }
 
-        g.setColor(Color.RED);
-        g.drawRect(0, 0, link.getWidth() - 1, link.getHeight() - 1);
+        if (ApplicationContext.INSTANCE.isInDebugMode()) {
+            g.setColor(Color.RED);
+            g.drawRect(0, 0, link.getWidth() - 1, link.getHeight() - 1);
+        }
     }
 
     /**

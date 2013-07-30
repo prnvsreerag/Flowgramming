@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Ryan
  */
-@DraggableItem
+//@DraggableItem
 public class DefaultDraggableComponentModel extends DraggableComponentModel {
 
     public DefaultDraggableComponentModel() {

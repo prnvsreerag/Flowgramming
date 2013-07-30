@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation.components.core.brushes;
 
+import edu.missouri.isocial.foundation.ApplicationContext;
 import edu.missouri.isocial.foundation.components.core.DraggableComponent;
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -90,8 +91,10 @@ public class DraggableComponentBrush {
         //draw title
         drawTitle(g);
 
-        g.setColor(Color.RED);
-        g.drawRect(0, 0, width - 1, height - 1);
+        if (ApplicationContext.INSTANCE.isInDebugMode()) {
+            g.setColor(Color.RED);
+            g.drawRect(0, 0, width - 1, height - 1);
+        }
 
 
     }

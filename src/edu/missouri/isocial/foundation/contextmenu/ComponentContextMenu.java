@@ -32,6 +32,7 @@ public class ComponentContextMenu {
 
         addSetValueMenuItem();
         addDeleteMenuItem();
+        addEvaluateMenuItem();
     }
 
     public void showMenu(JComponent component, int xOnScreen, int yOnScreen) {
@@ -83,10 +84,22 @@ public class ComponentContextMenu {
                 // - disconnect all links
                 // - remove from EditorCanvas
                 GraphView editor = component.getEditor();
-                editor.removeDraggable(component);
-                
+                editor.removeDraggable(component);               
             }
         });
+        internalMenu.add(item);
+    }
+
+    private void addEvaluateMenuItem() {
+        JMenuItem item = new JMenuItem("Evaluate");
+        item.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AbstractGraphNode node = graph().getNode(component.getID());
+                node.call(null);
+            }
+        });
+
         internalMenu.add(item);
     }
 }

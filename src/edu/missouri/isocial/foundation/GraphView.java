@@ -44,4 +44,6 @@ public interface GraphView {
     public Set<String> getKeysOfDraggables();
 
     public <T> AbstractGraphNode<T> getNodeFromFlowGraph(String nodeID);
+
+    public boolean connectionExists(Link startLink, Link endLink);
 }

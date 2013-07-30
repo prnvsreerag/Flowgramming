@@ -69,4 +69,16 @@ public class MappedConnectionRepository implements ConnectionRepository {
         
         return true;
     }
+
+    public boolean hasConnection(String connectionId) {
+        if (!idIsValid(connectionId)) {
+            return false;
+        }
+
+        if (_internal.containsKey(connectionId)) {
+            return true;
+        }
+
+        return false;
+    }
 }

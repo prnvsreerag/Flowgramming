@@ -14,6 +14,7 @@ import edu.missouri.isocial.foundation.annotations.SequenceAction;
 import edu.missouri.isocial.foundation.components.core.DraggableComponent;
 import edu.missouri.isocial.foundation.components.core.model.DraggableComponentModel;
 import edu.missouri.isocial.foundation.components.core.model.DraggableItem;
+import edu.missouri.isocial.foundation.io.FlowGraphReader;
 import edu.missouri.isocial.foundation.io.FlowGraphWriter;
 import edu.missouri.isocial.foundation.strategies.MenuItemBuilder;
 import java.awt.Component;
@@ -128,10 +129,20 @@ public class ContextMenu {
         saveMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 FlowGraphWriter writer = new FlowGraphWriter(context().getGraph(), editor);
-                System.out.println(writer.writeToString());
+                System.out.println(writer.writeToFile());
             }
         });
         internalMenu.add(saveMenuItem);
+
+        JMenuItem loadMenuItem = new JMenuItem("Load");
+        loadMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                FlowGraphReader reader = new FlowGraphReader(editor);
+                reader.readFromFile();
+            }
+        });
+
+        internalMenu.add(loadMenuItem);
 
     }
 

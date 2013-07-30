@@ -92,6 +92,26 @@ public class GraphViewPanel extends javax.swing.JPanel implements GraphView {
 
         return connection;
     }
+
+    public boolean connectionExists(Link startLink, Link endLink) {
+        //craft first string
+        String first = startLink.getID() + "<->" + endLink.getID();
+
+        //craft second string
+        String second = endLink.getID() + "<->" + endLink.getID();
+
+        //check repository for first string
+        if (repository.hasConnection(first)) {
+            return true;
+        }
+
+        //check repository for second string
+        if (repository.hasConnection(second)) {
+            return true;
+        }
+
+        return false;
+    }
     
     @Override
     public void removeConnection(String connectionID) {

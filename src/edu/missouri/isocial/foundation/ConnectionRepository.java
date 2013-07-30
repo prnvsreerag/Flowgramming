@@ -23,4 +23,6 @@ public interface ConnectionRepository {
     public void removeConnection(String connectionId);
 
     public void listConnections();
+
+    public boolean hasConnection(String connectionId);
 }

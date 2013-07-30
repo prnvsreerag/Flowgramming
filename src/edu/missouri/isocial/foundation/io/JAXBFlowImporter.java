@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation.io;
 
+import edu.missouri.isocial.foundation.xml.FlowDTO;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.logging.Level;
@@ -43,11 +44,11 @@ public class JAXBFlowImporter implements FlowImporterSPI {
     }
 
     @Override
-    public Object importFromFile(File f) {
+    public FlowDTO importFromFile(File f) {
 
-        Object obj = null;
+        FlowDTO obj = null;
         try {
-            obj = unmarshaller.unmarshal(f);
+            obj = (FlowDTO) unmarshaller.unmarshal(f);
         } catch (JAXBException ex) {
             Logger.getLogger(JAXBFlowImporter.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

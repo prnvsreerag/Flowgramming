@@ -22,10 +22,10 @@ import java.util.List;
  */
 public class FlowDataProcessor {
 
-    private GraphView editor;
+    private GraphView graphView;
 
     public FlowDataProcessor(GraphView editor) {
-        this.editor = editor;
+        this.graphView = editor;
     }
 
     public void process(FlowDTO flowData) {
@@ -42,7 +42,7 @@ public class FlowDataProcessor {
             Object obj = ClassUtils.newInstanceFromClassName(className);
 
             //create component
-            DraggableComponent dc = new DraggableComponent(editor, (DraggableComponentModel) obj);
+            DraggableComponent dc = new DraggableComponent(graphView, (DraggableComponentModel) obj);
 
             //create point from position
             Point location = getPointFromString(position);
@@ -51,7 +51,7 @@ public class FlowDataProcessor {
             dc.setLocation(location);
 
             //add draggable and component to editor
-            editor.addDraggable((DraggableComponentModel) obj, dc);
+            graphView.addDraggable((DraggableComponentModel) obj, dc);
 
             //set component's visibility to true
             dc.setVisible(true);
@@ -62,6 +62,11 @@ public class FlowDataProcessor {
         }
 
         for (DraggableInstance instance : instances) {
+
+            if (instance.getConnection() == null) {
+                continue;
+            }
+
             for (InstanceConnection connection : instance.getConnection()) {
                 //get start link caption
                 String startLinkID = connection.getForParameter();
@@ -76,19 +81,22 @@ public class FlowDataProcessor {
                 String endLinkID = endDraggableID.split(":")[1];
 
                 //get start draggable
-                DraggableComponent startDraggable = editor.getDraggableWithID(instance.getID());
+                DraggableComponent startDraggable = graphView.getDraggableWithID(instance.getID());
 
                 //use start draggable to get start link
                 Link startLink = startDraggable.getLinkWithID(startLinkID);
 
                 //get end draggable
-                DraggableComponent endDraggable = editor.getDraggableWithID(endDraggableID);
+                DraggableComponent endDraggable = graphView.getDraggableWithID(endDraggableID);
 
                 //use end draggable to get end link
                 Link endLink = endDraggable.getLinkWithID(endLinkID);
 
-                //create connection with editor
-                editor.addConnection(startLink, endLink);
+
+                if (!graphView.connectionExists(startLink, endLink)) {
+                    //create connection with editor
+                    graphView.addConnection(startLink, endLink);
+                }
             }
         }
     }

@@ -4,6 +4,7 @@
  */
 package edu.missouri.isocial.foundation.io;
 
+import edu.missouri.isocial.foundation.xml.FlowDTO;
 import java.io.File;
 
 /**
@@ -14,5 +15,5 @@ public interface FlowImporterSPI {
 
     public Object importFromString(String s);
 
-    public Object importFromFile(File f);
+    public FlowDTO importFromFile(File f);
 }

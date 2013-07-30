@@ -96,7 +96,7 @@ public class ComponentContextMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AbstractGraphNode node = graph().getNode(component.getID());
-                node.call(null);
+                System.out.println(node.call(null));
             }
         });
 

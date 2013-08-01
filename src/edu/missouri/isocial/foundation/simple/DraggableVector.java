@@ -6,14 +6,14 @@ package edu.missouri.isocial.foundation.simple;
 
 import edu.missouri.isocial.basic.components.variables.VectorDataNode;
 import edu.missouri.isocial.foundation.components.core.model.DraggableComponentModel;
-import edu.missouri.isocial.foundation.components.core.model.DraggableItem;
+import edu.missouri.isocial.foundation.components.core.model.DraggableWidget;
 
 /**
  *
  * @author Ryan
  */
 
-@DraggableItem(VectorDataNode.class)
+@DraggableWidget(VectorDataNode.class)
 public class DraggableVector extends DraggableComponentModel {
 
     @Override

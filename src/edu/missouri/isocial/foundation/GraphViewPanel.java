@@ -10,7 +10,7 @@ import edu.missouri.isocial.foundation.components.core.ConnectionController;
 import edu.missouri.isocial.foundation.components.core.Link;
 import edu.missouri.isocial.foundation.components.core.DraggableComponent;
 import edu.missouri.isocial.foundation.components.core.model.DraggableComponentModel;
-import edu.missouri.isocial.foundation.components.core.model.DraggableItem;
+import edu.missouri.isocial.foundation.components.core.model.DraggableWidget;
 //import edu.missouri.isocial.foundation.components.sequence.SequenceStart;
 import edu.missouri.isocial.foundation.contextmenu.ContextMenu;
 import java.awt.Color;
@@ -163,7 +163,7 @@ public class GraphViewPanel extends javax.swing.JPanel implements GraphView {
 //        if(draggable instanceof SequenceStart) {
 //            application().addToStartItems((Startable)draggable.getModel());
 //        }
-        DraggableItem itemType = model.getClass().getAnnotation(DraggableItem.class);
+        DraggableWidget itemType = model.getClass().getAnnotation(DraggableWidget.class);
 
         graph().addNode(draggable.getID(), newNode(itemType.value(), draggable.getID()));
         add(draggable);

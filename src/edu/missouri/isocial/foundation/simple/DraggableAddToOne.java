@@ -6,13 +6,13 @@ package edu.missouri.isocial.foundation.simple;
 
 import edu.missouri.isocial.basic.components.actions.AddToOneNode;
 import edu.missouri.isocial.foundation.components.core.model.DraggableComponentModel;
-import edu.missouri.isocial.foundation.components.core.model.DraggableItem;
+import edu.missouri.isocial.foundation.components.core.model.DraggableWidget;
 
 /**
  *
  * @author Ryan
  */
-@DraggableItem(AddToOneNode.class)
+@DraggableWidget(AddToOneNode.class)
 public class DraggableAddToOne extends DraggableComponentModel {
 
     public void default_properties() {

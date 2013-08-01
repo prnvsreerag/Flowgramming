@@ -1,2 +1,10 @@
 This project aims to create a visual "data-flow" programming environment similar to Epic's UDK Kismet or ThreeNodes.js
 
+== Data Modeling ==
+1) Create your data class (e.g. MyData)
+2) Create your DataNode class extending from DataGraphNode with your data class as the parameter to the generic type.
+(e.g. MyDataNode extends DataGraphNode<MyData> { ... } )
+3) Create your Draggable Widget class extending from DraggableComponentModel.
+4) Annotate your draggable widget class with @DraggableWidget() with your DataNode class as the value.
+(e.g. @DraggableWidget(MyDataNode.class) public class DraggableMyData extends DraggableComponentModel { ... } )
+

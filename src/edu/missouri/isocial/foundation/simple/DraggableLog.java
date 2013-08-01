@@ -6,14 +6,14 @@ package edu.missouri.isocial.foundation.simple;
 
 import edu.missouri.isocial.basic.components.actions.LogSequenceNode;
 import edu.missouri.isocial.foundation.components.core.model.DraggableComponentModel;
-import edu.missouri.isocial.foundation.components.core.model.DraggableItem;
+import edu.missouri.isocial.foundation.components.core.model.DraggableWidget;
 //import edu.missouri.isocial.foundation.simple.DraggableLog.LogSequenceNode;
 
 /**
  *
  * @author Ryan
  */
-@DraggableItem(LogSequenceNode.class)
+@DraggableWidget(LogSequenceNode.class)
 public class DraggableLog extends DraggableComponentModel {
 
     @Override

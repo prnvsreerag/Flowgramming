@@ -13,7 +13,7 @@ import edu.missouri.isocial.foundation.StrategyCollection;
 import edu.missouri.isocial.foundation.annotations.SequenceAction;
 import edu.missouri.isocial.foundation.components.core.DraggableComponent;
 import edu.missouri.isocial.foundation.components.core.model.DraggableComponentModel;
-import edu.missouri.isocial.foundation.components.core.model.DraggableItem;
+import edu.missouri.isocial.foundation.components.core.model.DraggableWidget;
 import edu.missouri.isocial.foundation.io.FlowGraphReader;
 import edu.missouri.isocial.foundation.io.FlowGraphWriter;
 import edu.missouri.isocial.foundation.strategies.MenuItemBuilder;
@@ -174,7 +174,7 @@ public class ContextMenu {
 
     private void addDraggableItems() {
         Lookup lookup = strategies().get(Lookup.class);
-        lookup.setAnnotation(DraggableItem.class);
+        lookup.setAnnotation(DraggableWidget.class);
         Set<DraggableComponentModel> draggables = lookup.getAll(DraggableComponentModel.class);
 
         for (final DraggableComponentModel draggable : draggables) {

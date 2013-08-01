@@ -7,13 +7,13 @@ package edu.missouri.isocial.foundation.simple;
 import edu.missouri.isocial.basic.components.variables.FloatDataNode;
 import edu.missouri.isocial.foundation.annotations.Configurable;
 import edu.missouri.isocial.foundation.components.core.model.DraggableComponentModel;
-import edu.missouri.isocial.foundation.components.core.model.DraggableItem;
+import edu.missouri.isocial.foundation.components.core.model.DraggableWidget;
 
 /**
  *
  * @author Ryan
  */
-@DraggableItem(FloatDataNode.class)
+@DraggableWidget(FloatDataNode.class)
 public class DraggableFloat extends DraggableComponentModel {
 
     @Override

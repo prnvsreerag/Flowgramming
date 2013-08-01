@@ -8,3 +8,12 @@ This project aims to create a visual "data-flow" programming environment similar
 4) Annotate your draggable widget class with @DraggableWidget() with your DataNode class as the value.
 (e.g. @DraggableWidget(MyDataNode.class) public class DraggableMyData extends DraggableComponentModel { ... } )
 
+== Sequential Modeling ==
+1) Create your SequenceNode class extending from SequenceGraphNode.
+2) Create your draggable widget class extending from DraggableComponentModel
+3) Annotate your draggable widget class with @DraggableWidget() with your SequenceNode class as the value.
+
+== Functional Modeling ==
+1) Create your FunctionalNode class extending from FunctionalGraphNode.
+2) Create your draggable widget class extending from DraggableComponentModel
+3) Annotate your draggable widget class with @DraggableWidget() with your FunctionalNode class as the value.
